@@ -11,42 +11,57 @@ import (
 
 func TestReviewHistoryScopeAndBounds(t *testing.T) {
 	target := domain.Entry{ID: "target", Payee: "Gym+", Kind: "expense", Date: "2026-09-09", Amount: 2990}
-	old := domain.Entry{ID: "old", AccountID: "other-account", Payee: "GYM +", Kind: "expense", Date: "2025-09-09", Amount: 2990, Category: "Recurring", Tags: []string{"Fitness"}, Notes: "PRIVATE historical note", Version: 7}
+	old := domain.Entry{ID: "old", AccountID: "other-account", Payee: "GYM +", Kind: "expense", Date: "2025-09-09", Amount: 2990, Category: "Recurring", Tags: []string{"Fitness"}, Notes: "family plan", Version: 7}
 	all := []domain.Entry{target, old, {ID: "deleted", Payee: "Gym+", Kind: "expense", Deleted: true}, {ID: "transfer", Payee: "Gym+", Kind: "transfer"}}
 	for i := 0; i < 250; i++ {
-		all = append(all, domain.Entry{ID: fmt.Sprint(i), Payee: "Other merchant", Kind: "expense", Date: "2026-09-01", BankDescription: strings.Repeat("x", 1000)})
+		all = append(all, domain.Entry{ID: fmt.Sprint(i), Payee: "Other merchant", Kind: "expense", Date: "2026-09-01", Category: "Everyday", BankDescription: strings.Repeat("x", 1000)})
 	}
 	history := ReviewHistory([]domain.Entry{target}, all)
-	if len(history.Payments) != 41 || !history.Truncated {
-		t.Fatalf("history scope: %d %v", len(history.Payments), history.Truncated)
+	if len(history.Payments) != 1 || history.Payments[0].ID != "old" || history.Payments[0].AccountID != "other-account" || history.Payments[0].Category != "Recurring" || history.Payments[0].Notes != "family plan" {
+		t.Fatalf("related organized payment missing: %+v", history.Payments)
 	}
-	if history.Payments[0].ID != "old" || history.Payments[0].AccountID != "other-account" || history.Payments[0].Category != "Recurring" {
-		t.Fatal("related organized payment lost behind newer unrelated activity")
+	if len(history.Reviewed) != 1 || history.Reviewed[0].Payments != 1 || history.Reviewed[0].Categories["Recurring"] != 1 {
+		t.Fatalf("merchant summary: %+v", history.Reviewed)
+	}
+	if len(history.Merchants) != 1 || history.Merchants[0] != (MerchantLine{Payee: "Other merchant", Payments: 250, Last: "2026-09-01", Category: "Everyday"}) {
+		t.Fatalf("other merchants: %+v", history.Merchants)
 	}
 	for _, e := range history.Payments {
 		if e.ID == "target" || e.ID == "deleted" || e.ID == "transfer" || len([]rune(e.Description)) > 401 {
 			t.Fatal("out-of-scope context")
 		}
 	}
-	raw, _ := json.Marshal(history)
-	if strings.Contains(string(raw), "PRIVATE") {
-		t.Fatal("historical personal notes leaked")
-	}
 	if len(ReviewHistory(nil, all).Payments) != 0 {
 		t.Fatal("history exposed without targets")
 	}
-	// Retrieval does not decide recurring or annotate records, even with many matches.
+	// Recent payments stay detailed; older ones condense into months, and
+	// retrieval never decides recurrence however many matches there are.
 	all = nil
 	for i := 0; i < 400; i++ {
-		all = append(all, domain.Entry{ID: fmt.Sprint(i), Payee: fmt.Sprintf("Merchant %d", i%5), Kind: "expense", Date: "2026-09-01"})
+		all = append(all, domain.Entry{ID: fmt.Sprint(i), Payee: fmt.Sprintf("Merchant %d", i%5), Kind: "expense", Date: fmt.Sprintf("20%02d-%02d-01", 10+i/60, 1+i/5%12), Amount: int64(100 + i)})
+	}
+	for i := 0; i < 400; i++ {
+		all = append(all, domain.Entry{ID: fmt.Sprintf("x%d", i), Payee: fmt.Sprintf("Shop %d", i), Kind: "expense", Date: "2026-01-01"})
 	}
 	selected := []domain.Entry{}
 	for i := 0; i < 5; i++ {
 		selected = append(selected, domain.Entry{ID: fmt.Sprintf("t%d", i), Payee: fmt.Sprintf("Merchant %d", i)})
 	}
 	history = ReviewHistory(selected, all)
-	if len(history.Payments) > 140 || !history.Truncated {
-		t.Fatal("unbounded context")
+	if len(history.Payments) != 5*recentPerMerchant || len(history.Merchants) != merchantLines || !history.Truncated {
+		t.Fatalf("unbounded context: %d payments, %d merchants", len(history.Payments), len(history.Merchants))
+	}
+	for _, m := range history.Reviewed {
+		earlier := 0
+		for _, month := range m.Earlier {
+			earlier += month.Payments
+			if month.Min > month.Max {
+				t.Fatal("month range")
+			}
+		}
+		if m.Payments != 80 || len(m.Earlier) != earlierMonths || earlier+recentPerMerchant > 80 {
+			t.Fatalf("merchant summary lost payments: %+v", m)
+		}
 	}
 }
 func TestReviewValidationAndTagPreservation(t *testing.T) {

@@ -109,7 +109,7 @@ func TestUnifiedTransactionReviews(t *testing.T) {
 		if len(facts.Entries) > 5 || len(facts.Tasks) != 0 || strings.Contains(payload.Messages[0].Content, "TASK OUTPUT (plan-task only)") {
 			t.Error("background scope too broad")
 		}
-		if len(facts.History.Payments) == 0 {
+		if len(facts.History.Payments) == 0 && len(facts.History.Merchants) == 0 {
 			t.Error("related history was not supplied")
 		}
 		ids := []string{}

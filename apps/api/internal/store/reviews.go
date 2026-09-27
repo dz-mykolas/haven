@@ -272,6 +272,19 @@ func (s *Store) ProcessReviewBatch(ctx context.Context) error {
 	if config.BaseURL == "" || config.Model == "" {
 		return nil
 	}
+	// Loading everything is only needed when data changed since the last
+	// reconcile (new imports, edits) or queued work is due.
+	var changes int64
+	var due bool
+	if err = conn.QueryRow(ctx, `SELECT last_value FROM haven_changes`).Scan(&changes); err != nil {
+		return err
+	}
+	if err = conn.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM assistant_reviews WHERE status IN ('queued','processing') AND available_at<=now())`).Scan(&due); err != nil {
+		return err
+	}
+	if !due && changes == s.reviewsSeen.Load() {
+		return nil
+	}
 	tx, err := s.Pool.Begin(ctx)
 	if err != nil {
 		return err
@@ -292,7 +305,10 @@ func (s *Store) ProcessReviewBatch(ctx context.Context) error {
 		return err
 	}
 	if len(batch) == 0 {
-		return tx.Commit(ctx)
+		if err = tx.Commit(ctx); err == nil {
+			s.reviewsSeen.Store(changes)
+		}
+		return err
 	}
 	entries := make([]domain.Entry, 0, len(batch))
 	for _, item := range batch {
@@ -310,7 +326,6 @@ func (s *Store) ProcessReviewBatch(ctx context.Context) error {
 	history := assistant.ReviewHistory(entries, snap.Entries)
 	for _, t := range snap.Tasks {
 		if t.Kind == "payment" && !t.Done && !t.Deleted && (t.Forecast() || t.Repeat != "none") && len(history.Plans) < 100 {
-			t.Notes = ""
 			history.Plans = append(history.Plans, t)
 		}
 	}

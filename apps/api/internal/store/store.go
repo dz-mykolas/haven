@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"errors"
 	"reflect"
+	"sync/atomic"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -19,6 +20,9 @@ var feedIndexesSchema string
 
 //go:embed bank_logos.sql
 var bankLogosSchema string
+
+//go:embed change_tracking.sql
+var changeTrackingSchema string
 
 //go:embed schema.sql
 var schema string
@@ -59,7 +63,11 @@ var automaticClassificationSchema string
 //go:embed payment_forecasts.sql
 var paymentForecastsSchema string
 
-type Store struct{ Pool *pgxpool.Pool }
+type Store struct {
+	Pool *pgxpool.Pool
+	// reviewsSeen is the change counter at the last full review reconcile.
+	reviewsSeen atomic.Int64
+}
 type Error struct {
 	Status  int
 	Message string
@@ -78,7 +86,8 @@ func Open(ctx context.Context, url string) (*Store, error) {
 	if err != nil {
 		return nil, err
 	}
-	s := &Store{p}
+	s := &Store{Pool: p}
+	s.reviewsSeen.Store(-1)
 	tx, err := p.Begin(ctx)
 	if err == nil {
 		defer tx.Rollback(ctx)
@@ -89,7 +98,7 @@ func Open(ctx context.Context, url string) (*Store, error) {
 		if err == nil {
 			var version int
 			err = tx.QueryRow(ctx, "SELECT COALESCE(max(version),0) FROM schema_migrations").Scan(&version)
-			if err == nil && version > 15 {
+			if err == nil && version > 16 {
 				err = errors.New("database schema is newer than this Haven build")
 			}
 			if err == nil && version == 0 {
@@ -136,6 +145,9 @@ func Open(ctx context.Context, url string) (*Store, error) {
 			}
 			if err == nil && version < 15 {
 				_, err = tx.Exec(ctx, bankLogosSchema)
+			}
+			if err == nil && version < 16 {
+				_, err = tx.Exec(ctx, changeTrackingSchema)
 			}
 		}
 		if err == nil {

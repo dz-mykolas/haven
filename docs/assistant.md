@@ -198,21 +198,27 @@ Refund and Interest; user-defined tags and categories remain supported. The
 category catalog is seeded directly without legacy category conversion.
 
 Background requests contain at most five editable transactions, the category/tag
-catalog, and a read-only sample of past payments. Retrieval includes up to twenty
-payments per selected merchant (one hundred total), plus forty recent other
-payments to help identify merchant-name variations. Name matching only retrieves
-context: the LLM judges whether dates, amounts and descriptions indicate a
+catalog, and read-only context grouped by merchant name. Each merchant under
+review gets a summary of all its earlier payments (count, date span, categories,
+linked schedules), its twelve most recent payments in full, and older payments
+condensed by month (count and amount range, up to 36 months). Every other
+merchant is one line (payment count, last date, usual category, schedule), up to
+the 300 most frequent, so renamed or differently spelled merchants can be
+recognized. Name matching only retrieves context: the LLM judges whether dates,
+amounts and descriptions indicate a
 recurring arrangement, everyday spending, or an occasional expense. There are no hardcoded recurrence counts,
 interval tolerances, or merchant-to-category rules. The prompt identifies
 truncated history and asks the model to express uncertainty rather than force a
-category. Historical context includes already organized payments, but excludes
-deleted records, transfers, personal notes, account balances, tasks and chat
+category. Historical context includes already organized payments and personal
+notes, but excludes deleted records, transfers, account balances, tasks and chat
 history. It cannot be targeted for edits. These same history boundaries apply to
 explicit chat reviews of attached transactions. These requests use the configured
 model and may incur
 provider charges. **When I ask**, **Manual only**, disabling the review skill or
 removing the connection pauses new processing. Already generated suggestions
-remain available for manual review.
+remain available for manual review. The worker checks every five seconds but reloads data
+only when a database change counter moved or queued work is due, so an idle
+Haven does no background work.
 
 Draft cards summarize the merchant, amount and proposed category; optional tags
 and the next payment date are secondary. Click the card to review. The model's
