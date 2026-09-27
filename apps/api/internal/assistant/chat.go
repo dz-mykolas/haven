@@ -57,6 +57,7 @@ type TaskDraft struct {
 	Kind         string              `json:"kind"`
 	Amount       string              `json:"amount_minor"`
 	Notes        string              `json:"notes"`
+	Routine      *bool               `json:"routine,omitempty"`
 }
 type AnnotationDraft struct {
 	Question     string     `json:"question,omitempty"`
@@ -258,6 +259,9 @@ func parseTaskDraft(draft *TaskDraft, timezone string, tasks []domain.Task) (dom
 	task.Repeat = draft.Repeat
 	task.Kind = draft.Kind
 	task.Notes = draft.Notes
+	if draft.Routine != nil {
+		task.Routine = *draft.Routine
+	}
 	// JSON's string-encoded cents must remain exact; no floating point coercion.
 	if draft.Amount == "" {
 		draft.Amount = "0"

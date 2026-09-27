@@ -16,6 +16,9 @@ func (s *Store) TaskCalendar(ctx context.Context, month string) (domain.TaskCale
 	if err != nil {
 		return domain.TaskCalendar{}, err
 	}
+	if tasks, err = currentTasks(ctx, tx, tasks); err != nil {
+		return domain.TaskCalendar{}, err
+	}
 	from, to := domain.CalendarBounds(month)
 	completions, err := list[domain.Completion](ctx, tx, `SELECT id::text,task_id::text,due_date::text,completed_at FROM task_completions WHERE due_date BETWEEN $1 AND $2 ORDER BY due_date,id`, from, to)
 	if err != nil {

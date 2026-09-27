@@ -59,6 +59,9 @@ func run() error {
 	reviewsDone := make(chan struct{})
 	go func() { defer close(reviewsDone); s.RunReviews(reviewCtx) }()
 	defer func() { stopReviews(); <-reviewsDone }()
+	followUpsDone := make(chan struct{})
+	go func() { defer close(followUpsDone); s.RunFollowUps(reviewCtx) }()
+	defer func() { stopReviews(); <-followUpsDone }()
 	origins := os.Getenv("HAVEN_ORIGINS")
 	if origins == "" {
 		origins = "http://127.0.0.1:4321,http://localhost:4321"

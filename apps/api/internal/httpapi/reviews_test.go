@@ -41,7 +41,7 @@ func TestUnifiedTransactionReviews(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	exec(`TRUNCATE transaction_payment_links,assistant_classifications,assistant_reviews,recurring_payment_links,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts; UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=1; UPDATE assistant_settings SET mode='manual',skills='{"review-transaction":true,"plan-task":true,"organize-money":true}',version=1`)
+	exec(`TRUNCATE transaction_payment_links,assistant_classifications,assistant_reviews,recurring_payment_links,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts; UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=1; UPDATE assistant_settings SET mode='manual',skills='{"review-transaction":true,"plan-task":true,"organize-money":true}',version=1`)
 	defer exec(`UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=version+1; UPDATE assistant_settings SET mode='manual',version=version+1`)
 	id := func(n int) string { return fmt.Sprintf("10000000-0000-4000-8000-%012d", n) }
 	account, err := s.SaveAccount(ctx, domain.Account{ID: id(1), Name: "Review account", Currency: "EUR"})

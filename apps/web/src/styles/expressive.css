@@ -3301,3 +3301,94 @@ button.vrow {
     padding: 10px 12px 10px 6px;
   }
 }
+
+/* Task editor: date, time and repeat share one row; the routine toggle and
+   the assistant's readback of the notes sit as quiet single lines. */
+.form-grid.when-row {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr) minmax(0, 1fr);
+}
+.form-grid.when-row:not(:has(> :nth-child(3))) {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+}
+.routine-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  margin-top: 10px;
+  padding: 0 12px;
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 13px var(--font-sans);
+  cursor: pointer;
+}
+.routine-toggle[aria-pressed="true"] {
+  border-color: transparent;
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.follow-up-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 8px 2px 0;
+  color: var(--primary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.follow-up-line svg {
+  flex: none;
+  margin-top: 1px;
+}
+.follow-up-line[data-failed] {
+  color: var(--error, #c0392b);
+}
+@media (max-width: 520px) {
+  .form-grid.when-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .form-grid.when-row > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+.task-meta .task-follow-up {
+  color: var(--primary);
+  min-width: 0;
+  max-width: 100%;
+}
+.task-meta .task-follow-up > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-meta .task-follow-up[data-failed] {
+  color: var(--error, #c0392b);
+}
+/* Task follow-ups in the Inbox: the assistant's message, then its actions. */
+.follow-up-item div.review-card {
+  padding-right: 12px;
+}
+.follow-up-message {
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.follow-up-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 14px;
+  flex: none;
+}
+@media (max-width: 520px) {
+  .follow-up-item {
+    flex-wrap: wrap;
+  }
+  .follow-up-actions {
+    width: 100%;
+    justify-content: flex-end;
+    padding: 0 14px 12px;
+  }
+}

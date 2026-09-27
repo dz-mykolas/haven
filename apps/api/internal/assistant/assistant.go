@@ -96,7 +96,8 @@ func (s Settings) Authorize(id, trigger string) error {
 		return errors.New("This skill is disabled")
 	}
 	switch trigger {
-	case "chat":
+	case "chat", "task_followup":
+		// Instructions in a task's notes are the user's own request.
 		return nil
 	case "transaction_imported":
 		if s.Mode == "proactive" && skill.Background {

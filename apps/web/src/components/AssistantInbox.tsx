@@ -1,7 +1,8 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import VirtualFeed, { type FeedRow } from "./VirtualFeed";
 import { useCallback, useMemo, useState } from "react";
 import {
+  Check,
   CheckCheck,
   Inbox,
   ArrowUpRight,
@@ -32,6 +33,7 @@ import type { EditorState } from "./Editor";
 
 type InboxData = components["schemas"]["ReviewInbox"];
 type Item = components["schemas"]["ReviewItem"];
+type FollowUpEvent = components["schemas"]["FollowUpEvent"];
 export function useInbox() {
   const [view, setView] = useState<"review" | "history">("review");
   const query = useInfiniteQuery({
@@ -47,6 +49,18 @@ export function useInbox() {
     getNextPageParam: (last) => last.next_cursor || undefined,
     refetchInterval: 6000,
   });
+  const followUpQuery = useQuery({
+    queryKey: ["followups"],
+    queryFn: ({ signal }) =>
+      request<components["schemas"]["FollowUpEvents"]>(
+        "/tasks/followups",
+        undefined,
+        "GET",
+        signal,
+      ),
+    refetchInterval: 6000,
+  });
+  const followUps = followUpQuery.data?.items ?? [];
   const data = useMemo(() => {
     if (!query.data) return null;
     const unique = new Map<string, Item>();
@@ -55,15 +69,21 @@ export function useInbox() {
         if (!unique.has(item.entry_id)) unique.set(item.entry_id, item);
     return { ...query.data.pages[0], items: [...unique.values()] };
   }, [query.data]);
+  const refetchFollowUps = followUpQuery.refetch;
   const refresh = useCallback(async () => {
-    await query.refetch();
-  }, [query.refetch]);
+    await Promise.all([query.refetch(), refetchFollowUps()]);
+  }, [query.refetch, refetchFollowUps]);
   const loadMore = useCallback(
     () => query.fetchNextPage({ cancelRefetch: false }),
     [query.fetchNextPage],
   );
   return {
     data,
+    followUps,
+    // Everything waiting for the user: transaction reviews and task notices.
+    count:
+      (data?.review_count ?? 0) +
+      followUps.filter((e) => e.status === "new").length,
     error: query.error?.message ?? "",
     view,
     setView,
@@ -95,7 +115,11 @@ export default function AssistantInbox({
   onRefresh: () => Promise<void>;
 }) {
   const { data, view } = inbox;
-  const [question, setQuestion] = useState<Item | null>(null);
+  const [question, setQuestion] = useState<{
+    path: string;
+    title: string;
+    text: string;
+  } | null>(null);
   const [answer, setAnswer] = useState("");
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
@@ -105,7 +129,7 @@ export default function AssistantInbox({
     try {
       await request(path, {}, "POST");
       await inbox.refresh();
-      if (path.endsWith("/undo")) await onRefresh();
+      if (path.endsWith("/undo") || path.includes("/tasks/")) await onRefresh();
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -114,14 +138,10 @@ export default function AssistantInbox({
   }
   async function answerQuestion() {
     if (!question) return;
-    setBusy(question.entry_id);
+    setBusy(question.path);
     setError("");
     try {
-      await request(
-        `/assistant/inbox/${question.entry_id}/answer`,
-        { answer },
-        "POST",
-      );
+      await request(question.path, { answer }, "POST");
       await inbox.refresh();
       setQuestion(null);
       setAnswer("");
@@ -146,7 +166,11 @@ export default function AssistantInbox({
       if (item.question) {
         setAnswer("");
         setError("");
-        setQuestion(item);
+        setQuestion({
+          path: `/assistant/inbox/${item.entry_id}/answer`,
+          title: item.original.payee || "Clarify purchase",
+          text: item.question,
+        });
         return;
       }
       onEdit({
@@ -300,7 +324,107 @@ export default function AssistantInbox({
       </article>
     );
   };
+  const followUps = inbox.followUps.filter((e) =>
+    view === "review" ? e.status === "new" : e.status !== "new",
+  );
+  const followUpLabels: Record<string, string> = {
+    seen: "",
+    undone: "Undone",
+    answered: "Answered",
+  };
+  const renderFollowUp = (event: FollowUpEvent) => (
+    <article className="inbox-item follow-up-item" key={event.id}>
+      <div className="review-card">
+        <span className="review-symbol">
+          {event.action === "asked" ? (
+            <MessageCircleQuestion size={22} aria-hidden="true" />
+          ) : (
+            <Sparkles size={22} aria-hidden="true" />
+          )}
+        </span>
+        <span className="review-content">
+          <span className="review-title">
+            <strong>{event.title}</strong>
+          </span>
+          <span className="follow-up-message">
+            {event.action === "asked" ? event.question : event.message}
+          </span>
+          {view === "history" &&
+            (followUpLabels[event.status] || event.answer) && (
+              <span className="review-meta">
+                {followUpLabels[event.status]}
+                {event.answer && `: ${event.answer}`}
+              </span>
+            )}
+        </span>
+      </div>
+      <span className="follow-up-actions">
+        {event.can_undo && (
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={!!busy}
+            aria-label={`Undo change to ${event.title}`}
+            onClick={() =>
+              void act(`/tasks/followups/${event.id}/undo`, event.id)
+            }
+          >
+            <Undo2 size={15} />
+            Undo
+          </Button>
+        )}
+        {view === "review" &&
+          (event.action === "asked" ? (
+            <Button
+              size="sm"
+              disabled={!!busy}
+              onClick={() => {
+                setAnswer("");
+                setError("");
+                setQuestion({
+                  path: `/tasks/followups/${event.id}/answer`,
+                  title: event.title,
+                  text: event.question,
+                });
+              }}
+            >
+              Answer
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              variant="ghost"
+              disabled={!!busy}
+              aria-label={`Mark ${event.title} as seen`}
+              onClick={() =>
+                void act(`/tasks/followups/${event.id}/seen`, event.id)
+              }
+            >
+              <Check size={15} />
+              OK
+            </Button>
+          ))}
+      </span>
+    </article>
+  );
   const rows: FeedRow[] = [];
+  if (followUps.length > 0) {
+    rows.push({
+      key: "followups:heading",
+      estimate: 44,
+      content: (
+        <div className="inbox-month">
+          <h2>Tasks</h2>
+        </div>
+      ),
+    });
+    for (const event of followUps)
+      rows.push({
+        key: `followup:${event.id}`,
+        estimate: 96,
+        content: renderFollowUp(event),
+      });
+  }
   let previousMonth = "";
   for (const item of data?.items ?? []) {
     const month = item.original.date.slice(0, 7);
@@ -387,7 +511,7 @@ export default function AssistantInbox({
           Loading inbox…
         </p>
       )}
-      {data && data.items.length === 0 && (
+      {data && data.items.length === 0 && followUps.length === 0 && (
         <div className="inbox-empty">
           {view === "review" ? <Inbox size={30} /> : <CheckCheck size={30} />}
           <h2>
@@ -426,9 +550,7 @@ export default function AssistantInbox({
           aria-describedby={undefined}
           showCloseButton={!busy}
         >
-          <DialogTitle>
-            {question?.original.payee || "Clarify purchase"}
-          </DialogTitle>
+          <DialogTitle>{question?.title}</DialogTitle>
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -436,14 +558,18 @@ export default function AssistantInbox({
             }}
           >
             <label className="field">
-              <span>{question?.question}</span>
+              <span>{question?.text}</span>
               <Input
                 aria-label="Your answer"
                 required
                 maxLength={1000}
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder="e.g. Four Welkins for my account"
+                placeholder={
+                  question?.path.startsWith("/tasks")
+                    ? "Your answer"
+                    : "e.g. Four Welkins for my account"
+                }
               />
             </label>
             {error && (

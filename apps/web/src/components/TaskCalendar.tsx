@@ -14,6 +14,8 @@ import {
   Repeat2,
   Search,
   X,
+  Sparkles,
+  CircleAlert,
 } from "lucide-react";
 import {
   dateLabel,
@@ -418,9 +420,38 @@ export default function TaskCalendar({
                               }
                             >
                               <Repeat2 size={13} />
-                              {item.projected ? "Future repeat" : task.repeat}
+                              {item.projected
+                                ? "Future repeat"
+                                : task.routine
+                                  ? `${task.repeat} routine`
+                                  : task.repeat}
                             </span>
                           )}
+                          {task.follow_up &&
+                            !item.completed &&
+                            (task.follow_up.status === "failed" ? (
+                              <span
+                                className="task-follow-up"
+                                data-failed
+                                title={task.follow_up.error}
+                              >
+                                <CircleAlert size={13} />
+                                Follow-up failed
+                              </span>
+                            ) : task.follow_up.status === "waiting" ? (
+                              <span className="task-follow-up">
+                                <Sparkles size={13} />
+                                Question in Inbox
+                              </span>
+                            ) : task.follow_up.summary ? (
+                              <span
+                                className="task-follow-up"
+                                title={task.follow_up.summary}
+                              >
+                                <Sparkles size={13} />
+                                <span>{task.follow_up.summary}</span>
+                              </span>
+                            ) : null)}
                           {(task.kind === "payment" || taskCost(task)) && (
                             <span>
                               <CreditCard size={13} />

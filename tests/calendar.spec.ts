@@ -77,7 +77,7 @@ test("calendar navigation, recurring previews, completion history and selected-d
   );
   await page.getByLabel("What’s the plan?").fill("Calendar haircut");
   await page.getByRole("button", { name: "appointment", exact: true }).click();
-  await page.getByLabel("Time · optional").fill("16:30");
+  await page.getByLabel("Time", { exact: true }).fill("16:30");
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await expect(agenda).toContainText("Calendar haircut");
   await expect(agenda).toContainText("16:30");

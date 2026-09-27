@@ -161,6 +161,20 @@ current cost preferences are included. These checks do not prove live-model
 compliance; when evaluating a provider, use the hairdryer, dentist, cost follow-up
 and subscription examples in the task skill, checking the actual supplied date.
 
+## Task follow-ups
+
+Instructions written in a task's notes are handled by the follow-up worker
+(`store/followups.go`, prompt in `assistant/followup.go`). Saving changed notes
+queues a reading; the model returns a one-line `summary` and a `check_on` date,
+or nothing when the notes hold no instruction. When `check_on` arrives, or a
+one-off task is completed, it returns one action: `none`, `update` (the same
+task), `replace` (a new task with `continues_from`), `finish`, or `ask`. The
+reply is validated against that one task; nothing else can be changed. Events
+appear in the Inbox under Tasks with Undo (latest change only) or an answer
+field. Failed calls retry after one and ten minutes, then mark the follow-up
+failed until the task is saved again. Follow-ups run when the Plan tasks skill
+is enabled and the assistant is not in manual mode.
+
 ## Transaction inbox
 
 Assistant has **Chat** and **Inbox** views. The background worker automatically

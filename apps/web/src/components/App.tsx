@@ -127,7 +127,11 @@ function Workspace() {
     },
     [refresh],
   );
-  useAutoRefresh(autoRefresh, 15000);
+  // Poll faster while the assistant is reading or checking a task's notes.
+  const followUpBusy = !!data?.tasks.some((task) =>
+    ["reading", "checking"].includes(task.follow_up?.status ?? ""),
+  );
+  useAutoRefresh(autoRefresh, followUpBusy ? 3000 : 15000);
   useLayoutEffect(() => {
     document.documentElement.dataset.module = page;
   }, [page]);
@@ -258,7 +262,7 @@ function Workspace() {
         page={page}
         theme={theme}
         dueCount={dueCount}
-        reviewCount={inbox.data?.review_count ?? 0}
+        reviewCount={inbox.count}
         onNavigate={navigate}
         onTheme={cycleTheme}
         onExport={() => void exportData()}
@@ -345,7 +349,7 @@ function Workspace() {
                 onMonth={setMonth}
                 onEdit={setEditor}
                 onRefresh={refresh}
-                reviewCount={inbox.data?.review_count ?? 0}
+                reviewCount={inbox.count}
                 onReview={() => {
                   setAssistantTab("inbox");
                   navigate("assistant");

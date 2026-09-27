@@ -1303,7 +1303,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Matched brand icon (24×24 single-path SVG artwork)",
+            "description": "Matched brand icon (24\u00d724 single-path SVG artwork)",
             "content": {
               "application/json": {
                 "schema": {
@@ -1377,6 +1377,163 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/followups": {
+      "get": {
+        "description": "Recent follow-up activity for the Inbox, newest first.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpEvents"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/followups/{id}/seen": {
+      "post": {
+        "description": "Acknowledge a notice.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/followups/{id}/undo": {
+      "post": {
+        "description": "Restore the task as it was before the assistant's latest change.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/followups/{id}/answer": {
+      "post": {
+        "description": "Answer the assistant's question; it looks at the task again.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["answer"],
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 1000
+                  }
                 }
               }
             }
@@ -1583,6 +1740,18 @@
           },
           "plan": {
             "$ref": "#/components/schemas/PaymentPlan"
+          },
+          "routine": {
+            "type": "boolean",
+            "description": "Missed occurrences lapse instead of staying overdue. Requires a repeat schedule."
+          },
+          "continues_from": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The task this one continues, when the follow-up assistant replaced it."
+          },
+          "follow_up": {
+            "$ref": "#/components/schemas/FollowUp"
           }
         }
       },
@@ -2642,7 +2811,98 @@
           },
           "path": {
             "type": "string",
-            "description": "SVG path data in a 24×24 viewBox"
+            "description": "SVG path data in a 24\u00d724 viewBox"
+          }
+        }
+      },
+      "FollowUp": {
+        "type": "object",
+        "readOnly": true,
+        "additionalProperties": false,
+        "required": ["summary", "status"],
+        "description": "The assistant's reading of the task's notes. Server-owned; ignored on save.",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "One-line readback of what happens next."
+          },
+          "check_on": {
+            "type": "string",
+            "description": "When the assistant looks again."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["reading", "ready", "checking", "waiting", "failed"]
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "FollowUpEvent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "task_id",
+          "title",
+          "action",
+          "message",
+          "question",
+          "answer",
+          "status",
+          "can_undo",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["updated", "replaced", "finished", "asked"]
+          },
+          "message": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "created_task": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["new", "seen", "undone", "answered"]
+          },
+          "can_undo": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FollowUpEvents": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["items"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FollowUpEvent"
+            }
           }
         }
       }

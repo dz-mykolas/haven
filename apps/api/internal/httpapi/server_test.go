@@ -33,7 +33,7 @@ func TestPersistentWorkflows(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer s.Pool.Close()
-	if _, err = s.Pool.Exec(ctx, `TRUNCATE transaction_payment_links,recurring_payment_links,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts`); err != nil {
+	if _, err = s.Pool.Exec(ctx, `TRUNCATE transaction_payment_links,recurring_payment_links,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts`); err != nil {
 		t.Fatal(err)
 	}
 	handler := New(s, []string{"http://localhost:4321"})

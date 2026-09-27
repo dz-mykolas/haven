@@ -24,6 +24,9 @@ var bankLogosSchema string
 //go:embed change_tracking.sql
 var changeTrackingSchema string
 
+//go:embed followups.sql
+var followUpsSchema string
+
 //go:embed schema.sql
 var schema string
 
@@ -79,7 +82,7 @@ func conflict(version int64) error { return &Error{409, domain.Conflict(version)
 
 const accountCols = `'' AS source, NULL::bigint AS bank_balance_minor, id::text, name, currency, opening_minor, version`
 const entryCols = `'' AS source, id::text, account_id::text, COALESCE(destination_id::text,'') AS destination_id, kind, amount_minor, date::text, payee, COALESCE((SELECT name FROM money_categories WHERE id=entries.category_id),'') AS category, COALESCE(category_id::text,'') AS category_id, tags, '' AS bank_description, notes, deleted, version`
-const taskCols = `plan,id::text,title,COALESCE(date::text,'') AS date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,done,deleted,version,estimated_min_minor,estimated_max_minor`
+const taskCols = `plan,id::text,title,COALESCE(date::text,'') AS date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,routine,COALESCE(continues_from::text,'') AS continues_from,done,deleted,version,estimated_min_minor,estimated_max_minor`
 
 func Open(ctx context.Context, url string) (*Store, error) {
 	p, err := pgxpool.New(ctx, url)
@@ -98,7 +101,7 @@ func Open(ctx context.Context, url string) (*Store, error) {
 		if err == nil {
 			var version int
 			err = tx.QueryRow(ctx, "SELECT COALESCE(max(version),0) FROM schema_migrations").Scan(&version)
-			if err == nil && version > 16 {
+			if err == nil && version > 17 {
 				err = errors.New("database schema is newer than this Haven build")
 			}
 			if err == nil && version == 0 {
@@ -148,6 +151,9 @@ func Open(ctx context.Context, url string) (*Store, error) {
 			}
 			if err == nil && version < 16 {
 				_, err = tx.Exec(ctx, changeTrackingSchema)
+			}
+			if err == nil && version < 17 {
+				_, err = tx.Exec(ctx, followUpsSchema)
 			}
 		}
 		if err == nil {
@@ -202,6 +208,9 @@ func snapshot(ctx context.Context, tx pgx.Tx, month string) (domain.Snapshot, er
 	}
 	t, err := list[domain.Task](ctx, tx, `SELECT `+taskCols+` FROM tasks WHERE NOT deleted ORDER BY done,date,time,id`)
 	if err != nil {
+		return domain.Snapshot{}, err
+	}
+	if t, err = currentTasks(ctx, tx, t); err != nil {
 		return domain.Snapshot{}, err
 	}
 	a, e, err = appendBankLedger(ctx, tx, a, e)
@@ -386,6 +395,9 @@ func saveTask(ctx context.Context, tx pgx.Tx, t domain.Task) (domain.Task, error
 		return t, err
 	}
 	old, err := one[domain.Task](ctx, tx, `SELECT `+taskCols+` FROM tasks WHERE id=$1 FOR UPDATE`, t.ID)
+	// Follow-ups and task chains are written only by the assistant worker.
+	old = domain.CatchUp(old, time.Now())
+	t.FollowUp, t.ContinuesFrom = nil, old.ContinuesFrom
 	v := t.Version
 	t.Version = old.Version
 	t.AnchorDay = old.AnchorDay
@@ -402,10 +414,13 @@ func saveTask(ctx context.Context, tx pgx.Tx, t domain.Task) (domain.Task, error
 		return t, nil
 	}
 	t.Version = v + 1
-	return t, putTask(ctx, tx, t)
+	if err = putTask(ctx, tx, t); err != nil {
+		return t, err
+	}
+	return t, queueFollowUp(ctx, tx, t)
 }
 func putTask(ctx context.Context, tx pgx.Tx, t domain.Task) error {
-	_, err := tx.Exec(ctx, `INSERT INTO tasks(id,title,date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,done,deleted,version,estimated_min_minor,estimated_max_minor,plan) VALUES($1,$2,NULLIF($3,'')::date,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) ON CONFLICT(id) DO UPDATE SET title=$2,date=NULLIF($3,'')::date,time=$4,timezone=$5,repeat=$6,anchor_day=$7,kind=$8,amount_minor=$9,notes=$10,done=$11,deleted=$12,version=$13,estimated_min_minor=$14,estimated_max_minor=$15,plan=$16`, t.ID, t.Title, t.Date, t.Time, t.Timezone, t.Repeat, t.AnchorDay, t.Kind, t.Amount, t.Notes, t.Done, t.Deleted, t.Version, t.EstimatedMin, t.EstimatedMax, t.Plan)
+	_, err := tx.Exec(ctx, `INSERT INTO tasks(id,title,date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,done,deleted,version,estimated_min_minor,estimated_max_minor,plan,routine,continues_from) VALUES($1,$2,NULLIF($3,'')::date,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NULLIF($18,'')::uuid) ON CONFLICT(id) DO UPDATE SET title=$2,date=NULLIF($3,'')::date,time=$4,timezone=$5,repeat=$6,anchor_day=$7,kind=$8,amount_minor=$9,notes=$10,done=$11,deleted=$12,version=$13,estimated_min_minor=$14,estimated_max_minor=$15,plan=$16,routine=$17,continues_from=NULLIF($18,'')::uuid`, t.ID, t.Title, t.Date, t.Time, t.Timezone, t.Repeat, t.AnchorDay, t.Kind, t.Amount, t.Notes, t.Done, t.Deleted, t.Version, t.EstimatedMin, t.EstimatedMax, t.Plan, t.Routine, t.ContinuesFrom)
 	return err
 }
 func (s *Store) CompleteTask(ctx context.Context, id, completionID string, version int64) (domain.Task, error) {
@@ -439,6 +454,7 @@ func (s *Store) CompleteTask(ctx context.Context, id, completionID string, versi
 		if version != t.Version {
 			return conflict(t.Version)
 		}
+		t = domain.CatchUp(t, time.Now())
 		next, err := domain.Complete(t)
 		if err != nil {
 			return bad(err.Error())
@@ -449,6 +465,12 @@ func (s *Store) CompleteTask(ctx context.Context, id, completionID string, versi
 		}
 		if err = putTask(ctx, tx, next); err != nil {
 			return err
+		}
+		// Finishing a one-off task is a moment its notes may say what comes next.
+		if next.Done {
+			if _, err = tx.Exec(ctx, `UPDATE task_followups SET status='checking',attempts=0,error='',available_at=now(),updated_at=now() WHERE task_id=$1 AND summary<>'' AND status IN ('ready','failed')`, id); err != nil {
+				return err
+			}
 		}
 		result = next
 		return nil

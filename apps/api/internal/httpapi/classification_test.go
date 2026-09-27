@@ -30,7 +30,7 @@ func TestClassificationWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer s.Pool.Close()
-	if _, err = s.Pool.Exec(ctx, `TRUNCATE transaction_payment_links,recurring_payment_links,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts,money_tags`); err != nil {
+	if _, err = s.Pool.Exec(ctx, `TRUNCATE transaction_payment_links,recurring_payment_links,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts,money_tags`); err != nil {
 		t.Fatal(err)
 	}
 	id := func(n int) string { return fmt.Sprintf("88000000-0000-4000-8000-%012d", n) }

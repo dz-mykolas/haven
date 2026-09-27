@@ -35,7 +35,7 @@ func TestRecurringPaymentSavePaths(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	exec(`TRUNCATE transaction_payment_links,recurring_payment_links,assistant_reviews,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts`)
+	exec(`TRUNCATE transaction_payment_links,recurring_payment_links,assistant_reviews,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts`)
 	id := func(n int) string { return fmt.Sprintf("90000000-0000-4000-8000-%012d", n) }
 	a, err := s.SaveAccount(ctx, domain.Account{ID: id(1), Name: "Wallet", Currency: "EUR"})
 	if err != nil {

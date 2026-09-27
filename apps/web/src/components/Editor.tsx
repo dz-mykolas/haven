@@ -22,7 +22,9 @@ import {
   ArrowRightLeft,
   CircleCheck,
   CreditCard,
-  Clock3,
+  Repeat2,
+  Sparkles,
+  CircleAlert,
 } from "lucide-react";
 import {
   cents,
@@ -91,6 +93,25 @@ export const newTask = (date = today()): EditorState => ({
   },
 });
 
+// The assistant's reading of a task's notes, shown right under them.
+function FollowUpLine({ followUp }: { followUp?: Task["follow_up"] }) {
+  if (!followUp) return null;
+  const failed = followUp.status === "failed";
+  const text = failed
+    ? `Couldn’t read notes: ${followUp.error}`
+    : followUp.status === "reading"
+      ? "Reading notes…"
+      : followUp.status === "waiting"
+        ? "Waiting for your answer in Inbox"
+        : followUp.summary;
+  if (!text) return null;
+  return (
+    <p className="follow-up-line" data-failed={failed || undefined}>
+      {failed ? <CircleAlert size={15} /> : <Sparkles size={15} />}
+      <span>{text}</span>
+    </p>
+  );
+}
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="field">
@@ -134,6 +155,12 @@ export default function Editor({
   );
   const [taskDate, setTaskDate] = useState(
     editor.type === "task" ? editor.record.date : "",
+  );
+  const [repeat, setRepeat] = useState(
+    editor.type === "task" ? editor.record.repeat : "none",
+  );
+  const [routine, setRoutine] = useState(
+    editor.type === "task" ? !!editor.record.routine : false,
   );
   const [planKind, setPlanKind] = useState(
     editor.type === "task"
@@ -248,6 +275,7 @@ export default function Editor({
           time: value("time"),
           timezone: value("timezone"),
           repeat: value("repeat"),
+          routine: value("repeat") !== "none" && routine,
           amount_minor:
             kind === "payment" && cost && cost[0] === cost[1] ? cost[0] : "0",
           estimated_min_minor: cost?.[0] ?? null,
@@ -630,7 +658,7 @@ export default function Editor({
                         ),
                       )}
                     </SelectionGroup>
-                    <div className="form-grid">
+                    <div className="form-grid when-row">
                       <Field label="Date">
                         <DateField
                           name="date"
@@ -644,14 +672,47 @@ export default function Editor({
                           onValueChange={setTaskDate}
                         />
                       </Field>
-                      <Field label="Time · optional">
+                      <Field label="Time">
                         <Input
                           name="time"
                           type="time"
                           defaultValue={editor.record.time}
                         />
                       </Field>
+                      {kind !== "payment" || planKind === "scheduled" ? (
+                        <Field label="Repeat">
+                          <FormSelect
+                            name="repeat"
+                            value={repeat}
+                            onChange={(e) =>
+                              setRepeat(e.target.value as Task["repeat"])
+                            }
+                          >
+                            <option value="none">Never</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                          </FormSelect>
+                        </Field>
+                      ) : (
+                        <input type="hidden" name="repeat" value="none" />
+                      )}
                     </div>
+                    {repeat !== "none" &&
+                      (kind !== "payment" || planKind === "scheduled") && (
+                        <button
+                          type="button"
+                          className="routine-toggle"
+                          aria-pressed={routine}
+                          title="Missed days are skipped instead of staying overdue"
+                          onClick={() => setRoutine(!routine)}
+                        >
+                          <Repeat2 size={15} />
+                          Routine
+                          {routine && <Check size={14} />}
+                        </button>
+                      )}
                     {kind === "payment" && (
                       <PaymentPlanFields
                         value={editor.record.plan}
@@ -661,22 +722,6 @@ export default function Editor({
                             setTaskDate("");
                         }}
                       />
-                    )}
-                    {kind !== "payment" || planKind === "scheduled" ? (
-                      <Field label="Repeat">
-                        <FormSelect
-                          name="repeat"
-                          defaultValue={editor.record.repeat}
-                        >
-                          <option value="none">Doesn’t repeat</option>
-                          <option value="daily">Every day</option>
-                          <option value="weekly">Every week</option>
-                          <option value="monthly">Every month</option>
-                          <option value="yearly">Every year</option>
-                        </FormSelect>
-                      </Field>
-                    ) : (
-                      <input type="hidden" name="repeat" value="none" />
                     )}
                     {(kind !== "task" || taskCost(editor.record)) && (
                       <Field
@@ -694,34 +739,26 @@ export default function Editor({
                         />
                       </Field>
                     )}
-                    <Disclosure
-                      title={
-                        <>
-                          <Clock3 size={17} />
-                          <span>Timezone & notes</span>
-                        </>
-                      }
-                    >
-                      <Field label="Timezone">
-                        <Input
-                          name="timezone"
-                          required
-                          defaultValue={editor.record.timezone}
-                          maxLength={100}
-                        />
-                      </Field>
+                    <Field label="Notes">
+                      <Textarea
+                        name="notes"
+                        maxLength={4000}
+                        defaultValue={editor.record.notes}
+                        placeholder="Details, or what should happen next"
+                        rows={3}
+                      />
+                    </Field>
+                    <FollowUpLine followUp={editor.record.follow_up} />
+                    <input
+                      type="hidden"
+                      name="timezone"
+                      value={editor.record.timezone}
+                    />
+                    {editor.record.timezone !== deviceTimezone() && (
                       <p className="helper">
-                        From your device. Kept with this task when you travel.
+                        Times use {editor.record.timezone.replace(/_/g, " ")}
                       </p>
-                      <Field label="Notes">
-                        <Textarea
-                          name="notes"
-                          maxLength={4000}
-                          defaultValue={editor.record.notes}
-                          rows={3}
-                        />
-                      </Field>
-                    </Disclosure>
+                    )}
                   </>
                 )}
               </fieldset>

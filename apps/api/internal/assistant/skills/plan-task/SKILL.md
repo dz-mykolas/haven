@@ -31,6 +31,11 @@ Saved costs appear in Money's upcoming projection. They do not create expenses, 
 A supplied task with version=0 is an unsaved draft. Reuse its ID when refining it; use an empty ID only for a new task. Preserve all unrelated fields, including existing estimates, date, time, recurrence and notes. Use only supplied IDs for edits.
 Editing a repeating task changes its series; mention that briefly when relevant. Do not manufacture separate duplicate reminders for future occurrences.
 
+## Routines and changes over time
+
+A repeating habit such as vitamins, medication or daily exercise is a routine (routine=true): missed days lapse rather than piling up as overdue.
+When the user describes a change over time ("4000 IU for a month, then 2000 IU"), draft one task for the current step and describe what comes next in its notes, in the user's words. Haven's follow-up assistant reads task notes and handles the change when the time comes; do not draft the later steps as separate tasks.
+
 ## Examples
 
 Example dates illustrate the rules; always calculate from the actual supplied today for the current request.

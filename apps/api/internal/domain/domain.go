@@ -46,6 +46,7 @@ type Entry struct {
 	Version         int64    `json:"version"`
 }
 type Task struct {
+	FollowUp     *FollowUp    `json:"follow_up,omitempty" db:"-"`
 	Plan         *PaymentPlan `json:"plan,omitempty" db:"plan"`
 	EstimatedMin *int64       `json:"estimated_min_minor,string" db:"estimated_min_minor"`
 	EstimatedMax *int64       `json:"estimated_max_minor,string" db:"estimated_max_minor"`
@@ -59,9 +60,21 @@ type Task struct {
 	Kind         string       `json:"kind"`
 	Amount       int64        `json:"amount_minor,string" db:"amount_minor"`
 	Notes        string       `json:"notes"`
-	Done         bool         `json:"done"`
-	Deleted      bool         `json:"deleted"`
-	Version      int64        `json:"version"`
+	// Routine tasks let missed occurrences lapse instead of staying overdue.
+	Routine       bool   `json:"routine"`
+	ContinuesFrom string `json:"continues_from,omitempty" db:"continues_from"`
+	Done          bool   `json:"done"`
+	Deleted       bool   `json:"deleted"`
+	Version       int64  `json:"version"`
+}
+
+// FollowUp is the assistant's reading of a task's notes. It is owned by the
+// server: the summary is the one-line readback, CheckOn when it looks again.
+type FollowUp struct {
+	Summary string `json:"summary"`
+	CheckOn string `json:"check_on,omitempty"`
+	Status  string `json:"status"`
+	Error   string `json:"error,omitempty"`
 }
 type Completion struct {
 	ID          string    `json:"id"`
@@ -147,6 +160,9 @@ func (t Task) Validate() error {
 	if t.Kind != "task" && t.Kind != "appointment" && t.Kind != "payment" {
 		return errors.New("Unsupported task type")
 	}
+	if t.Routine && t.Repeat == "none" {
+		return errors.New("A routine needs a repeat schedule")
+	}
 	if t.Amount < 0 || t.Amount > MaxAmount || (t.Kind != "payment" && t.Amount != 0) {
 		return errors.New("Only payment reminders can have an amount")
 	}
@@ -203,6 +219,28 @@ func Complete(t Task) (Task, error) {
 		return t, errors.New("Next occurrence exceeds the supported date range")
 	}
 	return t, nil
+}
+
+// CatchUp moves a routine past occurrences missed before today, in the task's
+// own timezone. Missed days are not completed; they simply lapse. Other tasks
+// keep their overdue occurrence until it is completed.
+func CatchUp(t Task, now time.Time) Task {
+	if !t.Routine || t.Done || t.Deleted || t.Repeat == "none" || t.Date == "" || t.Forecast() {
+		return t
+	}
+	location, err := time.LoadLocation(t.Timezone)
+	if err != nil {
+		return t
+	}
+	today := now.In(location).Format("2006-01-02")
+	for t.Date < today {
+		next, err := Complete(t)
+		if err != nil {
+			break
+		}
+		t = next
+	}
+	return t
 }
 
 func Summarize(accounts []Account, entries []Entry, tasks []Task, reportingMonth string) Snapshot {

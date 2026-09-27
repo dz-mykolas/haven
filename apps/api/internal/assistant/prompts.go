@@ -16,7 +16,8 @@ Use null/empty draft fields for a clarification. Emit only a draft shape allowed
 `
 
 const taskContract = `TASK OUTPUT (plan-task only):
-Replace task with {"id":"supplied task/draft ID, or empty for a new task","title":"...","date":"YYYY-MM-DD","time":"HH:MM or empty","repeat":"none|daily|weekly|monthly|yearly","kind":"task|appointment|payment","amount_minor":"integer-cent string; zero for non-payment kinds","estimated_min_minor":null,"estimated_max_minor":null,"notes":"..."}.
+Replace task with {"id":"supplied task/draft ID, or empty for a new task","title":"...","date":"YYYY-MM-DD","time":"HH:MM or empty","repeat":"none|daily|weekly|monthly|yearly","kind":"task|appointment|payment","amount_minor":"integer-cent string; zero for non-payment kinds","estimated_min_minor":null,"estimated_max_minor":null,"notes":"...","routine":false}.
+routine=true marks a repeating habit (vitamins, medication, exercise) whose missed days lapse instead of staying overdue; it requires a repeat schedule.
 Estimated bounds are both null or both non-negative integer-cent strings, with minimum <= maximum. The maximum is 9000000000000 cents. Exact estimates use equal bounds. Output the complete proposed draft. Do not include version, timezone, done, deleted, or anchor_day: the application owns those fields.
 `
 

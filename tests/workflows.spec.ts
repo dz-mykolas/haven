@@ -183,16 +183,17 @@ test("Tasks use device timezone and preserve monthly anchors without changing Mo
   await page.getByLabel("What’s the plan?").fill("Rent");
   await page.getByRole("button", { name: "payment", exact: true }).click();
   await page.getByLabel("Date", { exact: true }).fill("2027-01-31");
-  await page.getByLabel("Time · optional").fill("09:00");
+  await page.getByLabel("Time", { exact: true }).fill("09:00");
   await selectOption(
     page.getByRole("combobox", { name: "Repeat", exact: true }),
     "monthly",
   );
   await page.getByLabel("Expected amount").fill("500");
-  await page.getByText("Timezone & notes", { exact: true }).click();
-  await expect(page.getByLabel("Timezone", { exact: true })).toHaveValue(
+  // The device timezone is saved without a field; another one would be noted.
+  await expect(page.locator('input[name="timezone"]')).toHaveValue(
     "Europe/Vilnius",
   );
+  await expect(page.getByText(/^Times use/)).toHaveCount(0);
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await page
     .getByRole("button", { name: "Complete Rent", exact: true })

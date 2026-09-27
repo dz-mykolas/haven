@@ -496,8 +496,8 @@ export default function Assistant({
         <button aria-pressed={tab === "inbox"} onClick={() => onTab("inbox")}>
           <Inbox size={16} />
           Inbox
-          {inbox.data?.review_count ? (
-            <span className="tab-count">{inbox.data.review_count}</span>
+          {inbox.count ? (
+            <span className="tab-count">{inbox.count}</span>
           ) : null}
         </button>
       </div>
