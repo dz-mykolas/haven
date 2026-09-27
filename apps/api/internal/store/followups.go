@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log/slog"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -47,7 +48,8 @@ type followUpBefore struct {
 
 const followUpCols = `task_id::text,notes,summary,COALESCE(check_on::text,'') AS check_on,status,error,attempts`
 
-// currentTasks applies routine catch-up and attaches follow-up state.
+// currentTasks lets missed days lapse where they should and attaches the
+// assistant's state, including a change waiting for approval.
 func currentTasks(ctx context.Context, tx pgx.Tx, tasks []domain.Task) ([]domain.Task, error) {
 	rows, err := list[followUpRow](ctx, tx, `SELECT `+followUpCols+` FROM task_followups WHERE status<>'done'`)
 	if err != nil {
@@ -57,11 +59,23 @@ func currentTasks(ctx context.Context, tx pgx.Tx, tasks []domain.Task) ([]domain
 	for _, r := range rows {
 		byID[r.TaskID] = r
 	}
+	pending, err := list[struct {
+		ID      string
+		TaskID  string `db:"task_id"`
+		Message string
+	}](ctx, tx, `SELECT id::text,task_id::text,message FROM task_followup_events WHERE status='pending' ORDER BY created_at`)
+	if err != nil {
+		return nil, err
+	}
+	proposals := map[string]*domain.Proposal{}
+	for _, p := range pending {
+		proposals[p.TaskID] = &domain.Proposal{EventID: p.ID, Message: p.Message}
+	}
 	now := time.Now()
 	for i := range tasks {
 		tasks[i] = domain.CatchUp(tasks[i], now)
-		if r, ok := byID[tasks[i].ID]; ok && (r.Summary != "" || r.Status != "ready") {
-			tasks[i].FollowUp = &domain.FollowUp{Summary: r.Summary, CheckOn: r.CheckOn, Status: r.Status, Error: r.Error}
+		if r, ok := byID[tasks[i].ID]; ok && (r.Summary != "" || r.Status != "ready" || proposals[tasks[i].ID] != nil) {
+			tasks[i].FollowUp = &domain.FollowUp{Summary: r.Summary, CheckOn: r.CheckOn, Status: r.Status, Error: r.Error, Proposal: proposals[tasks[i].ID]}
 		}
 	}
 	sort.SliceStable(tasks, func(i, j int) bool {
@@ -178,7 +192,8 @@ func (s *Store) ProcessFollowUp(ctx context.Context) error {
 		if callErr == nil {
 			decision, callErr = assistant.ParseFollowUp(raw, c)
 		}
-		return s.applyFollowUp(ctx, c, row, decision, callErr)
+		// "Suggest too" applies changes with undo; "When I ask" waits for approval.
+		return s.applyFollowUp(ctx, c, row, decision, callErr, settings.Mode == "proactive")
 	}
 	return nil
 }
@@ -216,12 +231,15 @@ func (s *Store) followUpContext(ctx context.Context, id string) (assistant.Follo
 	task = domain.CatchUp(task, now)
 	task.FollowUp = nil
 	c.Task, c.Summary, c.CheckOn = task, row.Summary, row.CheckOn
-	var started time.Time
-	if err = tx.QueryRow(ctx, `SELECT created_at FROM tasks WHERE id=$1`, id).Scan(&started); err != nil {
+	var created time.Time
+	if err = tx.QueryRow(ctx, `SELECT created_at FROM tasks WHERE id=$1`, id).Scan(&created); err != nil {
 		return c, row, false, err
 	}
-	c.Started = started.In(location).Format("2006-01-02")
-	completions, err := list[domain.Completion](ctx, tx, `SELECT id::text,task_id::text,due_date::text,completed_at FROM task_completions WHERE task_id=$1 ORDER BY due_date DESC LIMIT 120`, id)
+	c.Started = task.StartsOn
+	if c.Started == "" {
+		c.Started = created.In(location).Format("2006-01-02")
+	}
+	completions, err := list[domain.Completion](ctx, tx, `SELECT id::text,task_id::text,due_date::text,completed_at FROM task_completions WHERE task_id=$1 ORDER BY due_date DESC LIMIT 200`, id)
 	if err != nil {
 		return c, row, false, err
 	}
@@ -229,9 +247,9 @@ func (s *Store) followUpContext(ctx context.Context, id string) (assistant.Follo
 	for _, done := range completions {
 		taken[done.DueDate] = true
 	}
-	if task.Routine {
-		// Scheduled days up to today, newest first, from when the task began.
-		for _, date := range pastOccurrences(task, c.Started, c.Today, 60) {
+	if task.SkipsMissed() {
+		// Scheduled days up to today and whether each was taken.
+		for _, date := range domain.Occurrences(task, c.Today, 120) {
 			c.Schedule = append(c.Schedule, assistant.Occurrence{Date: date, Taken: taken[date]})
 		}
 	} else {
@@ -257,47 +275,22 @@ func (s *Store) followUpContext(ctx context.Context, id string) (assistant.Follo
 	return c, row, true, tx.Commit(ctx)
 }
 
-// pastOccurrences steps a schedule backwards from the task's next date.
-func pastOccurrences(t domain.Task, from, through string, limit int) []string {
-	out := []string{}
-	d, err := time.Parse("2006-01-02", t.Date)
-	if err != nil {
-		return out
-	}
-	anchor := t.AnchorDay
-	if anchor == 0 {
-		anchor = d.Day()
-	}
-	for i := 0; len(out) < limit && i < 400; i++ {
-		switch t.Repeat {
-		case "daily":
-			d = d.AddDate(0, 0, -1)
-		case "weekly":
-			d = d.AddDate(0, 0, -7)
-		case "monthly", "yearly":
-			months := -1
-			if t.Repeat == "yearly" {
-				months = -12
-			}
-			first := time.Date(d.Year(), d.Month(), 1, 0, 0, 0, 0, time.UTC).AddDate(0, months, 0)
-			d = first.AddDate(0, 0, min(anchor, first.AddDate(0, 1, -1).Day())-1)
-		default:
-			return out
-		}
-		date := d.Format("2006-01-02")
-		if date < from {
-			break
-		}
-		if date <= through {
-			out = append(out, date)
-		}
-	}
-	return out
+// followUpProposal is a change waiting for the user's approval.
+type followUpProposal struct {
+	Action      string       `json:"action"`
+	Message     string       `json:"message"`
+	Summary     string       `json:"summary"`
+	CheckOn     string       `json:"check_on"`
+	Task        *domain.Task `json:"task,omitempty"`
+	BaseVersion int64        `json:"base_version"`
 }
 
+var eventActions = map[string]string{"update": "updated", "replace": "replaced", "finish": "finished"}
+
 // applyFollowUp writes the decision unless the user changed the task or its
-// notes meanwhile, in which case their newer save wins.
-func (s *Store) applyFollowUp(ctx context.Context, c assistant.FollowUpContext, row followUpRow, d assistant.FollowUpDecision, callErr error) error {
+// notes meanwhile, in which case their newer save wins. Changes apply at once
+// when auto is set; otherwise they wait in the Inbox for approval.
+func (s *Store) applyFollowUp(ctx context.Context, c assistant.FollowUpContext, row followUpRow, d assistant.FollowUpDecision, callErr error, auto bool) error {
 	tx, err := s.Pool.Begin(ctx)
 	if err != nil {
 		return err
@@ -333,65 +326,160 @@ func (s *Store) applyFollowUp(ctx context.Context, c assistant.FollowUpContext, 
 		return tx.Commit(ctx)
 	}
 	before, _ := json.Marshal(followUpBefore{Task: current, Summary: row.Summary, CheckOn: row.CheckOn, Notes: row.Notes, Status: row.Status})
-	status := "ready"
-	if d.Summary == "" {
-		status = "done"
-	}
-	setFollowUp := func(taskID, notes, summary, checkOn, status string) error {
-		_, err := tx.Exec(ctx, `INSERT INTO task_followups(task_id,notes,summary,check_on,status) VALUES($1,$2,$3,NULLIF($4,'')::date,$5)
-            ON CONFLICT(task_id) DO UPDATE SET notes=$2,summary=$3,check_on=NULLIF($4,'')::date,status=$5,error='',attempts=0,available_at=now(),updated_at=now()`, taskID, strings.TrimSpace(notes), summary, checkOn, status)
-		return err
-	}
-	event := func(action, message, question, created string) error {
-		_, err := tx.Exec(ctx, `INSERT INTO task_followup_events(task_id,action,message,question,before,created_task) VALUES($1,$2,$3,$4,$5,NULLIF($6,'')::uuid)`, c.Task.ID, action, message, question, before, created)
-		return err
-	}
 	switch d.Action {
 	case "none":
-		err = setFollowUp(current.ID, current.Notes, d.Summary, d.CheckOn, status)
+		status := "ready"
+		if d.Summary == "" {
+			status = "done"
+		}
+		err = setFollowUp(ctx, tx, current.ID, current.Notes, d.Summary, d.CheckOn, status)
 	case "ask":
-		if err = setFollowUp(current.ID, current.Notes, row.Summary, row.CheckOn, "waiting"); err == nil {
-			err = event("asked", "", d.Question, "")
+		if err = setFollowUp(ctx, tx, current.ID, current.Notes, row.Summary, row.CheckOn, "waiting"); err == nil {
+			_, err = tx.Exec(ctx, `INSERT INTO task_followup_events(task_id,action,message,question,before) VALUES($1,'asked','',$2,$3)`, current.ID, d.Question, before)
 		}
-	case "update":
-		next := *d.Task
-		next.Done, next.Deleted, next.Version = current.Done, current.Deleted, current.Version+1
-		next.ContinuesFrom, next.Routine = current.ContinuesFrom, current.Routine
-		if err = putTask(ctx, tx, next); err == nil {
-			if err = setFollowUp(current.ID, next.Notes, d.Summary, d.CheckOn, status); err == nil {
-				err = event("updated", d.Message, "", "")
+	default:
+		if auto {
+			var created string
+			if created, err = applyChange(ctx, tx, current, row, d); err == nil {
+				_, err = tx.Exec(ctx, `INSERT INTO task_followup_events(task_id,action,message,before,created_task) VALUES($1,$2,$3,$4,NULLIF($5,'')::uuid)`, current.ID, eventActions[d.Action], d.Message, before, created)
 			}
+			break
 		}
-	case "replace":
-		next := *d.Task
-		next.Version = 1
-		closed := current
-		closed.Done, closed.Version = true, current.Version+1
-		if err = putTask(ctx, tx, closed); err == nil {
-			if err = putTask(ctx, tx, next); err == nil {
-				if err = setFollowUp(current.ID, current.Notes, row.Summary, "", "done"); err == nil {
-					if strings.TrimSpace(next.Notes) != "" {
-						err = setFollowUp(next.ID, next.Notes, d.Summary, d.CheckOn, status)
-					}
-					if err == nil {
-						err = event("replaced", d.Message, "", next.ID)
-					}
-				}
-			}
-		}
-	case "finish":
-		closed := current
-		closed.Done, closed.Version = true, current.Version+1
-		if err = putTask(ctx, tx, closed); err == nil {
-			if err = setFollowUp(current.ID, current.Notes, row.Summary, "", "done"); err == nil {
-				err = event("finished", d.Message, "", "")
-			}
+		proposal, _ := json.Marshal(followUpProposal{Action: d.Action, Message: d.Message, Summary: d.Summary, CheckOn: d.CheckOn, Task: d.Task, BaseVersion: current.Version})
+		if err = setFollowUp(ctx, tx, current.ID, current.Notes, row.Summary, row.CheckOn, "waiting"); err == nil {
+			_, err = tx.Exec(ctx, `INSERT INTO task_followup_events(task_id,action,message,before,proposal,status) VALUES($1,$2,$3,$4,$5,'pending')`, current.ID, eventActions[d.Action], d.Message, before, proposal)
 		}
 	}
 	if err != nil {
 		return err
 	}
 	return tx.Commit(ctx)
+}
+
+func setFollowUp(ctx context.Context, tx pgx.Tx, taskID, notes, summary, checkOn, status string) error {
+	_, err := tx.Exec(ctx, `INSERT INTO task_followups(task_id,notes,summary,check_on,status) VALUES($1,$2,$3,NULLIF($4,'')::date,$5)
+        ON CONFLICT(task_id) DO UPDATE SET notes=$2,summary=$3,check_on=NULLIF($4,'')::date,status=$5,error='',attempts=0,available_at=now(),updated_at=now()`, taskID, strings.TrimSpace(notes), summary, checkOn, status)
+	return err
+}
+
+// applyChange updates, replaces or finishes a task and returns the ID of a
+// task it created.
+func applyChange(ctx context.Context, tx pgx.Tx, current domain.Task, row followUpRow, d assistant.FollowUpDecision) (string, error) {
+	status := "ready"
+	if d.Summary == "" {
+		status = "done"
+	}
+	switch d.Action {
+	case "update":
+		next := *d.Task
+		next.Done, next.Deleted, next.Version = current.Done, current.Deleted, current.Version+1
+		next.ContinuesFrom, next.StartsOn = current.ContinuesFrom, current.StartsOn
+		if next.Repeat != current.Repeat || next.Every != current.Every || !slices.Equal(next.Weekdays, current.Weekdays) {
+			next.StartsOn = next.Date
+		}
+		if err := putTask(ctx, tx, next); err != nil {
+			return "", err
+		}
+		return "", setFollowUp(ctx, tx, current.ID, next.Notes, d.Summary, d.CheckOn, status)
+	case "replace":
+		next := *d.Task
+		next.Version, next.StartsOn = 1, next.Date
+		closed := current
+		closed.Done, closed.Version = true, current.Version+1
+		if err := putTask(ctx, tx, closed); err != nil {
+			return "", err
+		}
+		if err := putTask(ctx, tx, next); err != nil {
+			return "", err
+		}
+		if err := setFollowUp(ctx, tx, current.ID, current.Notes, row.Summary, "", "done"); err != nil {
+			return "", err
+		}
+		if strings.TrimSpace(next.Notes) != "" {
+			if err := setFollowUp(ctx, tx, next.ID, next.Notes, d.Summary, d.CheckOn, status); err != nil {
+				return "", err
+			}
+		}
+		return next.ID, nil
+	case "finish":
+		closed := current
+		closed.Done, closed.Version = true, current.Version+1
+		if err := putTask(ctx, tx, closed); err != nil {
+			return "", err
+		}
+		return "", setFollowUp(ctx, tx, current.ID, current.Notes, row.Summary, "", "done")
+	}
+	return "", errors.New("unsupported follow-up action")
+}
+
+// AcceptFollowUp applies a change that was waiting for approval. If the task
+// changed since, the suggestion is dropped and the assistant looks again.
+func (s *Store) AcceptFollowUp(ctx context.Context, id string) error {
+	stale := false
+	err := s.mutate(ctx, id, func(tx pgx.Tx) error {
+		e, _, err := s.followUpEvent(ctx, tx, id)
+		if err != nil {
+			return err
+		}
+		if e.Status != "pending" {
+			return bad("This suggestion was already handled")
+		}
+		if _, err = tx.Exec(ctx, `SELECT pg_advisory_xact_lock(hashtextextended($1,0))`, e.TaskID); err != nil {
+			return err
+		}
+		var raw []byte
+		if err = tx.QueryRow(ctx, `SELECT proposal FROM task_followup_events WHERE id=$1`, id).Scan(&raw); err != nil {
+			return err
+		}
+		var p followUpProposal
+		if err = json.Unmarshal(raw, &p); err != nil {
+			return err
+		}
+		current, err := one[domain.Task](ctx, tx, `SELECT `+taskCols+` FROM tasks WHERE id=$1 FOR UPDATE`, e.TaskID)
+		if err != nil {
+			return err
+		}
+		row, err := one[followUpRow](ctx, tx, `SELECT `+followUpCols+` FROM task_followups WHERE task_id=$1 FOR UPDATE`, e.TaskID)
+		if err != nil {
+			return err
+		}
+		if current.Version != p.BaseVersion {
+			stale = true
+			if _, err = tx.Exec(ctx, `UPDATE task_followup_events SET status='dismissed' WHERE id=$1`, id); err != nil {
+				return err
+			}
+			_, err = tx.Exec(ctx, `UPDATE task_followups SET status='checking',attempts=0,error='',available_at=now(),updated_at=now() WHERE task_id=$1`, e.TaskID)
+			return err
+		}
+		created, err := applyChange(ctx, tx, current, row, assistant.FollowUpDecision{Action: p.Action, Message: p.Message, Summary: p.Summary, CheckOn: p.CheckOn, Task: p.Task})
+		if err != nil {
+			return err
+		}
+		_, err = tx.Exec(ctx, `UPDATE task_followup_events SET status='seen',created_task=NULLIF($2,'')::uuid WHERE id=$1`, id, created)
+		return err
+	})
+	if err == nil && stale {
+		return &Error{409, "This task changed since the suggestion. Haven will look at it again"}
+	}
+	return err
+}
+
+// DismissFollowUp drops a suggestion; the assistant looks again a day later.
+func (s *Store) DismissFollowUp(ctx context.Context, id string) error {
+	return s.mutate(ctx, id, func(tx pgx.Tx) error {
+		e, _, err := s.followUpEvent(ctx, tx, id)
+		if err != nil {
+			return err
+		}
+		if e.Status != "pending" {
+			return bad("This suggestion was already handled")
+		}
+		if _, err = tx.Exec(ctx, `UPDATE task_followup_events SET status='dismissed' WHERE id=$1`, id); err != nil {
+			return err
+		}
+		_, err = tx.Exec(ctx, `UPDATE task_followups SET status='ready',available_at=now()+interval '1 day',updated_at=now() WHERE task_id=$1 AND status='waiting'`, e.TaskID)
+		return err
+	})
 }
 
 // FollowUpEvents lists recent follow-up activity, newest first.
@@ -402,7 +490,7 @@ func (s *Store) FollowUpEvents(ctx context.Context) ([]FollowUpEvent, error) {
 	}
 	defer tx.Rollback(ctx)
 	events, err := list[FollowUpEvent](ctx, tx, `SELECT e.id::text,e.task_id::text,t.title,e.action,e.message,e.question,e.answer,COALESCE(e.created_task::text,'') AS created_task,e.status,
-        (e.action<>'asked' AND e.status IN ('new','seen') AND e.created_at=(SELECT max(created_at) FROM task_followup_events x WHERE x.task_id=e.task_id)) AS can_undo,e.created_at
+        (e.action<>'asked' AND e.status IN ('new','seen') AND e.created_at=(SELECT max(created_at) FROM task_followup_events x WHERE x.task_id=e.task_id AND x.status<>'dismissed')) AS can_undo,e.created_at
         FROM task_followup_events e JOIN tasks t ON t.id=e.task_id WHERE NOT t.deleted ORDER BY e.created_at DESC LIMIT 100`)
 	if err != nil {
 		return nil, err
@@ -476,7 +564,7 @@ func (s *Store) UndoFollowUp(ctx context.Context, id string) error {
 			return err
 		}
 		var newer bool
-		if err = tx.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM task_followup_events WHERE task_id=$1 AND created_at>(SELECT created_at FROM task_followup_events WHERE id=$2))`, e.TaskID, id).Scan(&newer); err != nil {
+		if err = tx.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM task_followup_events WHERE task_id=$1 AND status<>'dismissed' AND created_at>(SELECT created_at FROM task_followup_events WHERE id=$2))`, e.TaskID, id).Scan(&newer); err != nil {
 			return err
 		}
 		if e.Action == "asked" || (e.Status != "new" && e.Status != "seen") || newer {

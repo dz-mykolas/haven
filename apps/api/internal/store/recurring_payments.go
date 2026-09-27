@@ -65,7 +65,7 @@ func attachPayments(ctx context.Context, tx pgx.Tx, entries []domain.Entry, task
 	}
 	for i := range entries {
 		e := &entries[i]
-		if e.Kind != "expense" {
+		if e.Kind == "transfer" {
 			continue
 		}
 		if t, ok := explicit[e.ID]; ok {
@@ -73,7 +73,13 @@ func attachPayments(ctx context.Context, tx pgx.Tx, entries []domain.Entry, task
 			e.PaymentUnits = units[e.ID]
 			continue
 		}
-		matches := legacy[e.AccountID+":"+paymentKey(*e)]
+		// Charges attach to costs and incoming money to income plans.
+		matches := []*domain.Task{}
+		for _, t := range legacy[e.AccountID+":"+paymentKey(*e)] {
+			if t.Income == (e.Kind == "income") {
+				matches = append(matches, t)
+			}
+		}
 		// Forecast products always require a product match, never merchant-only reuse.
 		if len(matches) == 1 && !matches[0].Forecast() {
 			e.Payment = matches[0]
@@ -86,8 +92,11 @@ func saveEntryPayment(ctx context.Context, tx pgx.Tx, e domain.Entry, proposed *
 	if proposed == nil {
 		return nil, nil
 	}
-	if e.Kind != "expense" || e.Deleted || proposed.Kind != "payment" || (proposed.Repeat == "none" && !proposed.Forecast()) || proposed.Done || proposed.Deleted {
-		return nil, bad("Choose an active payment plan for an expense")
+	if e.Kind == "transfer" || e.Deleted || proposed.Kind != "payment" || (proposed.Repeat == "none" && !proposed.Forecast()) || proposed.Done || proposed.Deleted {
+		return nil, bad("Choose an active payment plan for this transaction")
+	}
+	if proposed.Income != (e.Kind == "income") {
+		return nil, bad("Link income to an income plan and costs to a cost plan")
 	}
 	if err := proposed.Validate(); err != nil {
 		return nil, bad(err.Error())

@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"errors"
 	"reflect"
+	"slices"
 	"sync/atomic"
 	"time"
 
@@ -26,6 +27,9 @@ var changeTrackingSchema string
 
 //go:embed followups.sql
 var followUpsSchema string
+
+//go:embed tasks_schedule.sql
+var tasksScheduleSchema string
 
 //go:embed schema.sql
 var schema string
@@ -82,7 +86,7 @@ func conflict(version int64) error { return &Error{409, domain.Conflict(version)
 
 const accountCols = `'' AS source, NULL::bigint AS bank_balance_minor, id::text, name, currency, opening_minor, version`
 const entryCols = `'' AS source, id::text, account_id::text, COALESCE(destination_id::text,'') AS destination_id, kind, amount_minor, date::text, payee, COALESCE((SELECT name FROM money_categories WHERE id=entries.category_id),'') AS category, COALESCE(category_id::text,'') AS category_id, tags, '' AS bank_description, notes, deleted, version`
-const taskCols = `plan,id::text,title,COALESCE(date::text,'') AS date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,routine,COALESCE(continues_from::text,'') AS continues_from,done,deleted,version,estimated_min_minor,estimated_max_minor`
+const taskCols = `plan,id::text,title,COALESCE(date::text,'') AS date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,tags,every,weekdays,COALESCE(until::text,'') AS until,income,COALESCE(starts_on::text,'') AS starts_on,COALESCE(continues_from::text,'') AS continues_from,done,deleted,version,estimated_min_minor,estimated_max_minor`
 
 func Open(ctx context.Context, url string) (*Store, error) {
 	p, err := pgxpool.New(ctx, url)
@@ -101,7 +105,7 @@ func Open(ctx context.Context, url string) (*Store, error) {
 		if err == nil {
 			var version int
 			err = tx.QueryRow(ctx, "SELECT COALESCE(max(version),0) FROM schema_migrations").Scan(&version)
-			if err == nil && version > 17 {
+			if err == nil && version > 18 {
 				err = errors.New("database schema is newer than this Haven build")
 			}
 			if err == nil && version == 0 {
@@ -154,6 +158,9 @@ func Open(ctx context.Context, url string) (*Store, error) {
 			}
 			if err == nil && version < 17 {
 				_, err = tx.Exec(ctx, followUpsSchema)
+			}
+			if err == nil && version < 18 {
+				_, err = tx.Exec(ctx, tasksScheduleSchema)
 			}
 		}
 		if err == nil {
@@ -378,7 +385,14 @@ func (s *Store) SaveTask(ctx context.Context, t domain.Task) (domain.Task, error
 	})
 	return t, err
 }
+func nonNil[T any](s []T) []T {
+	if s == nil {
+		return []T{}
+	}
+	return s
+}
 func saveTask(ctx context.Context, tx pgx.Tx, t domain.Task) (domain.Task, error) {
+	t = t.Normalize()
 	if t.Plan != nil && t.Plan.Kind == "prepaid" && t.Plan.ExpiresOn != "" && t.Plan.CoverageThrough == "" {
 		p := *t.Plan
 		location, err := time.LoadLocation(t.Timezone)
@@ -398,6 +412,12 @@ func saveTask(ctx context.Context, tx pgx.Tx, t domain.Task) (domain.Task, error
 	// Follow-ups and task chains are written only by the assistant worker.
 	old = domain.CatchUp(old, time.Now())
 	t.FollowUp, t.ContinuesFrom = nil, old.ContinuesFrom
+	// A new or changed schedule starts on the task's date.
+	if old.StartsOn == "" || old.Repeat != t.Repeat || max(old.Every, 1) != t.Every || !slices.Equal(old.Weekdays, t.Weekdays) {
+		t.StartsOn = t.Date
+	} else {
+		t.StartsOn = old.StartsOn
+	}
 	v := t.Version
 	t.Version = old.Version
 	t.AnchorDay = old.AnchorDay
@@ -420,7 +440,7 @@ func saveTask(ctx context.Context, tx pgx.Tx, t domain.Task) (domain.Task, error
 	return t, queueFollowUp(ctx, tx, t)
 }
 func putTask(ctx context.Context, tx pgx.Tx, t domain.Task) error {
-	_, err := tx.Exec(ctx, `INSERT INTO tasks(id,title,date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,done,deleted,version,estimated_min_minor,estimated_max_minor,plan,routine,continues_from) VALUES($1,$2,NULLIF($3,'')::date,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NULLIF($18,'')::uuid) ON CONFLICT(id) DO UPDATE SET title=$2,date=NULLIF($3,'')::date,time=$4,timezone=$5,repeat=$6,anchor_day=$7,kind=$8,amount_minor=$9,notes=$10,done=$11,deleted=$12,version=$13,estimated_min_minor=$14,estimated_max_minor=$15,plan=$16,routine=$17,continues_from=NULLIF($18,'')::uuid`, t.ID, t.Title, t.Date, t.Time, t.Timezone, t.Repeat, t.AnchorDay, t.Kind, t.Amount, t.Notes, t.Done, t.Deleted, t.Version, t.EstimatedMin, t.EstimatedMax, t.Plan, t.Routine, t.ContinuesFrom)
+	_, err := tx.Exec(ctx, `INSERT INTO tasks(id,title,date,time,timezone,repeat,anchor_day,kind,amount_minor,notes,done,deleted,version,estimated_min_minor,estimated_max_minor,plan,tags,continues_from,every,weekdays,until,income,starts_on) VALUES($1,$2,NULLIF($3,'')::date,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NULLIF($18,'')::uuid,$19,$20,NULLIF($21,'')::date,$22,NULLIF($23,'')::date) ON CONFLICT(id) DO UPDATE SET title=$2,date=NULLIF($3,'')::date,time=$4,timezone=$5,repeat=$6,anchor_day=$7,kind=$8,amount_minor=$9,notes=$10,done=$11,deleted=$12,version=$13,estimated_min_minor=$14,estimated_max_minor=$15,plan=$16,tags=$17,continues_from=NULLIF($18,'')::uuid,every=$19,weekdays=$20,until=NULLIF($21,'')::date,income=$22,starts_on=NULLIF($23,'')::date`, t.ID, t.Title, t.Date, t.Time, t.Timezone, t.Repeat, t.AnchorDay, t.Kind, t.Amount, t.Notes, t.Done, t.Deleted, t.Version, t.EstimatedMin, t.EstimatedMax, t.Plan, nonNil(t.Tags), t.ContinuesFrom, max(t.Every, 1), nonNil(t.Weekdays), t.Until, t.Income, t.StartsOn)
 	return err
 }
 func (s *Store) CompleteTask(ctx context.Context, id, completionID string, version int64) (domain.Task, error) {

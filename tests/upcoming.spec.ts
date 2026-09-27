@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { selectOption } from "./select";
+import { setMoney } from "./task-editor";
 
 test("upcoming timeline, details, inclusion and prepaid editing work on desktop and mobile", async ({
   page,
@@ -190,13 +191,14 @@ test("upcoming timeline, details, inclusion and prepaid editing work on desktop 
       .getByRole("button", { name: "Edit Wuwa future test plan" })
       .click();
     const editor = page.getByRole("dialog");
+    await editor.getByRole("button", { name: /^Plan:/ }).click();
     await expect(editor.getByLabel("Plan type")).toHaveText("Prepaid coverage");
     await editor.getByRole("button", { name: "Forecast & coverage" }).click();
     await expect(editor.getByLabel("Show reminder in Tasks")).not.toBeChecked();
     await expect(
       editor.getByLabel("Coverage ends", { exact: true }),
     ).toHaveValue(day(120));
-    await editor.getByRole("button", { name: "Cancel", exact: true }).click();
+    await editor.getByRole("button", { name: "Close", exact: true }).click();
     await page.evaluate(() => {
       document.documentElement.dataset.theme = "dark";
     });
@@ -227,10 +229,12 @@ test("upcoming timeline, details, inclusion and prepaid editing work on desktop 
     await page.keyboard.press("Escape");
     // A new prepaid plan can save with unknown timing rather than inventing today's due date.
     await page.getByRole("button", { name: "Add upcoming payment" }).click();
-    await editor.getByLabel("What’s the plan?").fill("Unknown prepaid test");
+    await editor.getByLabel("Task name").fill("Unknown prepaid test");
+    await editor.getByRole("button", { name: /^Plan:/ }).click();
     await selectOption(editor.getByLabel("Plan type"), "prepaid");
-    await expect(editor.getByLabel("Date", { exact: true })).toHaveValue("");
-    await editor.getByLabel("Expected amount · EUR").fill("4.99");
+    // Prepaid plans have no due date until one is known.
+    await expect(editor.getByRole("button", { name: /^Date:/ })).toHaveCount(0);
+    await setMoney(page, "4.99");
     await editor.getByRole("button", { name: "Save", exact: true }).click();
     await expect(editor).toHaveCount(0);
     const snapshot = await (await api.get("/api/state")).json();

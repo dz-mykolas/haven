@@ -207,8 +207,9 @@ export function PlanActions({
                     </span>
                     <span
                       className="forecast-chip-price"
-                      data-amount-tone="estimate"
+                      data-amount-tone={task.income ? "income" : "estimate"}
                     >
+                      {task.income && "+"}
                       {task.estimated_min_minor != null &&
                       task.estimated_max_minor != null
                         ? costLabel(
@@ -420,7 +421,10 @@ function PlanDetails({
           </Button>
         </div>
         <div className="forecast-detail-price">
-          <strong data-amount-tone="estimate">{price(item)}</strong>
+          <strong data-amount-tone={item.task.income ? "income" : "estimate"}>
+            {item.task.income && "+"}
+            {price(item)}
+          </strong>
           <span>
             {item.group === "expected"
               ? "Expected purchase"

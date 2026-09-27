@@ -248,8 +248,9 @@ button.text-button {
   font-size: 12px;
 }
 /* Quiet filled fields with a visible, consistent focus treatment. */
-input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
-textarea,
+/* .plain-input opts out: those inputs are styled by their component. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.plain-input),
+textarea:not(.plain-input),
 button.form-select {
   width: 100%;
   min-width: 0;
@@ -268,12 +269,25 @@ button.form-select {
     box-shadow 160ms,
     border-color 160ms;
 }
-input:not([type="hidden"]):focus,
-textarea:focus,
+input:not([type="hidden"]):not(.plain-input):focus,
+textarea:not(.plain-input):focus,
 button.form-select:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   box-shadow: none;
+}
+.plain-input {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  font-size: inherit;
 }
 button.form-select {
   display: flex;
@@ -3302,57 +3316,6 @@ button.vrow {
   }
 }
 
-/* Task editor: date, time and repeat share one row; the routine toggle and
-   the assistant's readback of the notes sit as quiet single lines. */
-.form-grid.when-row {
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr) minmax(0, 1fr);
-}
-.form-grid.when-row:not(:has(> :nth-child(3))) {
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
-}
-.routine-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  margin-top: 10px;
-  padding: 0 12px;
-  border: 1px solid var(--outline);
-  border-radius: 16px;
-  background: transparent;
-  color: var(--muted);
-  font: 500 13px var(--font-sans);
-  cursor: pointer;
-}
-.routine-toggle[aria-pressed="true"] {
-  border-color: transparent;
-  background: var(--primary-container);
-  color: var(--on-container);
-}
-.follow-up-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  margin: 8px 2px 0;
-  color: var(--primary);
-  font-size: 13px;
-  line-height: 1.4;
-}
-.follow-up-line svg {
-  flex: none;
-  margin-top: 1px;
-}
-.follow-up-line[data-failed] {
-  color: var(--error, #c0392b);
-}
-@media (max-width: 520px) {
-  .form-grid.when-row {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .form-grid.when-row > :nth-child(3) {
-    grid-column: 1 / -1;
-  }
-}
 .task-meta .task-follow-up {
   color: var(--primary);
   min-width: 0;
@@ -3390,5 +3353,533 @@ button.vrow {
     width: 100%;
     justify-content: flex-end;
     padding: 0 14px 12px;
+  }
+}
+
+/* Task editor: title and notes on top, then one quiet schedule line and a
+   tags line; whatever is open edits in one row at the bottom. */
+.task-editor .te-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 16px 4px;
+}
+.te-mark {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.te-title {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+.te-title input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: 600 20px/1.3 var(--font-sans);
+  letter-spacing: -0.01em;
+  padding: 7px 36px 7px 12px;
+  border-radius: 12px;
+  outline: none;
+  transition: box-shadow 140ms;
+}
+.te-title input::placeholder {
+  color: var(--muted);
+}
+.te-title input:focus,
+.te-notes:focus-within {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 55%, transparent);
+}
+.te-edit {
+  color: var(--muted);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 140ms;
+}
+.te-title .te-edit {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.te-title:hover .te-edit,
+.te-notes:hover .te-edit {
+  opacity: 0.9;
+}
+.te-title:focus-within .te-edit,
+.te-notes:focus-within .te-edit {
+  opacity: 0;
+}
+.task-editor .te-body {
+  border: 0;
+  margin: 0;
+  padding: 6px 16px 18px;
+  min-width: 0;
+}
+.te-notes {
+  display: grid;
+  gap: 2px;
+  padding: 9px 12px 10px;
+  border-radius: 16px;
+  background: var(--surface-container);
+  cursor: text;
+  transition: box-shadow 140ms;
+}
+.te-notes-k {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.te-notes textarea {
+  border: 0;
+  background: transparent;
+  resize: none;
+  padding: 0;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.5;
+  min-height: 3em;
+  field-sizing: content;
+}
+.te-notes textarea::placeholder {
+  color: var(--muted);
+}
+.te-note,
+.te-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 4px 0;
+  font-size: 13px;
+  color: var(--primary);
+}
+.te-note[data-failed] {
+  color: var(--error, #c0392b);
+}
+.te-suggestion {
+  flex-wrap: wrap;
+  padding: 8px 8px 8px 12px;
+  margin: 8px 0 0;
+  border-radius: 14px;
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.te-suggestion > span {
+  flex: 1;
+  min-width: 12ch;
+}
+.te-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin-top: 10px;
+}
+.te-line + .te-line {
+  margin-top: 2px;
+}
+.te-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font: 500 13px var(--font-sans);
+  cursor: pointer;
+}
+.te-item > svg {
+  color: var(--muted);
+  flex: none;
+}
+.te-item:hover {
+  background: var(--surface-container);
+}
+.te-item[aria-expanded="true"] {
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.te-item[aria-expanded="true"] > svg {
+  color: inherit;
+}
+.te-item.te-tags[aria-expanded="true"] {
+  background: var(--surface-container);
+  color: var(--text);
+}
+.te-add {
+  width: 32px;
+  justify-content: center;
+  padding: 0;
+  border: 1px dashed var(--outline);
+}
+.te-add-wrap {
+  position: relative;
+}
+.te-add-menu {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  z-index: 5;
+  display: grid;
+  min-width: 150px;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--outline), 0 16px 30px -12px #0006;
+}
+.te-add-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font: 500 13px var(--font-sans);
+  text-align: left;
+}
+.te-add-menu button:hover {
+  background: var(--surface-container);
+}
+.te-placeholder {
+  color: var(--muted);
+  font-weight: 400;
+}
+.te-row-editor {
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--surface-container);
+}
+.te-grid {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 12px 10px;
+  align-items: center;
+}
+.te-k {
+  font-size: 12px;
+  color: var(--muted);
+}
+.te-v {
+  min-width: 0;
+}
+.te-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+.te-seg > button,
+.te-pick-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 12.5px var(--font-sans);
+  white-space: nowrap;
+}
+.te-seg > button:hover,
+.te-pick:hover .te-pick-face {
+  color: var(--text);
+}
+.te-seg > button[aria-pressed="true"],
+.te-pick[data-pressed] .te-pick-face {
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.te-pick {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9px;
+}
+.te-pick input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+.te-pick:focus-within {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.te-every {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.te-num {
+  width: 52px;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: center;
+  font: 600 13px var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  appearance: textfield;
+}
+.te-num::-webkit-inner-spin-button,
+.te-num::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.te-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.te-days button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  font: 600 12.5px var(--font-sans);
+}
+.te-days button[aria-pressed="true"] {
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.te-money {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.te-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--muted);
+}
+.te-amount input {
+  width: 11ch;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  font: 500 13px var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+.te-tags-editor {
+  display: grid;
+  gap: 8px;
+}
+.te-tag-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 0 2px;
+}
+.te-tag-field input {
+  flex: 1;
+  min-width: 80px;
+  border: 0;
+  background: transparent;
+  outline: none;
+  padding: 5px 4px;
+  color: var(--text);
+  font: 13px var(--font-sans);
+}
+.te-tag-list {
+  display: grid;
+  gap: 1px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.te-tag-list:empty {
+  display: none;
+}
+.te-tag-section {
+  padding: 6px 8px 3px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.te-tag-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+.te-tag-option:hover,
+.te-tag-option[aria-selected="true"] {
+  background: var(--surface);
+}
+.te-tag-lead {
+  font-size: 13px;
+  color: var(--muted);
+}
+.te-tag-note {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.te-tag-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.te-tag-option kbd {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--surface-container);
+  color: var(--muted);
+  font: 500 11px var(--font-sans);
+}
+@media (hover: none) {
+  .te-tag-option kbd {
+    display: none;
+  }
+}
+.task-editor .payment-plan-fields {
+  display: grid;
+  gap: 10px;
+}
+
+/* Task tag chip: one look everywhere. Outline only; the filled tint stays
+   reserved for selection. */
+.task-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font: 500 12px var(--font-sans);
+  color: var(--muted);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 14%, transparent);
+  white-space: nowrap;
+  flex: none;
+}
+.task-tag-hash {
+  opacity: 0.7;
+  margin-right: -2px;
+}
+.task-tag[data-special] {
+  color: var(--primary);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 38%, transparent);
+}
+.task-tag[data-locked] svg {
+  opacity: 0.8;
+}
+.task-tag[data-dashed] {
+  box-shadow: none;
+  border: 1px dashed color-mix(in srgb, var(--text) 30%, transparent);
+}
+.task-tag-remove {
+  display: grid;
+  place-items: center;
+  margin-right: -5px;
+  padding: 2px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+}
+.task-tag-remove:hover {
+  opacity: 1;
+}
+.task-tag-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Tags on task rows: compact until the row is hovered or focused. */
+.row-tags {
+  display: inline-flex;
+  align-items: center;
+}
+.row-tags-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.row-tag-icon {
+  color: var(--primary);
+}
+.row-tags-full {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+@media (hover: hover) {
+  .agenda-task:is(:hover, :focus-within) .row-tags-compact {
+    display: none;
+  }
+  .agenda-task:is(:hover, :focus-within) .row-tags-full {
+    display: inline-flex;
+  }
+}
+.row-tags-full .task-tag {
+  height: 20px;
+  padding: 0 6px;
+  font-size: 11px;
+}
+.overview-income {
+  margin-left: 8px;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 520px) {
+  /* Narrow: each label sits above its control so options stay on one line. */
+  .te-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .te-grid .te-v + .te-k {
+    margin-top: 8px;
+  }
+  .te-seg > button,
+  .te-pick-face {
+    padding: 6px 8px;
+  }
+  .task-editor .te-top {
+    padding: 14px 12px 4px;
+  }
+  .task-editor .te-body {
+    padding: 6px 12px 16px;
   }
 }

@@ -141,9 +141,10 @@ func TestRecurringPaymentDraftValidation(t *testing.T) {
 		t.Fatal("model can edit unrelated task")
 	}
 	payment.ID = ""
+	// Income gets an income plan, never an outgoing one.
 	entry.Kind = "income"
-	if _, err = parse(); err == nil {
-		t.Fatal("scheduled an outgoing payment for income")
+	if incomeReply, err := parse(); err != nil || !incomeReply.Entries[0].Payment.Income {
+		t.Fatalf("income should get an income plan: %+v %v", incomeReply, err)
 	}
 	entry.Kind = "expense"
 	payment.Repeat = "none"

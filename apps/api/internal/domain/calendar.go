@@ -38,36 +38,14 @@ func Calendar(tasks []Task, completions []Completion, month string) TaskCalendar
 		}
 		byID[task.ID] = task
 		cursor := task
-		date, _ := time.Parse("2006-01-02", cursor.Date)
-		if !task.Done && date.Before(from) {
-			switch task.Repeat {
-			case "daily", "weekly":
-				step := 1
-				if task.Repeat == "weekly" {
-					step = 7
-				}
-				days := int((from.Unix() - date.Unix()) / 86400)
-				date = date.AddDate(0, 0, ((days+step-1)/step)*step)
-				cursor.Date = date.Format("2006-01-02")
-			case "monthly", "yearly":
-				// Jump directly to the visible month, retaining the original month-day.
-				anchor := task.AnchorDay
-				if anchor == 0 {
-					anchor = date.Day()
-				}
-				cursor.AnchorDay = anchor
-				first := time.Date(from.Year(), from.Month(), 1, 0, 0, 0, 0, time.UTC)
-				if task.Repeat == "yearly" {
-					first = time.Date(from.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
-				}
-				date = first.AddDate(0, 0, min(anchor, first.AddDate(0, 1, -1).Day())-1)
-				cursor.Date = date.Format("2006-01-02")
-				if date.Before(from) {
-					if next, err := Complete(cursor); err == nil {
-						cursor = next
-					}
-				}
+		// Step to the visible range with the same rules completion uses, so
+		// intervals, weekdays and end dates all project correctly.
+		for i := 0; !task.Done && cursor.Repeat != "none" && cursor.Date < result.From && i < 100000; i++ {
+			next, err := Complete(cursor)
+			if err != nil || next.Date == cursor.Date {
+				break
 			}
+			cursor = next
 		}
 		for cursor.Date <= result.To {
 			if cursor.Date >= result.From {
@@ -77,7 +55,7 @@ func Calendar(tasks []Task, completions []Completion, month string) TaskCalendar
 				break
 			}
 			next, err := Complete(cursor)
-			if err != nil {
+			if err != nil || next.Done {
 				break
 			}
 			cursor = next

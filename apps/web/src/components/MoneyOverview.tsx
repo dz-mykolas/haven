@@ -199,6 +199,27 @@ export default function MoneyOverview({
                     <span className="sr-only"> without a price yet</span>
                   </span>
                 )}
+                {upcoming.income && upcoming.income.maximum_minor !== "0" && (
+                  <span
+                    className="overview-income"
+                    data-testid="upcoming-income"
+                    data-amount-tone="income"
+                    title="Expected income · next 30 days"
+                  >
+                    +
+                    <MoneyText
+                      text={
+                        open
+                          ? costLabel(
+                              upcoming.income.minimum_minor,
+                              upcoming.income.maximum_minor,
+                            )
+                          : money(upcoming.income.maximum_minor)
+                      }
+                    />
+                    <span className="sr-only"> expected income</span>
+                  </span>
+                )}
               </dd>
             </dl>
           )}

@@ -1733,6 +1733,104 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/tasks/followups/{id}/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Apply a suggested change. Fails with 409 when the task changed since; the assistant then looks again. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Error */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tasks/followups/{id}/dismiss": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Drop a suggested change; the assistant looks again a day later. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Error */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1804,11 +1902,21 @@ export interface components {
             /** @description Optional upper bound in EUR cents, at least the lower bound. */
             estimated_max_minor?: string | null;
             plan?: components["schemas"]["PaymentPlan"];
-            /** @description Missed occurrences lapse instead of staying overdue. Requires a repeat schedule. */
-            routine?: boolean;
             /** @description The task this one continues, when the follow-up assistant replaced it. */
             readonly continues_from?: string;
             follow_up?: components["schemas"]["FollowUp"];
+            /** @description Task tags. Built-in tags start with "@"; "@skip-missed" lets missed days lapse (tasks only). */
+            tags?: string[];
+            /** @description Repeat every N days, weeks, months or years. */
+            every?: number;
+            /** @description Weekly repeats on these days (1 = Monday … 7 = Sunday). */
+            weekdays?: number[];
+            /** @description A repeating task ends after this date. Empty for no end. */
+            until?: string;
+            /** @description The amount is money coming in rather than a cost. */
+            income?: boolean;
+            /** @description When the current schedule began. */
+            readonly starts_on?: string;
         };
         CompleteRequest: {
             id: string;
@@ -2044,6 +2152,7 @@ export interface components {
             items: components["schemas"]["UpcomingCost"][];
             scheduled: components["schemas"]["CostSubtotal"];
             expected: components["schemas"]["CostSubtotal"];
+            income: components["schemas"]["CostSubtotal"];
         };
         ReviewItem: {
             /** Format: uuid */
@@ -2108,6 +2217,11 @@ export interface components {
             /** @enum {string} */
             status: "reading" | "ready" | "checking" | "waiting" | "failed";
             error?: string;
+            /** @description A change waiting for approval. */
+            proposal?: {
+                event_id: string;
+                message: string;
+            };
         };
         FollowUpEvent: {
             id: string;
@@ -2120,7 +2234,7 @@ export interface components {
             answer: string;
             created_task?: string;
             /** @enum {string} */
-            status: "new" | "seen" | "undone" | "answered";
+            status: "new" | "seen" | "undone" | "answered" | "pending" | "dismissed";
             can_undo: boolean;
             /** Format: date-time */
             created_at: string;

@@ -31,10 +31,13 @@ Saved costs appear in Money's upcoming projection. They do not create expenses, 
 A supplied task with version=0 is an unsaved draft. Reuse its ID when refining it; use an empty ID only for a new task. Preserve all unrelated fields, including existing estimates, date, time, recurrence and notes. Use only supplied IDs for edits.
 Editing a repeating task changes its series; mention that briefly when relevant. Do not manufacture separate duplicate reminders for future occurrences.
 
-## Routines and plans over time
+## Repeats, missed days and plans over time
 
-A routine (routine=true) is a repeating habit where a missed day simply passes, such as stretches, medication or language practice. Missed days lapse rather than piling up as overdue. Chores and bills that still need doing when late are not routines.
-When the user describes a plan that changes over time ("stretches daily for two weeks, then weekly"), draft one task for the current step and write the rest of the plan in its notes, in the user's words. The follow-up skill reads task notes and handles the change when the time comes, so do not draft later steps as separate tasks.
+- Use every for intervals ("every 10 days": repeat=daily, every=10) and weekdays for weekly repeats on chosen days ("Mondays and Thursdays": repeat=weekly, weekdays=[1,4]). Each chosen day is its own occurrence.
+- Use until when the user gives an end ("for two months", "until the end of March"); resolve it to a date from the start date.
+- Add the built-in tag "@skip-missed" to a repeating task that is a habit where a missed day simply passes, such as stretches, medication or language practice. Chores and bills that still need doing when late do not get it. Repeating appointments always skip missed days, and payments never do, so do not tag those.
+- Set income=true when the amount is money coming in: selling something, a refund, salary or rent received.
+- When the user describes a plan that changes over time ("stretches daily for two weeks, then weekly"), draft one task for the current step, set until for when it ends, and write the rest of the plan in its notes in the user's words. The follow-up skill handles the change when the time comes, so do not draft later steps as separate tasks.
 
 ## Examples
 

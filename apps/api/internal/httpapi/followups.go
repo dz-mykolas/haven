@@ -34,3 +34,9 @@ func undoFollowUp(s Server, r *http.Request, _ string) error {
 func answerFollowUp(s Server, r *http.Request, answer string) error {
 	return s.Store.AnswerFollowUp(r.Context(), r.PathValue("id"), answer)
 }
+func acceptFollowUp(s Server, r *http.Request, _ string) error {
+	return s.Store.AcceptFollowUp(r.Context(), r.PathValue("id"))
+}
+func dismissFollowUp(s Server, r *http.Request, _ string) error {
+	return s.Store.DismissFollowUp(r.Context(), r.PathValue("id"))
+}

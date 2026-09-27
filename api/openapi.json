@@ -1540,6 +1540,88 @@
           }
         }
       }
+    },
+    "/api/tasks/followups/{id}/accept": {
+      "post": {
+        "description": "Apply a suggested change. Fails with 409 when the task changed since; the assistant then looks again.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/followups/{id}/dismiss": {
+      "post": {
+        "description": "Drop a suggested change; the assistant looks again a day later.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1741,10 +1823,6 @@
           "plan": {
             "$ref": "#/components/schemas/PaymentPlan"
           },
-          "routine": {
-            "type": "boolean",
-            "description": "Missed occurrences lapse instead of staying overdue. Requires a repeat schedule."
-          },
           "continues_from": {
             "type": "string",
             "readOnly": true,
@@ -1752,6 +1830,41 @@
           },
           "follow_up": {
             "$ref": "#/components/schemas/FollowUp"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Task tags. Built-in tags start with \"@\"; \"@skip-missed\" lets missed days lapse (tasks only)."
+          },
+          "every": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365,
+            "description": "Repeat every N days, weeks, months or years."
+          },
+          "weekdays": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            "description": "Weekly repeats on these days (1 = Monday \u2026 7 = Sunday)."
+          },
+          "until": {
+            "type": "string",
+            "description": "A repeating task ends after this date. Empty for no end."
+          },
+          "income": {
+            "type": "boolean",
+            "description": "The amount is money coming in rather than a cost."
+          },
+          "starts_on": {
+            "type": "string",
+            "readOnly": true,
+            "description": "When the current schedule began."
           }
         }
       },
@@ -2582,7 +2695,8 @@
           "unknown_count",
           "items",
           "scheduled",
-          "expected"
+          "expected",
+          "income"
         ],
         "properties": {
           "from": {
@@ -2612,6 +2726,9 @@
             "$ref": "#/components/schemas/CostSubtotal"
           },
           "expected": {
+            "$ref": "#/components/schemas/CostSubtotal"
+          },
+          "income": {
             "$ref": "#/components/schemas/CostSubtotal"
           }
         }
@@ -2844,6 +2961,20 @@
           },
           "error": {
             "type": "string"
+          },
+          "proposal": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["event_id", "message"],
+            "description": "A change waiting for approval.",
+            "properties": {
+              "event_id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -2890,7 +3021,14 @@
           },
           "status": {
             "type": "string",
-            "enum": ["new", "seen", "undone", "answered"]
+            "enum": [
+              "new",
+              "seen",
+              "undone",
+              "answered",
+              "pending",
+              "dismissed"
+            ]
           },
           "can_undo": {
             "type": "boolean"

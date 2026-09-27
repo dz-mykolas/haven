@@ -57,7 +57,12 @@ type TaskDraft struct {
 	Kind         string              `json:"kind"`
 	Amount       string              `json:"amount_minor"`
 	Notes        string              `json:"notes"`
-	Routine      *bool               `json:"routine,omitempty"`
+	// Optional; an omitted field keeps the task's current value.
+	Tags     *[]string `json:"tags,omitempty"`
+	Every    *int      `json:"every,omitempty"`
+	Weekdays *[]int    `json:"weekdays,omitempty"`
+	Until    *string   `json:"until,omitempty"`
+	Income   *bool     `json:"income,omitempty"`
 }
 type AnnotationDraft struct {
 	Question     string     `json:"question,omitempty"`
@@ -172,7 +177,7 @@ func ParseReply(raw string, settings Settings, timezone string, tasks []domain.T
 				}
 			}
 			if draft.Payment != nil {
-				if entry.Kind != "expense" || draft.Payment.Kind != "payment" || (draft.Payment.Repeat == "none" && (draft.Payment.Plan == nil || draft.Payment.Plan.Kind == "scheduled")) {
+				if entry.Kind == "transfer" || draft.Payment.Kind != "payment" || (draft.Payment.Repeat == "none" && (draft.Payment.Plan == nil || draft.Payment.Plan.Kind == "scheduled")) {
 					return ChatReply{}, invalid
 				}
 				known := []domain.Task{}
@@ -197,6 +202,12 @@ func ParseReply(raw string, settings Settings, timezone string, tasks []domain.T
 				if entry.Payment != nil {
 					// Unsolicited reviews reuse the accepted schedule unchanged.
 					payment = *entry.Payment
+				}
+				// A new plan takes the transaction's direction; an existing one must match it.
+				if payment.Version == 0 {
+					payment.Income = entry.Kind == "income"
+				} else if payment.Income != (entry.Kind == "income") {
+					return ChatReply{}, invalid
 				}
 				entry.Payment = &payment
 			}
@@ -259,8 +270,20 @@ func parseTaskDraft(draft *TaskDraft, timezone string, tasks []domain.Task) (dom
 	task.Repeat = draft.Repeat
 	task.Kind = draft.Kind
 	task.Notes = draft.Notes
-	if draft.Routine != nil {
-		task.Routine = *draft.Routine
+	if draft.Tags != nil {
+		task.Tags = *draft.Tags
+	}
+	if draft.Every != nil {
+		task.Every = *draft.Every
+	}
+	if draft.Weekdays != nil {
+		task.Weekdays = *draft.Weekdays
+	}
+	if draft.Until != nil {
+		task.Until = *draft.Until
+	}
+	if draft.Income != nil {
+		task.Income = *draft.Income
 	}
 	// JSON's string-encoded cents must remain exact; no floating point coercion.
 	if draft.Amount == "" {
@@ -305,6 +328,7 @@ func parseTaskDraft(draft *TaskDraft, timezone string, tasks []domain.Task) (dom
 		}
 		task.Notes = strings.TrimSpace(strings.Join(notes, "\n"))
 	}
+	task = task.Normalize()
 	if task.Validate() != nil {
 		return domain.Task{}, invalid
 	}

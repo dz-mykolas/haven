@@ -1,4 +1,5 @@
 import { selectOption } from "./select";
+import { setDate, setMoney, setRepeat, setType } from "./task-editor";
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -180,19 +181,12 @@ test("Tasks use device timezone and preserve monthly anchors without changing Mo
 }) => {
   await page.goto("/#tasks");
   await page.getByRole("button", { name: "New task", exact: true }).click();
-  await page.getByLabel("What’s the plan?").fill("Rent");
-  await page.getByRole("button", { name: "payment", exact: true }).click();
-  await page.getByLabel("Date", { exact: true }).fill("2027-01-31");
-  await page.getByLabel("Time", { exact: true }).fill("09:00");
-  await selectOption(
-    page.getByRole("combobox", { name: "Repeat", exact: true }),
-    "monthly",
-  );
-  await page.getByLabel("Expected amount").fill("500");
+  await page.getByLabel("Task name").fill("Rent");
+  await setType(page, "Payment");
+  await setDate(page, "2027-01-31", "09:00");
+  await setRepeat(page, "Monthly");
+  await setMoney(page, "500");
   // The device timezone is saved without a field; another one would be noted.
-  await expect(page.locator('input[name="timezone"]')).toHaveValue(
-    "Europe/Vilnius",
-  );
   await expect(page.getByText(/^Times use/)).toHaveCount(0);
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await page
@@ -208,8 +202,8 @@ test("Tasks use device timezone and preserve monthly anchors without changing Mo
     page.getByRole("button", { name: "Edit Rent", exact: true }),
   ).toContainText("31 Mar 2027");
   await page.getByRole("button", { name: "New task", exact: true }).click();
-  await page.getByLabel("What’s the plan?").fill("Barber");
-  await page.getByRole("button", { name: "appointment", exact: true }).click();
+  await page.getByLabel("Task name").fill("Barber");
+  await setType(page, "Appointment");
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await page
     .getByRole("button", { name: "Complete Barber", exact: true })

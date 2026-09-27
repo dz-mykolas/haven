@@ -82,7 +82,7 @@ test("assistant modes, skill toggles, clickable draft previews and persistence",
   await preferences.getByRole("radio", { name: /Suggest too/ }).check();
   await expect(
     preferences.getByText(
-      "Existing and new transactions · reviewed in your inbox",
+      "Existing and new transactions · schedules go to Inbox",
     ),
   ).toBeVisible();
   for (const [width, height, theme] of [

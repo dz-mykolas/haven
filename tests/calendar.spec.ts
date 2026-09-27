@@ -1,3 +1,4 @@
+import { setTime, setType } from "./task-editor";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -72,12 +73,13 @@ test("calendar navigation, recurring previews, completion history and selected-d
   await page
     .getByRole("button", { name: "Add task on selected day", exact: true })
     .click();
-  await expect(page.getByLabel("Date", { exact: true })).toHaveValue(
+  await page.getByRole("button", { name: /^Date:/ }).click();
+  await expect(page.getByLabel("Pick a date", { exact: true })).toHaveValue(
     "2028-03-01",
   );
-  await page.getByLabel("What’s the plan?").fill("Calendar haircut");
-  await page.getByRole("button", { name: "appointment", exact: true }).click();
-  await page.getByLabel("Time", { exact: true }).fill("16:30");
+  await page.getByLabel("Task name").fill("Calendar haircut");
+  await setType(page, "Appointment");
+  await setTime(page, "16:30");
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await expect(agenda).toContainText("Calendar haircut");
   await expect(agenda).toContainText("16:30");

@@ -50,13 +50,13 @@ const modes: {
   {
     id: "on_request",
     title: "When I ask",
-    description: "Help in chat when you request it.",
+    description: "Help in chat when you ask. Changes from task notes wait for your approval.",
     icon: MessageCircle,
   },
   {
     id: "proactive",
     title: "Suggest too",
-    description: "Categorize transactions and suggest recurring schedules.",
+    description: "Also categorize transactions, suggest schedules and apply changes from task notes, with undo.",
     icon: Sparkles,
   },
 ];

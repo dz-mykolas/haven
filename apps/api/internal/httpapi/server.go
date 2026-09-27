@@ -102,6 +102,8 @@ func New(s *store.Store, origins []string, clients ...*banking.Client) http.Hand
 	mux.HandleFunc("POST /api/tasks/followups/{id}/seen", api.followUpAction(seeFollowUp))
 	mux.HandleFunc("POST /api/tasks/followups/{id}/undo", api.followUpAction(undoFollowUp))
 	mux.HandleFunc("POST /api/tasks/followups/{id}/answer", api.followUpAction(answerFollowUp))
+	mux.HandleFunc("POST /api/tasks/followups/{id}/accept", api.followUpAction(acceptFollowUp))
+	mux.HandleFunc("POST /api/tasks/followups/{id}/dismiss", api.followUpAction(dismissFollowUp))
 	mux.HandleFunc("GET /api/export", api.export)
 	mux.HandleFunc("GET /api/banking", api.bankStatus)
 	mux.HandleFunc("GET /api/banking/banks", api.banks)

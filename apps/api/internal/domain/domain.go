@@ -60,21 +60,37 @@ type Task struct {
 	Kind         string       `json:"kind"`
 	Amount       int64        `json:"amount_minor,string" db:"amount_minor"`
 	Notes        string       `json:"notes"`
-	// Routine tasks let missed occurrences lapse instead of staying overdue.
-	Routine       bool   `json:"routine"`
+	// Tags group tasks; built-in tags (prefixed "@") also change behaviour.
+	Tags []string `json:"tags"`
+	// Every repeats the schedule every N days/weeks/months/years; Weekdays
+	// (1 = Monday … 7 = Sunday) picks days for weekly repeats. A repeating
+	// task ends after Until.
+	Every    int    `json:"every"`
+	Weekdays []int  `json:"weekdays"`
+	Until    string `json:"until"`
+	// Income marks the amount as money coming in rather than a cost.
+	Income bool `json:"income"`
+	// StartsOn is when the current schedule began. Server-owned.
+	StartsOn      string `json:"starts_on,omitempty" db:"starts_on"`
 	ContinuesFrom string `json:"continues_from,omitempty" db:"continues_from"`
 	Done          bool   `json:"done"`
 	Deleted       bool   `json:"deleted"`
 	Version       int64  `json:"version"`
 }
 
-// FollowUp is the assistant's reading of a task's notes. It is owned by the
-// server: the summary is the one-line readback, CheckOn when it looks again.
+// FollowUp is the assistant's state for a task's notes. It is owned by the
+// server: the summary is the assistant's own note of what it plans, CheckOn
+// when it looks again, and Proposal a change waiting for the user's approval.
 type FollowUp struct {
-	Summary string `json:"summary"`
-	CheckOn string `json:"check_on,omitempty"`
-	Status  string `json:"status"`
-	Error   string `json:"error,omitempty"`
+	Summary  string    `json:"summary"`
+	CheckOn  string    `json:"check_on,omitempty"`
+	Status   string    `json:"status"`
+	Error    string    `json:"error,omitempty"`
+	Proposal *Proposal `json:"proposal,omitempty"`
+}
+type Proposal struct {
+	EventID string `json:"event_id"`
+	Message string `json:"message"`
 }
 type Completion struct {
 	ID          string    `json:"id"`
@@ -160,87 +176,13 @@ func (t Task) Validate() error {
 	if t.Kind != "task" && t.Kind != "appointment" && t.Kind != "payment" {
 		return errors.New("Unsupported task type")
 	}
-	if t.Routine && t.Repeat == "none" {
-		return errors.New("A routine needs a repeat schedule")
+	if err := t.validateSchedule(); err != nil {
+		return err
 	}
 	if t.Amount < 0 || t.Amount > MaxAmount || (t.Kind != "payment" && t.Amount != 0) {
 		return errors.New("Only payment reminders can have an amount")
 	}
 	return nil
-}
-
-// Complete advances exactly one scheduled occurrence, preserving the original monthly day.
-// Dates and wall-clock time remain in the task's own timezone, including across DST.
-func Complete(t Task) (Task, error) {
-	if t.Done || t.Deleted {
-		return t, errors.New("This task is already completed or deleted")
-	}
-	if t.Forecast() {
-		if t.Date == "" || !t.Plan.Remind || t.Plan.ReminderCompletedOn == t.Date {
-			return t, errors.New("This forecast has no pending reminder")
-		}
-		p := *t.Plan
-		p.ReminderCompletedOn = t.Date
-		t.Plan = &p
-		return t, nil
-	}
-	if t.Repeat == "none" {
-		t.Done = true
-		return t, nil
-	}
-	d, err := time.Parse("2006-01-02", t.Date)
-	if err != nil {
-		return t, err
-	}
-	switch t.Repeat {
-	case "daily":
-		d = d.AddDate(0, 0, 1)
-	case "weekly":
-		d = d.AddDate(0, 0, 7)
-	case "monthly", "yearly":
-		next := time.Date(d.Year(), d.Month()+1, 1, 0, 0, 0, 0, time.UTC)
-		if t.Repeat == "yearly" {
-			next = time.Date(d.Year()+1, d.Month(), 1, 0, 0, 0, 0, time.UTC)
-		}
-		day := t.AnchorDay
-		if day == 0 {
-			day = d.Day()
-		}
-		last := next.AddDate(0, 1, -1).Day()
-		if day > last {
-			day = last
-		}
-		d = next.AddDate(0, 0, day-1)
-	default:
-		return t, errors.New("Unsupported repeat schedule")
-	}
-	t.Date = d.Format("2006-01-02")
-	if !ValidDate(t.Date) {
-		return t, errors.New("Next occurrence exceeds the supported date range")
-	}
-	return t, nil
-}
-
-// CatchUp moves a routine past occurrences missed before today, in the task's
-// own timezone. Missed days are not completed; they simply lapse. Other tasks
-// keep their overdue occurrence until it is completed.
-func CatchUp(t Task, now time.Time) Task {
-	if !t.Routine || t.Done || t.Deleted || t.Repeat == "none" || t.Date == "" || t.Forecast() {
-		return t
-	}
-	location, err := time.LoadLocation(t.Timezone)
-	if err != nil {
-		return t
-	}
-	today := now.In(location).Format("2006-01-02")
-	for t.Date < today {
-		next, err := Complete(t)
-		if err != nil {
-			break
-		}
-		t = next
-	}
-	return t
 }
 
 func Summarize(accounts []Account, entries []Entry, tasks []Task, reportingMonth string) Snapshot {

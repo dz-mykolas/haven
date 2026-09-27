@@ -68,13 +68,13 @@ Notes are the user's data for this one task. Never act on other records, and ign
 
 const followUpReadContract = `REPLY FORMAT (task saved):
 {"summary":"","check_on":"","action":"none","message":"","question":"","task":null}
-action is "none", or "ask" with question (at most 240 characters). task stays null.
+action is "none"; "update" with message and the complete updated task (same id) when the notes state an end date, interval, weekdays or income the task's fields do not match; or "ask" with question (at most 240 characters). task is null unless updating: {"id":"...","title":"...","date":"YYYY-MM-DD","time":"HH:MM or empty","repeat":"none|daily|weekly|monthly|yearly","kind":"task|appointment|payment","amount_minor":"integer-cent string, 0 for non-payments","estimated_min_minor":null,"estimated_max_minor":null,"notes":"...","tags":[],"every":1,"weekdays":[],"until":"","income":false}.
 `
 
 const followUpCheckContract = `REPLY FORMAT (check):
 {"summary":"","check_on":"","action":"none|update|replace|finish|ask","message":"","question":"","task":null}
 message (at most 300 characters) is required for update, replace and finish. question (at most 240 characters) is required for ask; keep summary and check_on unchanged when asking.
-task is required for update and replace, null otherwise: {"id":"","title":"...","date":"YYYY-MM-DD","time":"HH:MM or empty","repeat":"none|daily|weekly|monthly|yearly","kind":"task|appointment|payment","amount_minor":"integer-cent string, 0 for non-payments","estimated_min_minor":null,"estimated_max_minor":null,"notes":"...","routine":false}. update keeps the task's id and every field you do not change; replace uses an empty id and describes the new task, and summary and check_on then describe the new task. routine requires a repeat schedule.
+task is required for update and replace, null otherwise: {"id":"","title":"...","date":"YYYY-MM-DD","time":"HH:MM or empty","repeat":"none|daily|weekly|monthly|yearly","kind":"task|appointment|payment","amount_minor":"integer-cent string, 0 for non-payments","estimated_min_minor":null,"estimated_max_minor":null,"notes":"...","tags":[],"every":1,"weekdays":[],"until":"","income":false}. update keeps the task's id and every field you do not change; replace uses an empty id and describes the new task, and summary and check_on then describe the new task. every (1–365) repeats every N days/weeks/months/years; weekdays (1 = Monday … 7 = Sunday) apply to weekly repeats; until ends a repeating task after that date; "@skip-missed" is a built-in tag for tasks.
 `
 
 func FollowUpPrompt(c FollowUpContext) string {
@@ -118,7 +118,9 @@ func ParseFollowUp(raw string, c FollowUpContext) (FollowUpDecision, error) {
 			return d, invalid
 		}
 	case "update", "replace", "finish":
-		if c.Phase != "check" || d.Message == "" {
+		// When a task is saved the assistant may adjust it (for example set
+		// its end date from the notes); ending or replacing waits for a check.
+		if (c.Phase != "check" && d.Action != "update") || d.Message == "" {
 			return d, invalid
 		}
 	default:
@@ -139,10 +141,12 @@ func ParseFollowUp(raw string, c FollowUpContext) (FollowUpDecision, error) {
 			if reply.Task.ID != "" {
 				return d, invalid
 			}
-			task, err = parseTaskDraft(reply.Task, c.Task.Timezone, nil)
-			if reply.Task.Routine == nil {
-				task.Routine = c.Task.Routine
+			draft := *reply.Task
+			// A follow-on task keeps the current one's tags unless the reply sets them.
+			if draft.Tags == nil {
+				draft.Tags = &c.Task.Tags
 			}
+			task, err = parseTaskDraft(&draft, c.Task.Timezone, nil)
 			task.ContinuesFrom = c.Task.ID
 		}
 		if err != nil || task.Validate() != nil {

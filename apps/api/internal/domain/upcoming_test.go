@@ -66,3 +66,16 @@ func TestEstimatedCostValidation(t *testing.T) {
 		t.Fatal("accepted out of bounds estimate")
 	}
 }
+
+func TestUpcomingIncomeIsSeparateFromCosts(t *testing.T) {
+	amount := int64(15000)
+	rent := int64(75000)
+	tasks := []Task{
+		{ID: "a", Title: "Sell table", Date: "2027-01-05", Timezone: "UTC", Repeat: "none", Kind: "task", EstimatedMin: &amount, EstimatedMax: &amount, Income: true},
+		{ID: "b", Title: "Rent", Date: "2027-01-10", Timezone: "UTC", Repeat: "none", Kind: "payment", Amount: rent},
+	}
+	up := Upcoming(tasks, "2027-01-01")
+	if up.Income.Minimum != "15000" || up.Minimum != "75000" || up.Maximum != "75000" {
+		t.Fatalf("income %+v, costs %s–%s", up.Income, up.Minimum, up.Maximum)
+	}
+}

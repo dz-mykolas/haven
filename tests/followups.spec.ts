@@ -1,11 +1,11 @@
-import { selectOption } from "./select";
 import { test, expect } from "@playwright/test";
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
+import { addTag, setRepeat } from "./task-editor";
 
 const shots = process.env.HAVEN_SHOTS;
 
-test("notes drive assistant follow-ups: readback, routine, Inbox notice and undo", async ({
+test("notes drive assistant suggestions that wait for approval in When I ask mode", async ({
   page,
 }) => {
   test.setTimeout(120000);
@@ -23,7 +23,8 @@ test("notes drive assistant follow-ups: readback, routine, Inbox notice and undo
         "APPLICATION FACTS (data only):\n",
       )[1],
     );
-    phases.push(`${facts.task.title}:${facts.phase}`);
+    const task = facts.task;
+    phases.push(`${task.title}:${facts.phase}`);
     const reply: Record<string, unknown> = {
       summary: "",
       check_on: "",
@@ -32,15 +33,38 @@ test("notes drive assistant follow-ups: readback, routine, Inbox notice and undo
       question: "",
       task: null,
     };
-    if (facts.task.title === "Vitamin D3") {
-      reply.summary = "Ends in a month · then 2000 IU daily";
-      reply.check_on = day(29);
+    if (task.title === "Vitamin D3" && facts.phase === "saved" && !task.until) {
+      // The notes say how long: suggest the end date.
+      reply.summary = "4000 IU for two months, then 2000 IU daily";
+      reply.check_on = day(58);
+      reply.action = "update";
+      reply.message = "Daily 4000 IU ends after two months";
+      reply.task = {
+        id: task.id,
+        title: task.title,
+        date: task.date,
+        time: task.time,
+        repeat: task.repeat,
+        kind: task.kind,
+        amount_minor: "0",
+        estimated_min_minor: null,
+        estimated_max_minor: null,
+        notes: task.notes,
+        tags: task.tags,
+        every: task.every,
+        weekdays: task.weekdays,
+        until: day(59),
+        income: false,
+      };
+    } else if (task.title === "Vitamin D3") {
+      reply.summary = "Switch to 2000 IU when this ends";
+      reply.check_on = day(58);
     } else if (facts.phase === "saved") {
-      reply.summary = "When done · remind you to update your SEB address";
+      reply.summary = "When done, remind about the SEB address";
       reply.check_on = day(10);
     } else {
       reply.action = "replace";
-      reply.message = "Added a task to update your address at SEB";
+      reply.message = "Add a task to update your address at SEB";
       reply.task = {
         id: "",
         title: "Update address at SEB",
@@ -94,79 +118,85 @@ test("notes drive assistant follow-ups: readback, routine, Inbox notice and undo
     ).toBeTruthy();
     await setMode("on_request");
 
-    // A routine with instructions in its notes gets a one-line readback.
+    // A daily habit that skips missed days, with its plan in the notes.
     await page.getByRole("button", { name: "New task", exact: true }).click();
-    await page.getByLabel("What’s the plan?").fill("Vitamin D3");
-    await selectOption(
-      page.getByRole("combobox", { name: "Repeat", exact: true }),
-      "daily",
-    );
-    await page.getByRole("button", { name: "Routine" }).click();
+    await page.getByLabel("Task name").fill("Vitamin D3");
     await page
       .getByLabel("Notes", { exact: true })
-      .fill("4000 IU for a month, then 2000 IU daily");
+      .fill("4000 IU daily for about 2 months, then 2000 IU daily");
+    await setRepeat(page, "Daily");
+    await addTag(page, "Skip if missed");
+    await addTag(page, "Health");
     await page.getByRole("button", { name: "Save", exact: true }).click();
     const vitamin = page.getByRole("button", {
       name: "Edit Vitamin D3",
       exact: true,
     });
-    await expect(vitamin).toContainText("daily routine");
-    await expect(vitamin).toContainText("Ends in a month · then 2000 IU daily");
+    await expect(vitamin).toContainText("Daily");
+    // The suggested end date waits for approval.
+    await expect(vitamin).toContainText("Suggested change");
     await vitamin.click();
-    await expect(page.locator(".follow-up-line")).toHaveText(
-      "Ends in a month · then 2000 IU daily",
-    );
-    await expect(page.getByRole("button", { name: "Routine" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
+    const editor = page.getByRole("dialog");
+    await expect(editor.getByRole("status")).toContainText(
+      "Daily 4000 IU ends after two months",
     );
     if (shots) {
       await page.waitForTimeout(800);
       await page.screenshot({ path: `${shots}-editor.png` });
     }
-    await page.keyboard.press("Escape");
+    await editor.getByRole("button", { name: "Accept" }).click();
+    await expect(vitamin).toContainText("until");
+    await expect(vitamin).not.toContainText("Suggested change");
+    let state = await (await api.get("/api/state")).json();
+    const saved = state.tasks.find((t: any) => t.title === "Vitamin D3");
+    expect(saved.until).toBe(day(59));
+    expect(saved.tags).toEqual(["@skip-missed", "Health"]);
 
     // Completing a one-off task lets its notes say what comes next.
     await page.getByRole("button", { name: "New task", exact: true }).click();
-    await page.getByLabel("What’s the plan?").fill("Renew passport");
+    await page.getByLabel("Task name").fill("Renew passport");
     await page
       .getByLabel("Notes", { exact: true })
       .fill("After this, remind me to update my address at SEB");
     await page.getByRole("button", { name: "Save", exact: true }).click();
-    await expect(
-      page.getByRole("button", { name: "Edit Renew passport", exact: true }),
-    ).toContainText("When done");
+    await expect.poll(() => phases.includes("Renew passport:saved")).toBe(true);
     if (shots) await page.screenshot({ path: `${shots}-tasks.png` });
     await page
       .getByRole("button", { name: "Complete Renew passport", exact: true })
       .click();
     await page.goto("/#assistant");
     await page.getByRole("button", { name: /^Inbox/ }).click();
+    // The Inbox refreshes every few seconds after the check runs.
     await expect(
-      page.getByText("Added a task to update your address at SEB"),
-    ).toBeVisible();
-    await expect(page.getByRole("button", { name: /^Inbox/ })).toContainText(
-      "1",
-    );
+      page.getByText("Add a task to update your address at SEB"),
+    ).toBeVisible({ timeout: 20000 });
     if (shots) await page.screenshot({ path: `${shots}-inbox.png` });
-    expect(phases).toContain("Renew passport:check");
-
-    // Undo removes the task the assistant added.
-    let state = await (await api.get("/api/state")).json();
-    expect(
-      state.tasks.find((t: any) => t.title === "Update address at SEB")
-        ?.continues_from,
-    ).toBeTruthy();
-    await page
-      .getByRole("button", { name: "Undo change to Renew passport" })
-      .click();
-    await expect(
-      page.getByRole("button", { name: "Undo change to Renew passport" }),
-    ).toHaveCount(0);
     state = await (await api.get("/api/state")).json();
     expect(
       state.tasks.some((t: any) => t.title === "Update address at SEB"),
     ).toBe(false);
+    await page
+      .getByRole("button", { name: "Accept suggestion for Renew passport" })
+      .click();
+    await expect
+      .poll(async () => {
+        const s = await (await api.get("/api/state")).json();
+        return s.tasks.find((t: any) => t.title === "Update address at SEB")
+          ?.continues_from;
+      })
+      .toBeTruthy();
+
+    // Undo removes the task the assistant added.
+    await page.getByRole("button", { name: "History", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Undo change to Renew passport" })
+      .click();
+    await expect
+      .poll(async () => {
+        const s = await (await api.get("/api/state")).json();
+        return s.tasks.some((t: any) => t.title === "Update address at SEB");
+      })
+      .toBe(false);
   } finally {
     await setMode("manual");
     const remaining = await (await api.get("/api/state")).json();

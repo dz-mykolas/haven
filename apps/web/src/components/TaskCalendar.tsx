@@ -28,6 +28,40 @@ import {
 } from "../lib/api";
 import type { components } from "../lib/api.generated";
 import { MotionView, SelectionGroup, AnimatedTaskList } from "./Motion";
+import TaskTag from "./TaskTag";
+import { repeatText, shownTags } from "../lib/tasks";
+
+// Tags on a task row stay compact (built-in ones as icons, yours as the first
+// name and a count) and expand to full chips on hover, focus or tap.
+function RowTags({ task }: { task: Task }) {
+  const { locked, own } = shownTags(task);
+  const special = [...locked, ...own.filter((t) => t.startsWith("@"))];
+  const mine = own.filter((t) => !t.startsWith("@"));
+  if (!special.length && !mine.length) return null;
+  return (
+    <span className="row-tags">
+      <span className="row-tags-compact" aria-hidden="true">
+        {special.map((t) => (
+          <Repeat2 key={t} size={13} className="row-tag-icon" />
+        ))}
+        {mine.length > 0 && (
+          <span>
+            #{mine[0]}
+            {mine.length > 1 && ` +${mine.length - 1}`}
+          </span>
+        )}
+      </span>
+      <span className="row-tags-full">
+        {locked.map((t) => (
+          <TaskTag key={t} tag={t} locked />
+        ))}
+        {own.map((t) => (
+          <TaskTag key={t} tag={t} />
+        ))}
+      </span>
+    </span>
+  );
+}
 
 type CalendarData = components["schemas"]["TaskCalendar"];
 const fullDate = (day: string) =>
@@ -422,9 +456,7 @@ export default function TaskCalendar({
                               <Repeat2 size={13} />
                               {item.projected
                                 ? "Future repeat"
-                                : task.routine
-                                  ? `${task.repeat} routine`
-                                  : task.repeat}
+                                : repeatText(task)}
                             </span>
                           )}
                           {task.follow_up &&
@@ -438,25 +470,30 @@ export default function TaskCalendar({
                                 <CircleAlert size={13} />
                                 Follow-up failed
                               </span>
+                            ) : task.follow_up.proposal ? (
+                              <span
+                                className="task-follow-up"
+                                title={task.follow_up.proposal.message}
+                              >
+                                <Sparkles size={13} />
+                                Suggested change
+                              </span>
                             ) : task.follow_up.status === "waiting" ? (
                               <span className="task-follow-up">
                                 <Sparkles size={13} />
                                 Question in Inbox
-                              </span>
-                            ) : task.follow_up.summary ? (
-                              <span
-                                className="task-follow-up"
-                                title={task.follow_up.summary}
-                              >
-                                <Sparkles size={13} />
-                                <span>{task.follow_up.summary}</span>
                               </span>
                             ) : null)}
                           {(task.kind === "payment" || taskCost(task)) && (
                             <span>
                               <CreditCard size={13} />
                               {taskCost(task) ? (
-                                <span data-amount-tone="estimate">
+                                <span
+                                  data-amount-tone={
+                                    task.income ? "income" : "estimate"
+                                  }
+                                >
+                                  {task.income ? "+" : ""}
                                   {costLabel(...taskCost(task)!)}
                                 </span>
                               ) : (
@@ -465,6 +502,7 @@ export default function TaskCalendar({
                             </span>
                           )}
                           {item.completed && <span>Completed</span>}
+                          <RowTags task={task} />
                         </span>
                       </button>
                       <span

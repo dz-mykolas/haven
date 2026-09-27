@@ -49,11 +49,18 @@ function span(a: string, b: string) {
 const whole = (minor: number) =>
   `€${Math.round(minor / 100).toLocaleString("en-IE")}`;
 // A column's amount: exact when every price is known and fixed, otherwise
-// "about" the most it could come to.
+// "about" the most it could come to. Income is shown apart from costs.
 function short(points: Point[]) {
-  const lo = points.reduce((a, p) => a + p.min, 0),
-    hi = points.reduce((a, p) => a + p.max, 0);
-  return lo === hi ? whole(lo) : `≈ ${whole(hi)}`;
+  const sum = (list: Point[]) => {
+    const lo = list.reduce((a, p) => a + p.min, 0),
+      hi = list.reduce((a, p) => a + p.max, 0);
+    return lo === hi ? whole(lo) : `≈ ${whole(hi)}`;
+  };
+  const costs = points.filter((p) => !p.item.task.income),
+    income = points.filter((p) => p.item.task.income);
+  return [costs.length ? sum(costs) : "", income.length ? `+${sum(income)}` : ""]
+    .filter(Boolean)
+    .join(" · ");
 }
 function price(item: Item) {
   return item.minimum_minor == null || item.maximum_minor == null
@@ -170,8 +177,11 @@ export function Row({
         {days !== null && <Soon days={days} />}
       </span>
       <span className="name">{item.task.title}</span>
-      <span className="price" data-amount-tone="estimate">
-        <MoneyText text={price(item)} />
+      <span
+        className="price"
+        data-amount-tone={item.task.income ? "income" : "estimate"}
+      >
+        <MoneyText text={(item.task.income ? "+" : "") + price(item)} />
       </span>
     </button>,
   );

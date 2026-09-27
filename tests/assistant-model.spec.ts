@@ -1,4 +1,4 @@
-import { selectOption } from "./select";
+import { setMoney, setRepeat } from "./task-editor";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { createServer } from "node:http";
@@ -186,15 +186,15 @@ test("model setup, real compatible HTTP request, draft review and manual control
       .getByText("Haircut from chat", { exact: true })
       .click();
     const task = page.getByRole("dialog");
+    await expect(task.getByLabel("Task name", { exact: true })).toHaveValue(
+      "Haircut from chat",
+    );
     await expect(
-      task.getByLabel("What’s the plan?", { exact: true }),
-    ).toHaveValue("Haircut from chat");
+      task.getByRole("button", { name: "Money: −60.00–70.00", exact: true }),
+    ).toBeVisible();
     await expect(
-      task.getByRole("textbox", { name: "Estimated cost · EUR", exact: true }),
-    ).toHaveValue("60.00–70.00");
-    await expect(
-      task.getByRole("button", { name: "appointment", exact: true }),
-    ).toHaveAttribute("aria-pressed", "true");
+      task.getByRole("button", { name: "Type: Appointment", exact: true }),
+    ).toBeVisible();
     await task.getByRole("button", { name: "Save", exact: true }).click();
     await expect(
       chat.getByRole("button", {
@@ -226,14 +226,9 @@ test("model setup, real compatible HTTP request, draft review and manual control
     await page
       .getByRole("button", { name: "Add upcoming payment", exact: true })
       .click();
-    await page.getByLabel("What’s the plan?", { exact: true }).fill("Netflix");
-    await page
-      .getByLabel("Expected amount · EUR", { exact: true })
-      .fill("13.99");
-    await selectOption(
-      page.getByRole("combobox", { name: "Repeat", exact: true }),
-      "monthly",
-    );
+    await page.getByLabel("Task name", { exact: true }).fill("Netflix");
+    await setMoney(page, "13.99");
+    await setRepeat(page, "Monthly");
     await page.getByRole("button", { name: "Save", exact: true }).click();
     await expect(upcoming).toContainText("Netflix");
     await upcoming

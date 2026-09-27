@@ -2,14 +2,14 @@ import FormSelect from "./FormSelect";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
 import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import Disclosure from "./Disclosure";
 import DateField from "./DateField";
 import TransactionLabels from "./TransactionLabels";
 import PaymentSchedule from "./PaymentSchedule";
-import PaymentPlanFields, { readPlan } from "./PaymentPlanFields";
+import { readPlan } from "./PaymentPlanFields";
 import { SelectionGroup } from "./Motion";
+import TaskEditor from "./TaskEditor";
 import { useState, type SubmitEvent, type ReactNode } from "react";
 import {
   Check,
@@ -20,17 +20,10 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   ArrowRightLeft,
-  CircleCheck,
-  CreditCard,
-  Repeat2,
-  Sparkles,
-  CircleAlert,
 } from "lucide-react";
 import {
   cents,
   amountTone,
-  costInput,
-  taskCost,
   parseCost,
   decimal,
   money,
@@ -87,31 +80,17 @@ export const newTask = (date = today()): EditorState => ({
     kind: "task",
     amount_minor: "0",
     notes: "",
+    tags: [],
+    every: 1,
+    weekdays: [],
+    until: "",
+    income: false,
     done: false,
     deleted: false,
     version: 0,
   },
 });
 
-// The assistant's reading of a task's notes, shown right under them.
-function FollowUpLine({ followUp }: { followUp?: Task["follow_up"] }) {
-  if (!followUp) return null;
-  const failed = followUp.status === "failed";
-  const text = failed
-    ? `Couldn’t read notes: ${followUp.error}`
-    : followUp.status === "reading"
-      ? "Reading notes…"
-      : followUp.status === "waiting"
-        ? "Waiting for your answer in Inbox"
-        : followUp.summary;
-  if (!text) return null;
-  return (
-    <p className="follow-up-line" data-failed={failed || undefined}>
-      {failed ? <CircleAlert size={15} /> : <Sparkles size={15} />}
-      <span>{text}</span>
-    </p>
-  );
-}
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="field">
@@ -120,7 +99,20 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
     </label>
   );
 }
-export default function Editor({
+// Tasks have their own editor; accounts and transactions share this one.
+export default function Editor(props: Parameters<typeof RecordEditor>[0]) {
+  return props.editor.type === "task" ? (
+    <TaskEditor
+      editor={props.editor}
+      tasks={props.tasks ?? []}
+      onClose={props.onClose}
+      onSaved={props.onSaved}
+    />
+  ) : (
+    <RecordEditor {...props} />
+  );
+}
+function RecordEditor({
   editor,
   accounts,
   categories,
@@ -153,26 +145,14 @@ export default function Editor({
       ? decimal(editor.record.amount_minor)
       : "",
   );
-  const [taskDate, setTaskDate] = useState(
-    editor.type === "task" ? editor.record.date : "",
-  );
-  const [repeat, setRepeat] = useState(
-    editor.type === "task" ? editor.record.repeat : "none",
-  );
-  const [routine, setRoutine] = useState(
-    editor.type === "task" ? !!editor.record.routine : false,
-  );
-  const [planKind, setPlanKind] = useState(
-    editor.type === "task"
-      ? (editor.record.plan?.kind ?? "scheduled")
-      : "scheduled",
-  );
+  // Costs get a schedule when recurring; income keeps a linked income plan.
   const hasPaymentSchedule =
     editor.type === "entry" &&
-    kind === "expense" &&
-    (!!editor.record.payment ||
-      categories.find((c) => c.id === categoryID)?.name.toLowerCase() ===
-        "recurring");
+    ((kind === "expense" &&
+      (!!editor.record.payment ||
+        categories.find((c) => c.id === categoryID)?.name.toLowerCase() ===
+          "recurring")) ||
+      (kind === "income" && !!editor.record.payment));
   const retainedTransfer =
     editor.type === "entry" &&
     editor.record.kind === "transfer" &&
@@ -226,6 +206,11 @@ export default function Editor({
             estimated_min_minor: cost?.[0] ?? null,
             estimated_max_minor: cost?.[1] ?? null,
             notes: String(form.get("payment-notes") ?? ""),
+            tags: editor.record.payment?.tags ?? [],
+            every: editor.record.payment?.every ?? 1,
+            weekdays: editor.record.payment?.weekdays ?? [],
+            until: editor.record.payment?.until ?? "",
+            income: kind === "income",
             done: false,
             deleted: false,
           };
@@ -261,27 +246,6 @@ export default function Editor({
             category: "",
             ...annotations,
           });
-      } else {
-        const cost = parseCost(value("amount"));
-        await request(`/tasks/${editor.record.id}`, {
-          ...editor.record,
-          kind,
-          title: value("title"),
-          date:
-            value("date") ||
-            (kind === "payment" ? readPlan(form)?.expires_on : "") ||
-            "",
-          plan: kind === "payment" ? readPlan(form) : undefined,
-          time: value("time"),
-          timezone: value("timezone"),
-          repeat: value("repeat"),
-          routine: value("repeat") !== "none" && routine,
-          amount_minor:
-            kind === "payment" && cost && cost[0] === cost[1] ? cost[0] : "0",
-          estimated_min_minor: cost?.[0] ?? null,
-          estimated_max_minor: cost?.[1] ?? null,
-          notes: value("notes"),
-        });
       }
       onSaved();
     } catch (e) {
@@ -302,12 +266,6 @@ export default function Editor({
           deleted: true,
         });
         onSaved({ type: "entry", record: { ...record, deleted: false } });
-      } else {
-        const record = await request<Task>(`/tasks/${editor.record.id}`, {
-          ...editor.record,
-          deleted: true,
-        });
-        onSaved({ type: "task", record: { ...record, deleted: false } });
       }
     } catch (e) {
       setError((e as Error).message);
@@ -618,146 +576,6 @@ export default function Editor({
                           </p>
                         )}
                       </Disclosure>
-                    )}
-                  </>
-                )}
-                {editor.type === "task" && (
-                  <>
-                    <Field label="What’s the plan?">
-                      <Input
-                        name="title"
-                        autoFocus
-                        required
-                        maxLength={200}
-                        placeholder="Vitamins, a haircut, rent…"
-                        defaultValue={editor.record.title}
-                      />
-                    </Field>
-                    <SelectionGroup
-                      className="segments"
-                      label="Task type"
-                      value={kind}
-                    >
-                      {(["task", "appointment", "payment"] as const).map(
-                        (type) => (
-                          <Button
-                            type="button"
-                            key={type}
-                            aria-pressed={kind === type}
-                            onClick={() => setKind(type)}
-                          >
-                            {type === "task" ? (
-                              <CircleCheck size={15} />
-                            ) : type === "appointment" ? (
-                              <CalendarDays size={15} />
-                            ) : (
-                              <CreditCard size={15} />
-                            )}
-                            {type}
-                          </Button>
-                        ),
-                      )}
-                    </SelectionGroup>
-                    <div className="form-grid when-row">
-                      <Field label="Date">
-                        <DateField
-                          name="date"
-                          required={
-                            kind !== "payment" || planKind === "scheduled"
-                          }
-                          type="date"
-                          min="1900-01-01"
-                          max="9998-12-31"
-                          value={taskDate}
-                          onValueChange={setTaskDate}
-                        />
-                      </Field>
-                      <Field label="Time">
-                        <Input
-                          name="time"
-                          type="time"
-                          defaultValue={editor.record.time}
-                        />
-                      </Field>
-                      {kind !== "payment" || planKind === "scheduled" ? (
-                        <Field label="Repeat">
-                          <FormSelect
-                            name="repeat"
-                            value={repeat}
-                            onChange={(e) =>
-                              setRepeat(e.target.value as Task["repeat"])
-                            }
-                          >
-                            <option value="none">Never</option>
-                            <option value="daily">Daily</option>
-                            <option value="weekly">Weekly</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option>
-                          </FormSelect>
-                        </Field>
-                      ) : (
-                        <input type="hidden" name="repeat" value="none" />
-                      )}
-                    </div>
-                    {repeat !== "none" &&
-                      (kind !== "payment" || planKind === "scheduled") && (
-                        <button
-                          type="button"
-                          className="routine-toggle"
-                          aria-pressed={routine}
-                          title="Missed days are skipped instead of staying overdue"
-                          onClick={() => setRoutine(!routine)}
-                        >
-                          <Repeat2 size={15} />
-                          Routine
-                          {routine && <Check size={14} />}
-                        </button>
-                      )}
-                    {kind === "payment" && (
-                      <PaymentPlanFields
-                        value={editor.record.plan}
-                        onKind={(next) => {
-                          setPlanKind(next);
-                          if (next !== "scheduled" && !editor.record.version)
-                            setTaskDate("");
-                        }}
-                      />
-                    )}
-                    {(kind !== "task" || taskCost(editor.record)) && (
-                      <Field
-                        label={
-                          kind === "payment"
-                            ? "Expected amount · EUR"
-                            : "Estimated cost · EUR"
-                        }
-                      >
-                        <Input
-                          name="amount"
-                          placeholder="Optional · e.g. 60–70"
-                          data-amount-tone="estimate"
-                          defaultValue={costInput(editor.record)}
-                        />
-                      </Field>
-                    )}
-                    <Field label="Notes">
-                      <Textarea
-                        name="notes"
-                        maxLength={4000}
-                        defaultValue={editor.record.notes}
-                        placeholder="Details, or what should happen next"
-                        rows={3}
-                      />
-                    </Field>
-                    <FollowUpLine followUp={editor.record.follow_up} />
-                    <input
-                      type="hidden"
-                      name="timezone"
-                      value={editor.record.timezone}
-                    />
-                    {editor.record.timezone !== deviceTimezone() && (
-                      <p className="helper">
-                        Times use {editor.record.timezone.replace(/_/g, " ")}
-                      </p>
                     )}
                   </>
                 )}

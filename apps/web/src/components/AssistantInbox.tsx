@@ -83,7 +83,8 @@ export function useInbox() {
     // Everything waiting for the user: transaction reviews and task notices.
     count:
       (data?.review_count ?? 0) +
-      followUps.filter((e) => e.status === "new").length,
+      followUps.filter((e) => e.status === "new" || e.status === "pending")
+        .length,
     error: query.error?.message ?? "",
     view,
     setView,
@@ -324,13 +325,16 @@ export default function AssistantInbox({
       </article>
     );
   };
+  const waiting = (e: FollowUpEvent) =>
+    e.status === "new" || e.status === "pending";
   const followUps = inbox.followUps.filter((e) =>
-    view === "review" ? e.status === "new" : e.status !== "new",
+    view === "review" ? waiting(e) : !waiting(e),
   );
   const followUpLabels: Record<string, string> = {
     seen: "",
     undone: "Undone",
     answered: "Answered",
+    dismissed: "Dismissed",
   };
   const renderFollowUp = (event: FollowUpEvent) => (
     <article className="inbox-item follow-up-item" key={event.id}>
@@ -374,7 +378,32 @@ export default function AssistantInbox({
           </Button>
         )}
         {view === "review" &&
-          (event.action === "asked" ? (
+          (event.status === "pending" ? (
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={!!busy}
+                aria-label={`Dismiss suggestion for ${event.title}`}
+                onClick={() =>
+                  void act(`/tasks/followups/${event.id}/dismiss`, event.id)
+                }
+              >
+                Dismiss
+              </Button>
+              <Button
+                size="sm"
+                disabled={!!busy}
+                aria-label={`Accept suggestion for ${event.title}`}
+                onClick={() =>
+                  void act(`/tasks/followups/${event.id}/accept`, event.id)
+                }
+              >
+                <Check size={15} />
+                Accept
+              </Button>
+            </>
+          ) : event.action === "asked" ? (
             <Button
               size="sm"
               disabled={!!busy}

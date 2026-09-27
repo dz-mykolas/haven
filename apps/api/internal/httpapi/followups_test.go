@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -39,7 +40,7 @@ func TestTaskFollowUps(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	exec(`TRUNCATE transaction_payment_links,assistant_classifications,assistant_reviews,recurring_payment_links,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts; UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=1; UPDATE assistant_settings SET mode='on_request',skills='{"review-transaction":true,"plan-task":true,"organize-money":true}',version=1`)
+	exec(`TRUNCATE transaction_payment_links,assistant_classifications,assistant_reviews,recurring_payment_links,task_followup_events,task_followups,task_completions,tasks,entries,accounts,bank_ledger_transactions,bank_ledger_accounts; UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=1; UPDATE assistant_settings SET mode='proactive',skills='{"review-transaction":true,"plan-task":true,"organize-money":true}',version=1`)
 	defer exec(`UPDATE assistant_provider SET base_url='',model='',api_key_cipher='',version=version+1; UPDATE assistant_settings SET mode='manual',version=version+1`)
 	today := time.Now().UTC()
 	day := func(offset int) string { return today.AddDate(0, 0, offset).Format("2006-01-02") }
@@ -104,7 +105,7 @@ func TestTaskFollowUps(t *testing.T) {
 	}
 
 	// Routines skip missed days; ordinary tasks stay overdue.
-	vitamin, err := s.SaveTask(ctx, domain.Task{ID: id(1), Title: "Vitamin D3", Date: day(-3), Timezone: "UTC", Repeat: "daily", Kind: "task", Routine: true, Notes: "4000 IU for a month, then 2000 IU daily"})
+	vitamin, err := s.SaveTask(ctx, domain.Task{ID: id(1), Title: "Vitamin D3", Date: day(-3), Timezone: "UTC", Repeat: "daily", Kind: "task", Tags: []string{domain.SkipMissed}, Notes: "4000 IU for a month, then 2000 IU daily"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -117,8 +118,10 @@ func TestTaskFollowUps(t *testing.T) {
 	if task(id(2)).Date != day(-3) {
 		t.Fatal("ordinary repeating task lost its overdue occurrence")
 	}
-	if _, err = s.SaveTask(ctx, domain.Task{ID: id(3), Title: "No schedule", Date: day(0), Timezone: "UTC", Repeat: "none", Kind: "task", Routine: true}); err == nil {
-		t.Fatal("routine without repeat accepted")
+	// Payments never skip missed occurrences: the built-in tag is dropped.
+	bill, err := s.SaveTask(ctx, domain.Task{ID: id(3), Title: "Rent", Date: day(-3), Timezone: "UTC", Repeat: "monthly", Kind: "payment", Amount: 1000, Tags: []string{domain.SkipMissed, "Home"}})
+	if err != nil || !slices.Equal(bill.Tags, []string{"Home"}) || task(id(3)).Date != day(-3) {
+		t.Fatalf("payment tags: %+v %v", bill.Tags, err)
 	}
 
 	// Saving reads the notes once and shows the readback.
@@ -160,7 +163,7 @@ func TestTaskFollowUps(t *testing.T) {
 		t.Fatalf("events: %+v %v", events, err)
 	}
 	next := task(events[0].CreatedTask)
-	if next.Title != "Vitamin D3 2000 IU" || !next.Routine || next.ContinuesFrom != id(1) || next.FollowUp != nil {
+	if next.Title != "Vitamin D3 2000 IU" || !slices.Contains(next.Tags, domain.SkipMissed) || next.ContinuesFrom != id(1) || next.FollowUp != nil {
 		t.Fatalf("continued task: %+v", next)
 	}
 	// Undo restores the original and removes the new task.
@@ -195,6 +198,52 @@ func TestTaskFollowUps(t *testing.T) {
 	}
 	if task(id(4)).FollowUp != nil {
 		t.Fatal("no follow-up should remain after the answer")
+	}
+
+	// "When I ask" keeps changes as suggestions until they are accepted.
+	exec(`UPDATE assistant_settings SET mode='on_request',version=version+1`)
+	exec(`UPDATE task_followups SET check_on=$2,available_at=now() WHERE task_id=$1`, id(1), day(0))
+	process()
+	if got := task(id(1)); got.Done || got.FollowUp == nil || got.FollowUp.Proposal == nil || got.FollowUp.Proposal.Message != "Vitamin D3 switches to 2000 IU" {
+		t.Fatalf("suggestion not waiting: %+v", got.FollowUp)
+	}
+	process()
+	if calls := len(seen); calls != 5 {
+		t.Fatalf("a waiting suggestion was checked again: %d calls", calls)
+	}
+	proposal := task(id(1)).FollowUp.Proposal.EventID
+	if err = s.DismissFollowUp(ctx, proposal); err != nil || task(id(1)).FollowUp.Proposal != nil || task(id(1)).Done {
+		t.Fatalf("dismiss: %v", err)
+	}
+	exec(`UPDATE task_followups SET available_at=now() WHERE task_id=$1`, id(1))
+	process()
+	proposal = task(id(1)).FollowUp.Proposal.EventID
+	if err = s.AcceptFollowUp(ctx, proposal); err != nil || !task(id(1)).Done {
+		t.Fatalf("accept: %v", err)
+	}
+	events, _ = s.FollowUpEvents(ctx)
+	if events[0].ID != proposal || events[0].Status != "seen" || !events[0].CanUndo || events[0].CreatedTask == "" {
+		t.Fatalf("accepted suggestion: %+v", events[0])
+	}
+	if err = s.UndoFollowUp(ctx, proposal); err != nil || task(id(1)).Done {
+		t.Fatalf("undo accepted suggestion: %v", err)
+	}
+	// A suggestion made before the user edited the task is not applied.
+	exec(`UPDATE task_followups SET check_on=$2,available_at=now() WHERE task_id=$1`, id(1), day(0))
+	process()
+	proposal = task(id(1)).FollowUp.Proposal.EventID
+	edited := task(id(1))
+	edited.Title = "Vitamin D3 (edited)"
+	if _, err = s.SaveTask(ctx, edited); err != nil {
+		t.Fatal(err)
+	}
+	if err = s.AcceptFollowUp(ctx, proposal); err == nil || task(id(1)).Done {
+		t.Fatal("a stale suggestion was applied")
+	}
+	// The assistant looks at the edited task again and suggests afresh.
+	process()
+	if last := seen[len(seen)-1]; last.Phase != "check" || last.Task.Title != "Vitamin D3 (edited)" {
+		t.Fatalf("the edited task was not looked at again: %+v", last)
 	}
 
 	// Failures retry a few times, then fail visibly until the next save.

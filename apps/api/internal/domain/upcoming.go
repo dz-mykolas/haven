@@ -29,6 +29,8 @@ type UpcomingCosts struct {
 	Unknown   int            `json:"unknown_count"`
 	Scheduled CostSubtotal   `json:"scheduled"`
 	Expected  CostSubtotal   `json:"expected"`
+	// Income is money expected to come in; the totals above are costs only.
+	Income CostSubtotal `json:"income"`
 	Items     []UpcomingCost `json:"items"`
 }
 
@@ -91,7 +93,7 @@ func Upcoming(tasks []Task, from string) UpcomingCosts {
 			result.Items = append(result.Items, UpcomingCost{Task: item.Task, Date: item.Date, DateUntil: item.Date, Event: "payment", Group: group, Included: item.Task.Included(), Minimum: min, Maximum: max})
 		}
 	}
-	sums := map[string][2]*big.Int{"scheduled": {new(big.Int), new(big.Int)}, "expected": {new(big.Int), new(big.Int)}}
+	sums := map[string][2]*big.Int{"scheduled": {new(big.Int), new(big.Int)}, "expected": {new(big.Int), new(big.Int)}, "income": {new(big.Int), new(big.Int)}}
 	unknown := map[string]int{}
 	for _, item := range result.Items {
 		if !item.Included {
@@ -106,16 +108,21 @@ func Upcoming(tasks []Task, from string) UpcomingCosts {
 				continue
 			}
 		}
+		group := item.Group
+		if item.Task.Income {
+			group = "income"
+		}
 		if item.Minimum == nil || item.Date == "" {
-			unknown[item.Group]++
+			unknown[group]++
 			continue
 		}
-		sum := sums[item.Group]
+		sum := sums[group]
 		sum[0].Add(sum[0], big.NewInt(*item.Minimum))
 		sum[1].Add(sum[1], big.NewInt(*item.Maximum))
 	}
 	result.Scheduled = CostSubtotal{sums["scheduled"][0].String(), sums["scheduled"][1].String(), unknown["scheduled"]}
 	result.Expected = CostSubtotal{sums["expected"][0].String(), sums["expected"][1].String(), unknown["expected"]}
+	result.Income = CostSubtotal{sums["income"][0].String(), sums["income"][1].String(), unknown["income"]}
 	result.Minimum = new(big.Int).Add(sums["scheduled"][0], sums["expected"][0]).String()
 	result.Maximum = new(big.Int).Add(sums["scheduled"][1], sums["expected"][1]).String()
 	result.Unknown = unknown["scheduled"] + unknown["expected"]
