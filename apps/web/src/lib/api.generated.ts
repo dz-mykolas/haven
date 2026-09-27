@@ -1963,6 +1963,7 @@ export interface components {
                 "review-transaction": boolean;
                 "plan-task": boolean;
                 "organize-money": boolean;
+                "follow-up": boolean;
             };
             version: number;
         };

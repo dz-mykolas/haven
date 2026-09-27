@@ -322,7 +322,10 @@ func (s *Store) ProcessReviewBatch(ctx context.Context) error {
 	}
 	// Scope background context and contracts to the transaction review skill only.
 	scoped := settings
-	scoped.Skills = map[string]bool{"review-transaction": true, "plan-task": false, "organize-money": false}
+	scoped.Skills = map[string]bool{}
+	for _, skill := range assistant.Catalog() {
+		scoped.Skills[skill.ID] = skill.ID == "review-transaction"
+	}
 	history := assistant.ReviewHistory(entries, snap.Entries)
 	for _, t := range snap.Tasks {
 		if t.Kind == "payment" && !t.Done && !t.Deleted && (t.Forecast() || t.Repeat != "none") && len(history.Plans) < 100 {

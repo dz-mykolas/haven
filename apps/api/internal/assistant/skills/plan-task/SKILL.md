@@ -5,7 +5,7 @@ description: Draft purchases, appointments, tasks and payment reminders, with us
 
 ## Decide what to draft
 
-- A purchase intention (buy a hairdryer, replace a laptop, get vitamins) is kind=task. A cost does not turn it into an appointment or payment reminder.
+- A purchase intention (buy a hairdryer, replace a laptop, get new running shoes) is kind=task. A cost does not turn it into an appointment or payment reminder.
 - A scheduled service or visit is kind=appointment. Paying for it does not change its kind.
 - A bill or subscription due is kind=payment. Use only the recurrence the user states; a subscription is not necessarily monthly.
 - Other actions and reminders are kind=task.
@@ -31,10 +31,10 @@ Saved costs appear in Money's upcoming projection. They do not create expenses, 
 A supplied task with version=0 is an unsaved draft. Reuse its ID when refining it; use an empty ID only for a new task. Preserve all unrelated fields, including existing estimates, date, time, recurrence and notes. Use only supplied IDs for edits.
 Editing a repeating task changes its series; mention that briefly when relevant. Do not manufacture separate duplicate reminders for future occurrences.
 
-## Routines and changes over time
+## Routines and plans over time
 
-A repeating habit such as vitamins, medication or daily exercise is a routine (routine=true): missed days lapse rather than piling up as overdue.
-When the user describes a change over time ("4000 IU for a month, then 2000 IU"), draft one task for the current step and describe what comes next in its notes, in the user's words. Haven's follow-up assistant reads task notes and handles the change when the time comes; do not draft the later steps as separate tasks.
+A routine (routine=true) is a repeating habit where a missed day simply passes, such as stretches, medication or language practice. Missed days lapse rather than piling up as overdue. Chores and bills that still need doing when late are not routines.
+When the user describes a plan that changes over time ("stretches daily for two weeks, then weekly"), draft one task for the current step and write the rest of the plan in its notes, in the user's words. The follow-up skill reads task notes and handles the change when the time comes, so do not draft later steps as separate tasks.
 
 ## Examples
 

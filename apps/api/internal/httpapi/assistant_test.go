@@ -50,7 +50,7 @@ func TestAssistantPreferences(t *testing.T) {
 	}
 	var state AssistantStatus
 	json.Unmarshal(call("GET", "/assistant", nil, 200), &state)
-	if state.Settings.Mode != "manual" || state.ModelConnected || len(state.Skills) != 3 {
+	if state.Settings.Mode != "manual" || state.ModelConnected || len(state.Skills) != len(assistant.Catalog()) {
 		t.Fatalf("incorrect defaults: %+v", state)
 	}
 	input := state.Settings

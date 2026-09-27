@@ -99,7 +99,7 @@ func ChatPrompt(settings Settings, timezone string, tasks []domain.Task, entries
 		prompt += "\n" + annotationContract
 	}
 	for _, skill := range Catalog() {
-		if settings.Skills[skill.ID] {
+		if settings.Skills[skill.ID] && skill.Chat {
 			instructions, _ := Instructions(skill.ID)
 			prompt += "\nENABLED SKILL:\n" + instructions
 		}

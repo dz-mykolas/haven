@@ -164,7 +164,9 @@ and subscription examples in the task skill, checking the actual supplied date.
 ## Task follow-ups
 
 Instructions written in a task's notes are handled by the follow-up worker
-(`store/followups.go`, prompt in `assistant/followup.go`). Saving changed notes
+(`store/followups.go`) using the Follow up on tasks skill: shared rules in
+`skills/follow-up/SKILL.md`, then `read.md` when a task is saved or `check.md`
+at a check. `assistant/followup.go` holds only the reply format and validation. Saving changed notes
 queues a reading; the model returns a one-line `summary` and a `check_on` date,
 or nothing when the notes hold no instruction. When `check_on` arrives, or a
 one-off task is completed, it returns one action: `none`, `update` (the same
@@ -172,8 +174,9 @@ task), `replace` (a new task with `continues_from`), `finish`, or `ask`. The
 reply is validated against that one task; nothing else can be changed. Events
 appear in the Inbox under Tasks with Undo (latest change only) or an answer
 field. Failed calls retry after one and ten minutes, then mark the follow-up
-failed until the task is saved again. Follow-ups run when the Plan tasks skill
-is enabled and the assistant is not in manual mode.
+failed until the task is saved again. Follow-ups run when their skill is
+enabled and the assistant is not in manual mode; the chat model is never given
+this skill.
 
 ## Transaction inbox
 

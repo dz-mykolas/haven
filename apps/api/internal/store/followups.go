@@ -150,7 +150,7 @@ func (s *Store) ProcessFollowUp(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	if settings.Authorize("plan-task", "task_followup") != nil {
+	if settings.Authorize("follow-up", "task_followup") != nil {
 		return nil
 	}
 	config, key, err := s.ProviderCredentials(ctx)

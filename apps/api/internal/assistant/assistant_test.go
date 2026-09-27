@@ -18,7 +18,7 @@ func TestPolicyGuardsModelInvocation(t *testing.T) {
 	for _, mode := range []string{"manual", "on_request", "proactive"} {
 		for _, skill := range Catalog() {
 			for _, enabled := range []bool{true, false} {
-				for _, trigger := range []string{"chat", "transaction_imported", "unknown"} {
+				for _, trigger := range []string{"chat", "transaction_imported", "task_followup", "unknown"} {
 					settings := Defaults()
 					settings.Mode = mode
 					settings.Skills[skill.ID] = enabled
@@ -30,7 +30,7 @@ func TestPolicyGuardsModelInvocation(t *testing.T) {
 						}
 						return nil
 					})
-					allowed := mode != "manual" && enabled && (trigger == "chat" || (mode == "proactive" && skill.Background && trigger == "transaction_imported"))
+					allowed := mode != "manual" && enabled && ((trigger == "chat" && skill.Chat) || (mode == "proactive" && skill.Background && trigger == "transaction_imported") || (trigger == "task_followup" && skill.ID == "follow-up"))
 					if (err == nil) != allowed || (calls == 1) != allowed {
 						t.Fatalf("%s/%s/%t/%s: calls=%d error=%v", mode, skill.ID, enabled, trigger, calls, err)
 					}

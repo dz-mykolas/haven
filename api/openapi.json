@@ -2315,7 +2315,12 @@
           "skills": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["review-transaction", "plan-task", "organize-money"],
+            "required": [
+              "review-transaction",
+              "plan-task",
+              "organize-money",
+              "follow-up"
+            ],
             "properties": {
               "review-transaction": {
                 "type": "boolean"
@@ -2324,6 +2329,9 @@
                 "type": "boolean"
               },
               "organize-money": {
+                "type": "boolean"
+              },
+              "follow-up": {
                 "type": "boolean"
               }
             }

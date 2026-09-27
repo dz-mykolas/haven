@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-//go:embed skills/*/SKILL.md
+//go:embed skills/*/*.md
 var files embed.FS
 
 type Skill struct {
@@ -17,12 +17,15 @@ type Skill struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Background  bool   `json:"supports_background"`
+	// Chat skills are offered to the chat model; others run only on their own triggers.
+	Chat bool `json:"-"`
 }
 
 var catalog = []Skill{
-	{"review-transaction", "Review transactions", "Automatically categorize transactions and suggest recurring payment schedules.", true},
-	{"plan-task", "Plan tasks", "Plan purchases, appointments, and reminders.", false},
-	{"organize-money", "Organize Money", "Organize attached transactions with categories and tags.", false},
+	{"review-transaction", "Review transactions", "Automatically categorize transactions and suggest recurring payment schedules.", true, true},
+	{"plan-task", "Plan tasks", "Plan purchases, appointments, and reminders.", false, true},
+	{"organize-money", "Organize Money", "Organize attached transactions with categories and tags.", false, true},
+	{"follow-up", "Follow up on tasks", "Handle what task notes say should happen next, when the time comes.", false, false},
 }
 
 func Catalog() []Skill { return append([]Skill{}, catalog...) }
@@ -40,6 +43,32 @@ func Instructions(id string) (string, error) {
 	}
 	data, err := files.ReadFile("skills/" + id + "/SKILL.md")
 	return string(data), err
+}
+
+// Part returns one situation-specific instruction file of a skill.
+func Part(id, part string) (string, error) {
+	if _, ok := Lookup(id); !ok {
+		return "", errors.New("Unknown assistant skill")
+	}
+	data, err := files.ReadFile("skills/" + id + "/" + part + ".md")
+	return string(data), err
+}
+
+// WithSkills fills skills missing from saved or submitted settings (for
+// example one added in a later version) from fallback, else enables them.
+func (s Settings) WithSkills(fallback map[string]bool) Settings {
+	skills := map[string]bool{}
+	for id, on := range s.Skills {
+		skills[id] = on
+	}
+	for _, skill := range catalog {
+		if _, ok := skills[skill.ID]; !ok {
+			on, known := fallback[skill.ID]
+			skills[skill.ID] = on || !known
+		}
+	}
+	s.Skills = skills
+	return s
 }
 
 type Settings struct {
@@ -96,9 +125,15 @@ func (s Settings) Authorize(id, trigger string) error {
 		return errors.New("This skill is disabled")
 	}
 	switch trigger {
-	case "chat", "task_followup":
+	case "chat":
+		if skill.Chat {
+			return nil
+		}
+	case "task_followup":
 		// Instructions in a task's notes are the user's own request.
-		return nil
+		if id == "follow-up" {
+			return nil
+		}
 	case "transaction_imported":
 		if s.Mode == "proactive" && skill.Background {
 			return nil

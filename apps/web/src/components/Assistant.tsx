@@ -279,7 +279,9 @@ function Preferences({
                     ? CalendarDays
                     : id === "organize-money"
                       ? Tags
-                      : Wallet;
+                      : id === "follow-up"
+                        ? Sparkles
+                        : Wallet;
                 return (
                   <Toggle
                     key={id}
