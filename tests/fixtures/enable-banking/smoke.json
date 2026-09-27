@@ -1,0 +1,316 @@
+{
+  "accounts": [
+    {
+      "info": {
+        "name": "Haven Test Person",
+        "details": "Mock SEB everyday",
+        "currency": "EUR",
+        "cash_account_type": "CACC",
+        "usage": "PRIV",
+        "account_id": {
+          "other": {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-TEST-001"
+          }
+        },
+        "all_account_ids": [
+          {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-TEST-001"
+          }
+        ]
+      },
+      "balances": [
+        {
+          "name": "Booked balance",
+          "balance_type": "CLBD",
+          "reference_date": "2026-09-22",
+          "balance_amount": {
+            "currency": "EUR",
+            "amount": "3049.23"
+          }
+        }
+      ],
+      "transactions": [
+        {
+          "entry_reference": "haven-salary",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2400.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-01",
+          "value_date": "2026-09-01",
+          "creditor": null,
+          "debtor": {
+            "name": "Example employer"
+          },
+          "remittance_information": ["Synthetic Haven test · Example employer"]
+        },
+        {
+          "entry_reference": "haven-expense-1",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "42.19"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-02",
+          "value_date": "2026-09-02",
+          "creditor": {
+            "name": "Groceries"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Groceries"]
+        },
+        {
+          "entry_reference": "haven-expense-2",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-03",
+          "value_date": "2026-09-03",
+          "creditor": {
+            "name": "Coffee"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Coffee"]
+        },
+        {
+          "entry_reference": "haven-expense-3",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-04",
+          "value_date": "2026-09-04",
+          "creditor": {
+            "name": "Barber"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Barber"]
+        },
+        {
+          "entry_reference": "haven-expense-4",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "15.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-05",
+          "value_date": "2026-09-05",
+          "creditor": {
+            "name": "Vitamins"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Vitamins"]
+        },
+        {
+          "entry_reference": "haven-expense-5",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-06",
+          "value_date": "2026-09-06",
+          "creditor": {
+            "name": "Phone bill"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Phone bill"]
+        },
+        {
+          "entry_reference": "haven-expense-6",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.40"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-07",
+          "value_date": "2026-09-07",
+          "creditor": {
+            "name": "Lunch"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Lunch"]
+        },
+        {
+          "entry_reference": "haven-expense-7",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "5.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-08",
+          "value_date": "2026-09-08",
+          "creditor": {
+            "name": "Transport"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Transport"]
+        },
+        {
+          "entry_reference": "haven-expense-8",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-09",
+          "value_date": "2026-09-09",
+          "creditor": {
+            "name": "Streaming"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Streaming"]
+        },
+        {
+          "entry_reference": "haven-expense-9",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "6.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-10",
+          "value_date": "2026-09-10",
+          "creditor": {
+            "name": "Bakery"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Bakery"]
+        },
+        {
+          "entry_reference": "haven-expense-10",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "18.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-11",
+          "value_date": "2026-09-11",
+          "creditor": {
+            "name": "Bookshop"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Bookshop"]
+        },
+        {
+          "entry_reference": "haven-transfer-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "200.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-18",
+          "value_date": "2026-09-18",
+          "creditor": {
+            "name": "Mock Revolut pocket"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Synthetic Haven test · Mock Revolut pocket"
+          ]
+        },
+        {
+          "entry_reference": "haven-pending",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "7.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "PDNG",
+          "booking_date": null,
+          "value_date": null,
+          "creditor": {
+            "name": "Pending cafe card payment"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Synthetic Haven test · Pending cafe card payment"
+          ]
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Haven Test Person",
+        "details": "Mock Revolut pocket",
+        "currency": "EUR",
+        "cash_account_type": "CACC",
+        "usage": "PRIV",
+        "account_id": {
+          "other": {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-TEST-002"
+          }
+        },
+        "all_account_ids": [
+          {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-TEST-002"
+          }
+        ]
+      },
+      "balances": [
+        {
+          "name": "Booked balance",
+          "balance_type": "CLBD",
+          "reference_date": "2026-09-22",
+          "balance_amount": {
+            "currency": "EUR",
+            "amount": "678.01"
+          }
+        }
+      ],
+      "transactions": [
+        {
+          "entry_reference": "haven-transfer-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "200.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-18",
+          "value_date": "2026-09-18",
+          "creditor": null,
+          "debtor": {
+            "name": "Mock SEB everyday"
+          },
+          "remittance_information": ["Synthetic Haven test · Mock SEB everyday"]
+        },
+        {
+          "entry_reference": "haven-pocket-expense",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "21.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-20",
+          "value_date": "2026-09-20",
+          "creditor": {
+            "name": "Online shop"
+          },
+          "debtor": null,
+          "remittance_information": ["Synthetic Haven test · Online shop"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "haven",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "check": "npm run check --workspace apps/web",
+    "api:generate": "openapi-typescript api/openapi.json -o apps/web/src/lib/api.generated.ts",
+    "test:e2e": "playwright test"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "openapi-typescript": "^7.13.0",
+    "prettier": "^3.9.8",
+    "simple-icons": "^16.32.0"
+  }
+}

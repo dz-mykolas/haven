@@ -1,0 +1,33 @@
+---
+import App from '../components/App';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/figtree';
+import '../styles/ui.css';
+import '../styles/global.css';
+import '../styles/expressive.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f8f4" />
+    <meta name="description" content="A little more clarity. Your money and everyday plans, together in Haven." />
+    <script is:inline>
+      const module = location.hash.slice(1);
+      document.documentElement.dataset.module = module === 'tasks' || module === 'assistant' ? module : 'money';
+      try {
+        const preference = localStorage.getItem('haven-theme');
+        document.documentElement.dataset.theme = preference === 'light' || preference === 'dark'
+          ? preference : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch {}
+    </script>
+    <title>Haven · Your everyday, together</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <App client:only="react"><p slot="fallback" class="boot">Opening Haven…</p></App>
+    <noscript>Haven needs JavaScript to manage your accounts and tasks.</noscript>
+  </body>
+</html>

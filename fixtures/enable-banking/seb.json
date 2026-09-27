@@ -1,0 +1,1676 @@
+{
+  "accounts": [
+    {
+      "info": {
+        "name": "Lukas Petrauskas (fictional)",
+        "details": "SEB · Everyday",
+        "currency": "EUR",
+        "cash_account_type": "CACC",
+        "usage": "PRIV",
+        "account_id": {
+          "other": {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-LIFE-SEB-2026"
+          }
+        },
+        "all_account_ids": [
+          {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-LIFE-SEB-2026"
+          }
+        ]
+      },
+      "balances": [
+        {
+          "name": "Booked balance",
+          "balance_type": "CLBD",
+          "reference_date": "2026-09-22",
+          "balance_amount": {
+            "currency": "EUR",
+            "amount": "7349.36"
+          }
+        }
+      ],
+      "transactions": [
+        {
+          "entry_reference": "life26-0-20260301-0001",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2450.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-03-02",
+          "value_date": "2026-03-02",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260302-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-02",
+          "value_date": "2026-03-02",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260303-0002",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "700.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-03",
+          "value_date": "2026-03-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260305-0008",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-05",
+          "value_date": "2026-03-05",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260306-0003",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-06",
+          "value_date": "2026-03-06",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260312-0005",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "61.84"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-12",
+          "value_date": "2026-03-12",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260314-0006",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "112.40"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260315-0004",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260316-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260317-0007",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "16.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-17",
+          "value_date": "2026-03-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 03/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260320-0009",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-20",
+          "value_date": "2026-03-20",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260331-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "100.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-03-31",
+          "value_date": "2026-03-31",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260401-0047",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2450.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-01",
+          "value_date": "2026-04-01",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260401-0284",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "350.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-01",
+          "value_date": "2026-04-01",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Quarterly performance bonus"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260402-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-02",
+          "value_date": "2026-04-02",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260403-0048",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "700.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-03",
+          "value_date": "2026-04-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260405-0054",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-07",
+          "value_date": "2026-04-07",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260406-0049",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-07",
+          "value_date": "2026-04-07",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260412-0051",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "55.26"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260414-0052",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "76.40"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-14",
+          "value_date": "2026-04-14",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260415-0050",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-15",
+          "value_date": "2026-04-15",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260416-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-16",
+          "value_date": "2026-04-16",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260417-0053",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "15.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-17",
+          "value_date": "2026-04-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 04/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260420-0055",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-20",
+          "value_date": "2026-04-20",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260420-0295",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "105.60"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-20",
+          "value_date": "2026-04-20",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Expense claim reimbursement · hotel and train"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260430-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "200.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-30",
+          "value_date": "2026-04-30",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260501-0092",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2450.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-05-04",
+          "value_date": "2026-05-04",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260503-0093",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "700.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-04",
+          "value_date": "2026-05-04",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260502-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-04",
+          "value_date": "2026-05-04",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260505-0099",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-05",
+          "value_date": "2026-05-05",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260506-0094",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-06",
+          "value_date": "2026-05-06",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260512-0096",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "47.29"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-12",
+          "value_date": "2026-05-12",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260514-0097",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "28.60"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-14",
+          "value_date": "2026-05-14",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260514-0320",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "749.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-15",
+          "value_date": "2026-05-15",
+          "creditor": {
+            "name": "Refurbed"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Refurbed · 2026-05-14"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260515-0095",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-15",
+          "value_date": "2026-05-15",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260517-0098",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "18.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 05/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260516-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260520-0100",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-20",
+          "value_date": "2026-05-20",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260529-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-05-29",
+          "value_date": "2026-05-29",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260601-0134",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2450.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-06-01",
+          "value_date": "2026-06-01",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260602-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-02",
+          "value_date": "2026-06-02",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260603-0135",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "700.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-03",
+          "value_date": "2026-06-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260603-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "500.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-03",
+          "value_date": "2026-06-03",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Summer trip bookings"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260605-0141",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-05",
+          "value_date": "2026-06-05",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260606-0136",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-08",
+          "value_date": "2026-06-08",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260612-0138",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "43.16"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-12",
+          "value_date": "2026-06-12",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260614-0139",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.30"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-15",
+          "value_date": "2026-06-15",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260615-0137",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-15",
+          "value_date": "2026-06-15",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260616-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-16",
+          "value_date": "2026-06-16",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260617-0140",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.10"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-17",
+          "value_date": "2026-06-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 06/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260618-0301",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "99.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-19",
+          "value_date": "2026-06-19",
+          "creditor": {
+            "name": "Pigu.lt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Pigu.lt · 2026-06-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260620-0142",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-22",
+          "value_date": "2026-06-22",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260630-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-06-30",
+          "value_date": "2026-06-30",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260701-0179",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-01",
+          "value_date": "2026-07-01",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260702-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-02",
+          "value_date": "2026-07-02",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260703-0180",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "750.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-03",
+          "value_date": "2026-07-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260705-0186",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-07",
+          "value_date": "2026-07-07",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260706-0181",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-07",
+          "value_date": "2026-07-07",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260710-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "350.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-10",
+          "value_date": "2026-07-10",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spending money for Italy"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260712-0183",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "51.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-13",
+          "value_date": "2026-07-13",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260714-0184",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "18.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-14",
+          "value_date": "2026-07-14",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260715-0182",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-15",
+          "value_date": "2026-07-15",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260716-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-16",
+          "value_date": "2026-07-16",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260717-0185",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "14.30"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-17",
+          "value_date": "2026-07-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 07/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260720-0187",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260731-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "900.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-31",
+          "value_date": "2026-07-31",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260801-0213",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-03",
+          "value_date": "2026-08-03",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260803-0214",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "750.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-03",
+          "value_date": "2026-08-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260802-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-03",
+          "value_date": "2026-08-03",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260805-0220",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-05",
+          "value_date": "2026-08-05",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260806-0215",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-06",
+          "value_date": "2026-08-06",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260812-0217",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "48.92"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-12",
+          "value_date": "2026-08-12",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260814-0218",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "18.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-14",
+          "value_date": "2026-08-14",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260815-0216",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260817-0219",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.10"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 08/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260816-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260820-0221",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-20",
+          "value_date": "2026-08-20",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260831-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260901-0252",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-01",
+          "value_date": "2026-09-01",
+          "creditor": null,
+          "debtor": {
+            "name": "UAB Northstar Digital (synthetic)"
+          },
+          "remittance_information": [
+            "Net salary · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260902-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-02",
+          "value_date": "2026-09-02",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260903-0253",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "750.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-03",
+          "value_date": "2026-09-03",
+          "creditor": {
+            "name": "Apartment rent (synthetic landlord)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Vilnius apartment rent · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260905-0259",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-07",
+          "value_date": "2026-09-07",
+          "creditor": {
+            "name": "Gym+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly gym membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260906-0254",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-07",
+          "value_date": "2026-09-07",
+          "creditor": {
+            "name": "Telia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Home internet · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260908-1-0-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "100.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-08",
+          "value_date": "2026-09-08",
+          "creditor": null,
+          "debtor": {
+            "name": "Revolut · Daily spending"
+          },
+          "remittance_information": [
+            "Move spare spending money back to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260912-0256",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "46.28"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "Ignitis"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Electricity invoice · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260912-0319",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "129.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "IKEA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKEA · 2026-09-12"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260914-0257",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "21.10"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "Vilniaus šilumos tinklai"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Heating and hot water · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260915-0255",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "17.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-15",
+          "value_date": "2026-09-15",
+          "creditor": {
+            "name": "BITĖ"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Mobile plan · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260916-0-1-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-16",
+          "value_date": "2026-09-16",
+          "creditor": {
+            "name": "Revolut · Daily spending"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260917-0258",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "16.70"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-17",
+          "value_date": "2026-09-17",
+          "creditor": {
+            "name": "Vilniaus vandenys"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Water invoice · 09/2026"
+          ]
+        },
+        {
+          "entry_reference": "life26-0-20260920-0260",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-21",
+          "value_date": "2026-09-21",
+          "creditor": {
+            "name": "Lietuvos draudimas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Monthly home contents insurance"
+          ]
+        }
+      ]
+    }
+  ]
+}

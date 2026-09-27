@@ -1,0 +1,34 @@
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspaces/haven
+    command: sleep infinity
+    init: true
+    environment:
+      HAVEN_DEVCONTAINER: "1"
+      HAVEN_ENV_FILE: .env.devcontainer
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: haven
+      POSTGRES_DB: haven
+      # Local development only. No database port is published to the host.
+      POSTGRES_PASSWORD: haven_dev_local
+    volumes:
+      - haven-devcontainer-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U haven -d haven"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+
+volumes:
+  haven-devcontainer-data:

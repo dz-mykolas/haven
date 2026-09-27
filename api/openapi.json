@@ -1,0 +1,2651 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Haven local API",
+    "version": "0.1.0",
+    "description": "Development-only single workspace. EUR. No authentication yet; bind loopback only."
+  },
+  "paths": {
+    "/api/state": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Device IANA timezone for the upcoming 30-day window; defaults to UTC."
+          },
+          {
+            "name": "entries",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["all", "preview"]
+            },
+            "description": "preview returns at most 200 recent entries for attachment context; all totals still include every entry. Use /entries for the paginated activity feed."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Snapshot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/export": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Backup"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{id}": {
+      "put": {
+        "description": "version=0 creates with a client UUID. Existing records require the current version. Identical create retries are idempotent.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove an account from Haven; retain transfer history and exclude future sync",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["version"],
+                "properties": {
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account removed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["removed"],
+                  "properties": {
+                    "removed": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entries/{id}": {
+      "put": {
+        "description": "version=0 creates with a client UUID. Existing records require the current version. Identical create retries are idempotent.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Entry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entry"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{id}": {
+      "put": {
+        "description": "version=0 creates with a client UUID. Existing records require the current version. Identical create retries are idempotent.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{id}/complete": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankingStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking/banks": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "banks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TestBank"
+                      }
+                    }
+                  },
+                  "required": ["banks"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking/authorize": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "country"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["url"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking/callback": {
+      "get": {
+        "description": "Provider browser redirect. Requires an unexpired, single-use state bound to the HttpOnly authorization cookie. Codes and session IDs are never returned to JavaScript.",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "error",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "303": {
+            "description": "Return to Money with a sanitized connection outcome"
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking/connections/{id}/refresh": {
+      "post": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankingStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banking/connections/{id}/disconnect": {
+      "post": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankingStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "summary": "Create, rename, or hide a transaction category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Version or name conflict"
+          }
+        }
+      }
+    },
+    "/banking/transactions/{id}/annotations": {
+      "put": {
+        "summary": "Update personal annotations without changing bank facts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankAnnotations"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAnnotations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Version or name conflict"
+          }
+        }
+      }
+    },
+    "/api/tasks/calendar": {
+      "get": {
+        "summary": "Six-week month calendar including recurring previews and completed occurrences",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Calendar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCalendar"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/settings": {
+      "put": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantSettings"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantSettings"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/provider": {
+      "put": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantProviderUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantProvider"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantProviderRevision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/provider/test": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantProviderRevision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/chat": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantChatRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantChatReply"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/inbox": {
+      "get": {
+        "summary": "Persistent transaction review inbox",
+        "parameters": [
+          {
+            "name": "view",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["review", "history"]
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Opaque next_cursor from the previous page, scoped to the selected view."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inbox and processing counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewInbox"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/inbox/{id}/dismiss": {
+      "post": {
+        "summary": "Dismiss a suggestion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Action completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Transaction or suggestion changed"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/assistant/inbox/{id}/apply": {
+      "post": {
+        "summary": "Save reviewed annotations atomically",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["category_id", "tags", "notes", "version"],
+                "properties": {
+                  "category_id": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer"
+                  },
+                  "payment_units": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Action completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Transaction or suggestion changed"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/assistant/inbox/retry": {
+      "post": {
+        "summary": "Retry failed reviews",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Action completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Transaction or suggestion changed"
+          }
+        }
+      }
+    },
+    "/api/assistant/inbox/{id}/undo": {
+      "post": {
+        "summary": "Undo automatic category and tags if the transaction has not been edited",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Action completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Transaction or suggestion changed"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/assistant/inbox/{id}/answer": {
+      "post": {
+        "summary": "Answer a purchase clarification for background review",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["answer"],
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Action completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Transaction or suggestion changed"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/entries": {
+      "get": {
+        "summary": "List transactions with cursor pagination",
+        "description": "50 canonical transactions per page, ordered by date descending and ID ascending. Filters precede pagination. Balances and monthly totals come from /state independently.",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payment",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "unlinked",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A transaction page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid filter or cursor"
+          }
+        }
+      }
+    },
+    "/api/icons": {
+      "get": {
+        "summary": "Brand icon for a payee or plan name, matched against the embedded Simple Icons catalogue (CC0); no outside service is contacted",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matched brand icon (24×24 single-path SVG artwork)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandIcon"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No brand matches this name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{id}/logo": {
+      "get": {
+        "summary": "Logo of a bank-synced account's bank, downloaded once from the address Enable Banking lists and then served from Haven's cache",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logo image",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not a bank account, or the bank has no logo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "currency", "opening_minor", "version"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string",
+            "enum": ["EUR"]
+          },
+          "opening_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "version": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["", "enable_banking_sandbox"],
+            "description": "Bank records are read-only and clearly marked as sandbox data; omitted for manual records."
+          },
+          "bank_balance_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Latest bank-reported booked EUR balance in cents. Authoritative for bank accounts; transaction history must not be added again."
+          }
+        }
+      },
+      "Entry": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "account_id",
+          "destination_id",
+          "kind",
+          "amount_minor",
+          "date",
+          "payee",
+          "category",
+          "notes",
+          "deleted",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "string"
+          },
+          "destination_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["income", "expense", "transfer"]
+          },
+          "amount_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "date": {
+            "type": "string"
+          },
+          "payee": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["", "enable_banking_sandbox"],
+            "description": "Bank amounts and payees are managed by sync; use the annotations endpoint for category, tags, and notes."
+          },
+          "category_id": {
+            "type": "string",
+            "description": "Category ID; empty or omitted means Uncategorized."
+          },
+          "tags": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 40
+            }
+          },
+          "bank_description": {
+            "type": "string",
+            "readOnly": true,
+            "description": "Original bank description, separate from personal notes."
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Task",
+            "description": "Optional linked recurring payment. Saves the schedule and transaction annotations atomically; omitted preserves any existing schedule."
+          },
+          "payment_units": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "date",
+          "time",
+          "timezone",
+          "repeat",
+          "anchor_day",
+          "kind",
+          "amount_minor",
+          "notes",
+          "done",
+          "deleted",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "repeat": {
+            "type": "string",
+            "enum": ["none", "daily", "weekly", "monthly", "yearly"]
+          },
+          "anchor_day": {
+            "type": "integer"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["task", "appointment", "payment"]
+          },
+          "amount_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "estimated_min_minor": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]+$",
+            "description": "Optional lower bound in EUR cents. Both bounds are null for unknown cost."
+          },
+          "estimated_max_minor": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]+$",
+            "description": "Optional upper bound in EUR cents, at least the lower bound."
+          },
+          "plan": {
+            "$ref": "#/components/schemas/PaymentPlan"
+          }
+        }
+      },
+      "CompleteRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "Snapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "accounts",
+          "entries",
+          "tasks",
+          "balances",
+          "total_minor",
+          "income_minor",
+          "spending_minor",
+          "month",
+          "categories",
+          "tags"
+        ],
+        "properties": {
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "balances": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^-?[0-9]+$",
+              "description": "Exact EUR cents, serialized as a decimal string."
+            }
+          },
+          "total_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "income_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "spending_minor": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$",
+            "description": "Exact EUR cents, serialized as a decimal string."
+          },
+          "month": {
+            "type": "string"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "upcoming": {
+            "$ref": "#/components/schemas/UpcomingCosts"
+          }
+        }
+      },
+      "Completion": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "task_id", "due_date", "completed_at"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "due_date": {
+            "type": "string"
+          },
+          "completed_at": {
+            "type": "string"
+          }
+        }
+      },
+      "Backup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "format",
+          "exported_at",
+          "accounts",
+          "entries",
+          "tasks",
+          "completions",
+          "categories",
+          "tags",
+          "assistant_settings"
+        ],
+        "properties": {
+          "format": {
+            "type": "string",
+            "enum": ["haven-1"]
+          },
+          "exported_at": {
+            "type": "string"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "completions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Completion"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assistant_settings": {
+            "$ref": "#/components/schemas/AssistantSettings"
+          }
+        }
+      },
+      "TestBank": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "maximum_consent_validity": {
+            "type": "integer"
+          },
+          "psu_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "country",
+          "maximum_consent_validity",
+          "psu_types"
+        ],
+        "additionalProperties": false
+      },
+      "BankAmount": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": ["amount", "currency"],
+        "additionalProperties": false
+      },
+      "BankBalance": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "balance_amount": {
+            "$ref": "#/components/schemas/BankAmount"
+          },
+          "balance_type": {
+            "type": "string"
+          },
+          "reference_date": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "balance_amount", "balance_type"],
+        "additionalProperties": false
+      },
+      "BankTransaction": {
+        "type": "object",
+        "properties": {
+          "entry_reference": {
+            "type": "string"
+          },
+          "transaction_amount": {
+            "$ref": "#/components/schemas/BankAmount"
+          },
+          "credit_debit_indicator": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "booking_date": {
+            "type": "string"
+          },
+          "value_date": {
+            "type": "string"
+          },
+          "creditor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          },
+          "debtor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          },
+          "remittance_information": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "creditor_account": {
+            "type": "object",
+            "properties": {
+              "iban": {
+                "type": "string"
+              }
+            }
+          },
+          "debtor_account": {
+            "type": "object",
+            "properties": {
+              "iban": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "transaction_amount",
+          "credit_debit_indicator",
+          "status",
+          "creditor",
+          "debtor"
+        ],
+        "additionalProperties": false
+      },
+      "BankAccount": {
+        "type": "object",
+        "properties": {
+          "identification_hash": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "object",
+            "properties": {
+              "iban": {
+                "type": "string"
+              }
+            },
+            "required": ["iban"],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "identification_hash",
+          "name",
+          "details",
+          "currency",
+          "account_id"
+        ],
+        "additionalProperties": false
+      },
+      "BankAccountData": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/BankAccount"
+          },
+          "balances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankBalance"
+            }
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankTransaction"
+            }
+          }
+        },
+        "required": ["account", "balances", "transactions"],
+        "additionalProperties": false
+      },
+      "BankConnection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bank": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string",
+            "enum": ["SANDBOX"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["connected", "expired", "disconnected"]
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "synced_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccountData"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "bank",
+          "country",
+          "environment",
+          "status",
+          "valid_until",
+          "synced_at",
+          "accounts"
+        ],
+        "additionalProperties": false
+      },
+      "BankingStatus": {
+        "type": "object",
+        "properties": {
+          "configured": {
+            "type": "boolean"
+          },
+          "environment": {
+            "type": "string",
+            "enum": ["SANDBOX"]
+          },
+          "connections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankConnection"
+            }
+          }
+        },
+        "required": ["configured", "environment", "connections"],
+        "additionalProperties": false
+      },
+      "Category": {
+        "type": "object",
+        "required": ["id", "name", "hidden", "version"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "BankAnnotations": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category_id", "tags", "notes", "version"],
+        "properties": {
+          "category_id": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 40
+            }
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Task",
+            "description": "Optional linked recurring payment. Saves the schedule and transaction annotations atomically; omitted preserves any existing schedule."
+          },
+          "payment_units": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      },
+      "TaskOccurrence": {
+        "type": "object",
+        "required": ["task", "date", "projected", "completed"],
+        "properties": {
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "date": {
+            "type": "string"
+          },
+          "projected": {
+            "type": "boolean"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TaskCalendar": {
+        "type": "object",
+        "required": ["month", "from", "to", "items"],
+        "properties": {
+          "month": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskOccurrence"
+            }
+          }
+        }
+      },
+      "AssistantSettings": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "presentation",
+          "offer_estimated_costs",
+          "skills",
+          "version"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["manual", "on_request", "proactive"]
+          },
+          "presentation": {
+            "type": "string",
+            "enum": ["button", "card"]
+          },
+          "offer_estimated_costs": {
+            "type": "boolean"
+          },
+          "skills": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["review-transaction", "plan-task", "organize-money"],
+            "properties": {
+              "review-transaction": {
+                "type": "boolean"
+              },
+              "plan-task": {
+                "type": "boolean"
+              },
+              "organize-money": {
+                "type": "boolean"
+              }
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "AssistantSkill": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "supports_background"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "supports_background": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AssistantStatus": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["settings", "skills", "model_connected", "provider"],
+        "properties": {
+          "settings": {
+            "$ref": "#/components/schemas/AssistantSettings"
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssistantSkill"
+            }
+          },
+          "model_connected": {
+            "type": "boolean"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/AssistantProvider"
+          }
+        }
+      },
+      "AssistantProvider": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "base_url",
+          "model",
+          "protocol",
+          "has_api_key",
+          "version",
+          "tested_at"
+        ],
+        "properties": {
+          "base_url": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["chat_completions", "responses"]
+          },
+          "has_api_key": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "tested_at": {
+            "type": ["string", "null"]
+          }
+        }
+      },
+      "AssistantProviderUpdate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["base_url", "model", "protocol", "version"],
+        "properties": {
+          "base_url": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["chat_completions", "responses"]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "api_key": {
+            "type": ["string", "null"],
+            "writeOnly": true
+          }
+        }
+      },
+      "AssistantChatRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["messages", "timezone", "entry_ids"],
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["role", "content"],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "enum": ["user", "assistant"]
+                },
+                "content": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "entry_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "task_drafts": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "description": "Recent editable conversation drafts; saved task revisions are checked against current records."
+          }
+        }
+      },
+      "AssistantChatReply": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["message", "task", "entries", "presentation"],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "task": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Task"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          },
+          "presentation": {
+            "type": "string",
+            "enum": ["button", "card"]
+          },
+          "reasons": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 400
+            }
+          }
+        }
+      },
+      "AssistantProviderRevision": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["version"],
+        "properties": {
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "UpcomingCost": {
+        "type": "object",
+        "required": [
+          "task",
+          "date",
+          "minimum_minor",
+          "maximum_minor",
+          "date_until",
+          "event",
+          "group",
+          "included"
+        ],
+        "properties": {
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "minimum_minor": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]+$"
+          },
+          "maximum_minor": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]+$"
+          },
+          "date_until": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string",
+            "enum": ["payment", "expiry"]
+          },
+          "group": {
+            "type": "string",
+            "enum": ["scheduled", "expected"]
+          },
+          "included": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpcomingCosts": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "minimum_minor",
+          "maximum_minor",
+          "unknown_count",
+          "items",
+          "scheduled",
+          "expected"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date"
+          },
+          "to": {
+            "type": "string",
+            "format": "date"
+          },
+          "minimum_minor": {
+            "type": "string"
+          },
+          "maximum_minor": {
+            "type": "string"
+          },
+          "unknown_count": {
+            "type": "integer"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpcomingCost"
+            }
+          },
+          "scheduled": {
+            "$ref": "#/components/schemas/CostSubtotal"
+          },
+          "expected": {
+            "$ref": "#/components/schemas/CostSubtotal"
+          }
+        }
+      },
+      "ReviewItem": {
+        "type": "object",
+        "required": [
+          "entry_id",
+          "original",
+          "draft",
+          "status",
+          "created_at",
+          "reason",
+          "can_undo",
+          "question"
+        ],
+        "properties": {
+          "entry_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "original": {
+            "$ref": "#/components/schemas/Entry"
+          },
+          "draft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Entry"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "processing",
+              "review",
+              "dismissed",
+              "completed",
+              "unchanged",
+              "stale",
+              "failed",
+              "auto_applied",
+              "undone"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "can_undo": {
+            "type": "boolean"
+          },
+          "question": {
+            "type": "string"
+          }
+        }
+      },
+      "ReviewInbox": {
+        "type": "object",
+        "required": [
+          "items",
+          "review_count",
+          "pending_count",
+          "failed_count",
+          "total",
+          "enabled",
+          "next_cursor"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewItem"
+            }
+          },
+          "review_count": {
+            "type": "integer"
+          },
+          "pending_count": {
+            "type": "integer"
+          },
+          "failed_count": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": "string",
+            "description": "Empty when no further results remain."
+          }
+        }
+      },
+      "PaymentPlan": {
+        "type": "object",
+        "required": [
+          "kind",
+          "excluded",
+          "remind",
+          "expires_on",
+          "date_until",
+          "interval_days",
+          "coverage_days",
+          "quantity",
+          "coverage_through"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["scheduled", "expected", "prepaid"]
+          },
+          "excluded": {
+            "type": "boolean"
+          },
+          "remind": {
+            "type": "boolean"
+          },
+          "expires_on": {
+            "type": "string"
+          },
+          "date_until": {
+            "type": "string"
+          },
+          "interval_days": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3660
+          },
+          "coverage_days": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3660
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "coverage_through": {
+            "type": "string"
+          },
+          "reminder_completed_on": {
+            "type": "string"
+          }
+        }
+      },
+      "CostSubtotal": {
+        "type": "object",
+        "required": ["minimum_minor", "maximum_minor", "unknown_count"],
+        "properties": {
+          "minimum_minor": {
+            "type": "string"
+          },
+          "maximum_minor": {
+            "type": "string"
+          },
+          "unknown_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "ActivityPage": {
+        "type": "object",
+        "required": ["items", "total", "next_cursor"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "next_cursor": {
+            "type": "string"
+          }
+        }
+      },
+      "BrandIcon": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "title", "hex", "path"],
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "hex": {
+            "type": "string",
+            "description": "Brand colour, six hex digits without #"
+          },
+          "path": {
+            "type": "string",
+            "description": "SVG path data in a 24×24 viewBox"
+          }
+        }
+      }
+    }
+  }
+}

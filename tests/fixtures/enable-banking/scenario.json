@@ -1,0 +1,2983 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "seed": 20260301,
+  "period": {
+    "from": "2026-03-01",
+    "through": "2026-09-22",
+    "complete_months": 6
+  },
+  "person": {
+    "name": "Lukas Petrauskas (fictional)",
+    "location": "Vilnius, Lithuania",
+    "household": "One adult renting an apartment; salaried employee, no dependants",
+    "account_roles": "SEB receives salary and pays household bills. Revolut handles day-to-day card spending and subscriptions."
+  },
+  "subscriptions": [
+    "Netflix",
+    "Discord Nitro",
+    "Spotify Premium",
+    "Apple iCloud+",
+    "Gym+",
+    "Bitwarden Premium"
+  ],
+  "accounts": [
+    {
+      "key": "seb",
+      "identification": "HAVEN-LIFE-SEB-2026",
+      "label": "SEB · Everyday",
+      "opening_minor": 180000,
+      "closing_minor": 734936,
+      "minimum_running_minor": 180000,
+      "transactions": 91,
+      "months": [
+        {
+          "month": "2026-03",
+          "income": 245000,
+          "spending": 97134,
+          "transfers_in": 10000,
+          "transfers_out": 95000
+        },
+        {
+          "month": "2026-04",
+          "income": 290560,
+          "spending": 92766,
+          "transfers_in": 20000,
+          "transfers_out": 95000
+        },
+        {
+          "month": "2026-05",
+          "income": 245000,
+          "spending": 162329,
+          "transfers_in": 30000,
+          "transfers_out": 95000
+        },
+        {
+          "month": "2026-06",
+          "income": 245000,
+          "spending": 95975,
+          "transfers_in": 30000,
+          "transfers_out": 145000
+        },
+        {
+          "month": "2026-07",
+          "income": 265000,
+          "spending": 91420,
+          "transfers_in": 90000,
+          "transfers_out": 130000
+        },
+        {
+          "month": "2026-08",
+          "income": 265000,
+          "spending": 91672,
+          "transfers_in": 30000,
+          "transfers_out": 95000
+        },
+        {
+          "month": "2026-09",
+          "income": 265000,
+          "spending": 104328,
+          "transfers_in": 10000,
+          "transfers_out": 95000
+        }
+      ]
+    },
+    {
+      "key": "revolut",
+      "identification": "HAVEN-LIFE-REVOLUT-2026",
+      "label": "Revolut · Daily spending",
+      "opening_minor": 18000,
+      "closing_minor": 87533,
+      "minimum_running_minor": 14200,
+      "transactions": 279,
+      "months": [
+        {
+          "month": "2026-03",
+          "income": 0,
+          "spending": 64454,
+          "transfers_in": 95000,
+          "transfers_out": 10000
+        },
+        {
+          "month": "2026-04",
+          "income": 0,
+          "spending": 76075,
+          "transfers_in": 95000,
+          "transfers_out": 20000
+        },
+        {
+          "month": "2026-05",
+          "income": 6490,
+          "spending": 70301,
+          "transfers_in": 95000,
+          "transfers_out": 30000
+        },
+        {
+          "month": "2026-06",
+          "income": 0,
+          "spending": 112481,
+          "transfers_in": 145000,
+          "transfers_out": 30000
+        },
+        {
+          "month": "2026-07",
+          "income": 21000,
+          "spending": 60819,
+          "transfers_in": 130000,
+          "transfers_out": 90000
+        },
+        {
+          "month": "2026-08",
+          "income": 9990,
+          "spending": 74520,
+          "transfers_in": 95000,
+          "transfers_out": 30000
+        },
+        {
+          "month": "2026-09",
+          "income": 0,
+          "spending": 39297,
+          "transfers_in": 95000,
+          "transfers_out": 10000
+        }
+      ]
+    }
+  ],
+  "transfers": [
+    {
+      "date": "2026-03-02",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260302-0-1-out",
+      "credit": "life26-transfer-20260302-0-1-in"
+    },
+    {
+      "date": "2026-03-16",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260316-0-1-out",
+      "credit": "life26-transfer-20260316-0-1-in"
+    },
+    {
+      "date": "2026-04-02",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260402-0-1-out",
+      "credit": "life26-transfer-20260402-0-1-in"
+    },
+    {
+      "date": "2026-04-16",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260416-0-1-out",
+      "credit": "life26-transfer-20260416-0-1-in"
+    },
+    {
+      "date": "2026-05-04",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260502-0-1-out",
+      "credit": "life26-transfer-20260502-0-1-in"
+    },
+    {
+      "date": "2026-05-18",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260516-0-1-out",
+      "credit": "life26-transfer-20260516-0-1-in"
+    },
+    {
+      "date": "2026-06-02",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260602-0-1-out",
+      "credit": "life26-transfer-20260602-0-1-in"
+    },
+    {
+      "date": "2026-06-16",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260616-0-1-out",
+      "credit": "life26-transfer-20260616-0-1-in"
+    },
+    {
+      "date": "2026-07-02",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260702-0-1-out",
+      "credit": "life26-transfer-20260702-0-1-in"
+    },
+    {
+      "date": "2026-07-16",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260716-0-1-out",
+      "credit": "life26-transfer-20260716-0-1-in"
+    },
+    {
+      "date": "2026-08-03",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260802-0-1-out",
+      "credit": "life26-transfer-20260802-0-1-in"
+    },
+    {
+      "date": "2026-08-17",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260816-0-1-out",
+      "credit": "life26-transfer-20260816-0-1-in"
+    },
+    {
+      "date": "2026-09-02",
+      "amount_minor": 65000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260902-0-1-out",
+      "credit": "life26-transfer-20260902-0-1-in"
+    },
+    {
+      "date": "2026-09-16",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260916-0-1-out",
+      "credit": "life26-transfer-20260916-0-1-in"
+    },
+    {
+      "date": "2026-06-03",
+      "amount_minor": 50000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260603-0-1-out",
+      "credit": "life26-transfer-20260603-0-1-in"
+    },
+    {
+      "date": "2026-07-10",
+      "amount_minor": 35000,
+      "from": "HAVEN-LIFE-SEB-2026",
+      "to": "HAVEN-LIFE-REVOLUT-2026",
+      "debit": "life26-transfer-20260710-0-1-out",
+      "credit": "life26-transfer-20260710-0-1-in"
+    },
+    {
+      "date": "2026-09-08",
+      "amount_minor": 10000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260908-1-0-out",
+      "credit": "life26-transfer-20260908-1-0-in"
+    },
+    {
+      "date": "2026-03-31",
+      "amount_minor": 10000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260331-1-0-out",
+      "credit": "life26-transfer-20260331-1-0-in"
+    },
+    {
+      "date": "2026-04-30",
+      "amount_minor": 20000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260430-1-0-out",
+      "credit": "life26-transfer-20260430-1-0-in"
+    },
+    {
+      "date": "2026-05-29",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260529-1-0-out",
+      "credit": "life26-transfer-20260529-1-0-in"
+    },
+    {
+      "date": "2026-06-30",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260630-1-0-out",
+      "credit": "life26-transfer-20260630-1-0-in"
+    },
+    {
+      "date": "2026-07-31",
+      "amount_minor": 90000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260731-1-0-out",
+      "credit": "life26-transfer-20260731-1-0-in"
+    },
+    {
+      "date": "2026-08-31",
+      "amount_minor": 30000,
+      "from": "HAVEN-LIFE-REVOLUT-2026",
+      "to": "HAVEN-LIFE-SEB-2026",
+      "debit": "life26-transfer-20260831-1-0-out",
+      "credit": "life26-transfer-20260831-1-0-in"
+    }
+  ],
+  "months": [
+    {
+      "month": "2026-03",
+      "complete": true,
+      "income_minor": 245000,
+      "spending_minor": 161588
+    },
+    {
+      "month": "2026-04",
+      "complete": true,
+      "income_minor": 290560,
+      "spending_minor": 168841
+    },
+    {
+      "month": "2026-05",
+      "complete": true,
+      "income_minor": 251490,
+      "spending_minor": 232630
+    },
+    {
+      "month": "2026-06",
+      "complete": true,
+      "income_minor": 245000,
+      "spending_minor": 208456
+    },
+    {
+      "month": "2026-07",
+      "complete": true,
+      "income_minor": 286000,
+      "spending_minor": 152239
+    },
+    {
+      "month": "2026-08",
+      "complete": true,
+      "income_minor": 274990,
+      "spending_minor": 166192
+    },
+    {
+      "month": "2026-09",
+      "complete": false,
+      "income_minor": 265000,
+      "spending_minor": 143625
+    }
+  ],
+  "notes": [
+    "All people, amounts, account IDs and events are synthetic. Merchant names provide realistic statement labels; prices are illustrative, not verified current offers.",
+    "Six complete months (March–August) and September through the 22nd. Salary arrives on the first business day; September is incomplete.",
+    "Card bookings normally occur on the next business day. Recurring monthly bills have stable purchase dates but variable booking dates.",
+    "Discord Nitro stops after May and resumes in August. Netflix changes plan in July. Bitwarden renews annually.",
+    "Refunds and reimbursements are incoming cash flows, reported separately from salary in annotation suggestions.",
+    "The source files contain BOOK entries only. Pending scenarios are separate to avoid the observed EB control-panel 422 issue.",
+    "Annotation suggestions are a separate test oracle, not bank facts and not automatically assigned to Haven transactions."
+  ],
+  "total_booked_records": 370,
+  "money_transactions": 347,
+  "total_closing_minor": 822469,
+  "annotations": [
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260301-0001",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-03-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260303-0002",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260302-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260302-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260316-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260316-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260306-0003",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260315-0004",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-03-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260312-0005",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260314-0006",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260317-0007",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260305-0008",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-03-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260320-0009",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-03-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260302-0010",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-03-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260307-0011",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-03-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260311-0012",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-03-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260313-0013",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-03-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260319-0014",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-03-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260304-0015",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260311-0016",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260318-0017",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260325-0018",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260308-0019",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260316-0020",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260323-0021",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-03-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260302-0022",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260303-0023",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260305-0024",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-05"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260306-0025",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-06"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260309-0026",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260310-0027",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260313-0028",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260316-0029",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260317-0030",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260318-0031",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260319-0032",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260320-0033",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260323-0034",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260324-0035",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260325-0036",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260330-0037",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-30"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260331-0038",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-31"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260310-0039",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260324-0040",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-03-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260321-0041",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-03-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260309-0042",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-03-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260322-0043",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-03-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260328-0044",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-03-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260326-0045",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-03-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260308-0046",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-03-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260401-0047",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-04-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260403-0048",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260402-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260402-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260416-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260416-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260406-0049",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260415-0050",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-04-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260412-0051",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260414-0052",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260417-0053",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260405-0054",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-04-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260420-0055",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-04-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260402-0056",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-04-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260407-0057",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-04-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260411-0058",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-04-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260413-0059",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-04-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260419-0060",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-04-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260404-0061",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260411-0062",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260418-0063",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260425-0064",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260408-0065",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260416-0066",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260423-0067",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-04-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260401-0068",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-01"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260402-0069",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260403-0070",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260407-0071",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260408-0072",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260410-0073",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260414-0074",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-14"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260416-0075",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260417-0076",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260420-0077",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260421-0078",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260422-0079",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260424-0080",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260427-0081",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-27"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260428-0082",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260429-0083",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260410-0084",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260424-0085",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-04-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260421-0086",
+      "tags": ["Dining", "Friends"],
+      "note": "Dinner with friends.",
+      "purchase_date": "2026-04-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260409-0087",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-04-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260422-0088",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-04-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260428-0089",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-04-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260426-0090",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-04-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260409-0091",
+      "tags": ["Shopping"],
+      "note": "",
+      "purchase_date": "2026-04-09"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260501-0092",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-05-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260503-0093",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260502-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260502-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260516-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260516-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260506-0094",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260515-0095",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-05-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260512-0096",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260514-0097",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260517-0098",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260505-0099",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-05-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260520-0100",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-05-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260502-0101",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-05-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260507-0102",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-05-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260511-0103",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-05-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260513-0104",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-05-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260519-0105",
+      "tags": ["Entertainment"],
+      "note": "Cancelled after this billing cycle.",
+      "purchase_date": "2026-05-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260504-0106",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260511-0107",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260518-0108",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260525-0109",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260508-0110",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260516-0111",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260523-0112",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-05-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260505-0113",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-05"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260506-0114",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-06"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260507-0115",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260511-0116",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260512-0117",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-12"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260513-0118",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260514-0119",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-14"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260515-0120",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-15"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260518-0121",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260521-0122",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260522-0123",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260525-0124",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260529-0125",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260510-0126",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260524-0127",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-05-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260521-0128",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-05-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260509-0129",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-05-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260522-0130",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-05-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260528-0131",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-05-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260526-0132",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-05-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260508-0133",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-05-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260601-0134",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-06-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260603-0135",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260602-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260602-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260616-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260616-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260606-0136",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260615-0137",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-06-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260612-0138",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260614-0139",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260617-0140",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260605-0141",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-06-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260620-0142",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-06-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260602-0143",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-06-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260607-0144",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-06-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260611-0145",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-06-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260613-0146",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-06-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260604-0147",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260611-0148",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260618-0149",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260625-0150",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260608-0151",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260616-0152",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260623-0153",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-06-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260601-0154",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-01"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260603-0155",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260604-0156",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260605-0157",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-05"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260608-0158",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260609-0159",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260610-0160",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260611-0161",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260612-0162",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-12"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260615-0163",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-15"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260616-0164",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260617-0165",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260618-0166",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260619-0167",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260622-0168",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260626-0169",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260629-0170",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260610-0171",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260624-0172",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-06-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260621-0173",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-06-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260609-0174",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-06-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260622-0175",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-06-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260628-0176",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-06-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260626-0177",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-06-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260609-0178",
+      "tags": ["Shopping"],
+      "note": "",
+      "purchase_date": "2026-06-09"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260701-0179",
+      "tags": ["Salary"],
+      "note": "First salary after July pay rise.",
+      "purchase_date": "2026-07-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260703-0180",
+      "tags": ["Home"],
+      "note": "Lease renewal: rent increased by €50.",
+      "purchase_date": "2026-07-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260702-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260702-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260716-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260716-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260706-0181",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-07-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260715-0182",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-07-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260712-0183",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-07-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260714-0184",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-07-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260717-0185",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-07-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260705-0186",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-07-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260720-0187",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-07-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260702-0188",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-07-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260707-0189",
+      "tags": ["Entertainment"],
+      "note": "Changed streaming plan this month.",
+      "purchase_date": "2026-07-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260711-0190",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-07-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260713-0191",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-07-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260704-0192",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-07-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260711-0193",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-07-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260725-0194",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-07-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260708-0195",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-07-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260723-0196",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-07-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260703-0197",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260708-0198",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260710-0199",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260713-0200",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260722-0201",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260724-0202",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260728-0203",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260729-0204",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260730-0205",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-30"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260710-0206",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260724-0207",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-07-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260721-0208",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-07-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260709-0209",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-07-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260722-0210",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-07-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260728-0211",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-07-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260708-0212",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-07-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260801-0213",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-08-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260803-0214",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260802-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260802-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260816-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260816-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260806-0215",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260815-0216",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-08-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260812-0217",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260814-0218",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260817-0219",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260805-0220",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-08-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260820-0221",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-08-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260802-0222",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-08-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260807-0223",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-08-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260811-0224",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-08-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260813-0225",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-08-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260819-0226",
+      "tags": ["Entertainment"],
+      "note": "Restarted Nitro after a two-month break.",
+      "purchase_date": "2026-08-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260804-0227",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260811-0228",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260818-0229",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260825-0230",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260808-0231",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260816-0232",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260823-0233",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-08-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260804-0234",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260807-0235",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260813-0236",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260814-0237",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-14"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260821-0238",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260824-0239",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260825-0240",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260826-0241",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260828-0242",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260831-0243",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-31"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260810-0244",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260824-0245",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260821-0246",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-08-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260809-0247",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-08-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260822-0248",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-08-22"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260828-0249",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-08-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260826-0250",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-08-26"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260809-0251",
+      "tags": ["Shopping"],
+      "note": "",
+      "purchase_date": "2026-08-09"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260901-0252",
+      "tags": ["Salary"],
+      "note": "",
+      "purchase_date": "2026-09-01"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260903-0253",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-03"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260902-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260902-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-02"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260916-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260916-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-16"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260906-0254",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-06"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260915-0255",
+      "tags": ["Phone"],
+      "note": "",
+      "purchase_date": "2026-09-15"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260912-0256",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260914-0257",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-14"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260917-0258",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-17"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260905-0259",
+      "tags": ["Fitness"],
+      "note": "",
+      "purchase_date": "2026-09-05"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260920-0260",
+      "tags": ["Home"],
+      "note": "",
+      "purchase_date": "2026-09-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260902-0261",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-09-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260907-0262",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-09-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260911-0263",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-09-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260913-0264",
+      "tags": ["Software"],
+      "note": "",
+      "purchase_date": "2026-09-13"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260919-0265",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-09-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260904-0266",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-09-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260911-0267",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-09-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260918-0268",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-09-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260908-0269",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-09-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260916-0270",
+      "tags": ["Groceries"],
+      "note": "",
+      "purchase_date": "2026-09-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260901-0271",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-01"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260902-0272",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-02"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260903-0273",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260908-0274",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260910-0275",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260915-0276",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-15"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260916-0277",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260917-0278",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260921-0279",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260910-0280",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-09-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260921-0281",
+      "tags": ["Dining", "Friends"],
+      "note": "",
+      "purchase_date": "2026-09-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260909-0282",
+      "tags": ["Transport"],
+      "note": "",
+      "purchase_date": "2026-09-09"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260908-0283",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-09-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260401-0284",
+      "tags": ["Other income"],
+      "note": "",
+      "purchase_date": "2026-04-01"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260321-0285",
+      "tags": ["Shopping"],
+      "note": "Everyday trainers.",
+      "purchase_date": "2026-03-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260323-0286",
+      "tags": ["Software"],
+      "note": "Annual renewal; not a monthly charge.",
+      "purchase_date": "2026-03-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260307-0287",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-03-07"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260411-0288",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-04-11"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260516-0289",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-05-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260620-0290",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-06-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260725-0291",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-07-25"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260829-0292",
+      "tags": ["Health"],
+      "note": "",
+      "purchase_date": "2026-08-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260410-0293",
+      "tags": ["Travel", "Work", "Reimbursable"],
+      "note": "Client visit; claim reimbursed on 20 April.",
+      "purchase_date": "2026-04-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260410-0294",
+      "tags": ["Travel", "Work", "Reimbursable"],
+      "note": "Return rail ticket for the client visit.",
+      "purchase_date": "2026-04-10"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260420-0295",
+      "tags": ["Refund", "Work"],
+      "note": "",
+      "purchase_date": "2026-04-20",
+      "related_reference": "life26-1-20260410-0293"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260508-0296",
+      "tags": ["Shopping"],
+      "note": "Jacket returned because the size was wrong.",
+      "purchase_date": "2026-05-08"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260519-0297",
+      "tags": ["Refund"],
+      "note": "",
+      "purchase_date": "2026-05-19",
+      "related_reference": "life26-1-20260508-0296"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260522-0298",
+      "tags": ["Transport"],
+      "note": "Annual bike service and a new chain.",
+      "purchase_date": "2026-05-22"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260603-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260603-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-03"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260604-0299",
+      "tags": ["Travel", "Italy trip"],
+      "note": "Return flights for 15–21 July.",
+      "purchase_date": "2026-06-04"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260610-0300",
+      "tags": ["Travel", "Italy trip"],
+      "note": "Six nights in Bologna; sharing the room with a friend.",
+      "purchase_date": "2026-06-10"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260618-0301",
+      "tags": ["Shopping"],
+      "note": "Replacement headphones.",
+      "purchase_date": "2026-06-18"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260710-0-1-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260710-0-1-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-10"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260715-0302",
+      "tags": ["Travel", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-15"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260715-0303",
+      "tags": ["Groceries", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-15"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260716-0304",
+      "tags": ["Dining", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260716-0305",
+      "tags": ["Transport", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-16"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260717-0306",
+      "tags": ["Entertainment", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260717-0307",
+      "tags": ["Dining", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-17"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260718-0308",
+      "tags": ["Groceries", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260718-0309",
+      "tags": ["Travel", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-18"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260719-0310",
+      "tags": ["Dining", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-19"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260720-0311",
+      "tags": ["Dining", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-20"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260721-0312",
+      "tags": ["Travel", "Italy trip"],
+      "note": "",
+      "purchase_date": "2026-07-21"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260724-0313",
+      "tags": ["Refund", "Italy trip"],
+      "note": "Shared accommodation reimbursement.",
+      "purchase_date": "2026-07-24"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260806-0314",
+      "tags": ["Health"],
+      "note": "Dental check-up and cleaning.",
+      "purchase_date": "2026-08-06"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260812-0315",
+      "tags": ["Dining"],
+      "note": "",
+      "purchase_date": "2026-08-12"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260812-0316",
+      "tags": ["Dining"],
+      "note": "Second charge for the same order; reversed on 14 August.",
+      "purchase_date": "2026-08-12"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260814-0317",
+      "tags": ["Refund"],
+      "note": "",
+      "purchase_date": "2026-08-14",
+      "related_reference": "life26-1-20260812-0316"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260827-0318",
+      "tags": ["Other income", "Decluttering"],
+      "note": "",
+      "purchase_date": "2026-08-27"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260908-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260908-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-09-08"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260912-0319",
+      "tags": ["Home", "Home office"],
+      "note": "Desk and lamp for the home office.",
+      "purchase_date": "2026-09-12"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-0-20260514-0320",
+      "tags": ["Shopping", "Home office"],
+      "note": "Refurbished replacement laptop; old laptop stopped working.",
+      "purchase_date": "2026-05-14"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260423-0321",
+      "tags": ["Shopping", "Gifts"],
+      "note": "Birthday present for a sibling.",
+      "purchase_date": "2026-04-23"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260327-0322",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-03-27"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260528-0323",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-05-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-1-20260828-0324",
+      "tags": ["Entertainment"],
+      "note": "",
+      "purchase_date": "2026-08-28"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260331-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-31"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260331-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-03-31"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260430-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-30"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260430-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-04-30"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260529-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-29"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260529-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-05-29"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260630-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-30"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260630-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-06-30"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260731-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-31"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260731-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-07-31"
+    },
+    {
+      "account": "HAVEN-LIFE-REVOLUT-2026",
+      "entry_reference": "life26-transfer-20260831-1-0-out",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-31"
+    },
+    {
+      "account": "HAVEN-LIFE-SEB-2026",
+      "entry_reference": "life26-transfer-20260831-1-0-in",
+      "tags": [],
+      "note": "",
+      "purchase_date": "2026-08-31"
+    }
+  ]
+}

@@ -1,0 +1,5060 @@
+{
+  "accounts": [
+    {
+      "info": {
+        "name": "Lukas Petrauskas (fictional)",
+        "details": "Revolut · Daily spending",
+        "currency": "EUR",
+        "cash_account_type": "CACC",
+        "usage": "PRIV",
+        "account_id": {
+          "other": {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-LIFE-REVOLUT-2026"
+          }
+        },
+        "all_account_ids": [
+          {
+            "scheme_name": "OTHI",
+            "identification": "HAVEN-LIFE-REVOLUT-2026"
+          }
+        ]
+      },
+      "balances": [
+        {
+          "name": "Booked balance",
+          "balance_type": "CLBD",
+          "reference_date": "2026-09-22",
+          "balance_amount": {
+            "currency": "EUR",
+            "amount": "875.33"
+          }
+        }
+      ],
+      "transactions": [
+        {
+          "entry_reference": "life26-1-20260302-0010",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-02",
+          "value_date": "2026-03-02",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260302-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-03-02",
+          "value_date": "2026-03-02",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260302-0022",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-03",
+          "value_date": "2026-03-03",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-02"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260303-0023",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.94"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-04",
+          "value_date": "2026-03-04",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260304-0015",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "36.82"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-05",
+          "value_date": "2026-03-05",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-03-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260305-0024",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.30"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-06",
+          "value_date": "2026-03-06",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260306-0025",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-09",
+          "value_date": "2026-03-09",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-06"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260307-0011",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-09",
+          "value_date": "2026-03-09",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260307-0287",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-09",
+          "value_date": "2026-03-09",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-03-07"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260308-0019",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.97"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-09",
+          "value_date": "2026-03-09",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-03-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260308-0046",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "13.86"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-09",
+          "value_date": "2026-03-09",
+          "creditor": {
+            "name": "Eurovaistinė"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Eurovaistinė · 2026-03-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260309-0026",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-10",
+          "value_date": "2026-03-10",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260309-0042",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.52"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-10",
+          "value_date": "2026-03-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-03-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260310-0027",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.49"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-12",
+          "value_date": "2026-03-12",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260310-0039",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "20.25"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-12",
+          "value_date": "2026-03-12",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-03-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260311-0012",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-12",
+          "value_date": "2026-03-12",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260311-0016",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "45.98"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-12",
+          "value_date": "2026-03-12",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-03-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260313-0013",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260313-0028",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-13"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260316-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-03-16",
+          "value_date": "2026-03-16",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260316-0020",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "6.43"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-17",
+          "value_date": "2026-03-17",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-03-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260316-0029",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-17",
+          "value_date": "2026-03-17",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260317-0030",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.83"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-18",
+          "value_date": "2026-03-18",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260318-0017",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "42.27"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-19",
+          "value_date": "2026-03-19",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-03-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260318-0031",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-19",
+          "value_date": "2026-03-19",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260319-0014",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-20",
+          "value_date": "2026-03-20",
+          "creditor": {
+            "name": "Discord Nitro"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Discord Nitro monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260319-0032",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.82"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-20",
+          "value_date": "2026-03-20",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260320-0033",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-23",
+          "value_date": "2026-03-23",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-03-20"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260321-0041",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "41.28"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-23",
+          "value_date": "2026-03-23",
+          "creditor": {
+            "name": "Talutti"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Talutti · 2026-03-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260321-0285",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "79.95"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-23",
+          "value_date": "2026-03-23",
+          "creditor": {
+            "name": "Deichmann"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Deichmann · 2026-03-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260322-0043",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.88"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-23",
+          "value_date": "2026-03-23",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-03-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260323-0021",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-24",
+          "value_date": "2026-03-24",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-03-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260323-0034",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-24",
+          "value_date": "2026-03-24",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-03-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260323-0286",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-24",
+          "value_date": "2026-03-24",
+          "creditor": {
+            "name": "Bitwarden Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Annual subscription renewal"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260324-0035",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.48"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-25",
+          "value_date": "2026-03-25",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260324-0040",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "24.15"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-25",
+          "value_date": "2026-03-25",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-03-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260325-0018",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "41.93"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-26",
+          "value_date": "2026-03-26",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-03-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260325-0036",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-26",
+          "value_date": "2026-03-26",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-03-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260326-0045",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.79"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-27",
+          "value_date": "2026-03-27",
+          "creditor": {
+            "name": "Forum Cinemas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Forum Cinemas · 2026-03-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260327-0322",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "19.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-30",
+          "value_date": "2026-03-30",
+          "creditor": {
+            "name": "Steam"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Steam · 2026-03-27"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260328-0044",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.97"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-30",
+          "value_date": "2026-03-30",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-03-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260330-0037",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-31",
+          "value_date": "2026-03-31",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-03-30"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260331-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "100.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-03-31",
+          "value_date": "2026-03-31",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260331-0038",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.27"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-01",
+          "value_date": "2026-04-01",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260401-0068",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-02",
+          "value_date": "2026-04-02",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-01"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260402-0056",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-02",
+          "value_date": "2026-04-02",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260402-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-02",
+          "value_date": "2026-04-02",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260402-0069",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.28"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-03",
+          "value_date": "2026-04-03",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260403-0070",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-07",
+          "value_date": "2026-04-07",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-03"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260404-0061",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "41.18"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-07",
+          "value_date": "2026-04-07",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-04-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260407-0057",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-08",
+          "value_date": "2026-04-08",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260407-0071",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.11"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-08",
+          "value_date": "2026-04-08",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260408-0065",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "14.93"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-09",
+          "value_date": "2026-04-09",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-04-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260408-0072",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-09",
+          "value_date": "2026-04-09",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-04-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260409-0087",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.51"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-10",
+          "value_date": "2026-04-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-04-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260409-0091",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "16.57"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-10",
+          "value_date": "2026-04-10",
+          "creditor": {
+            "name": "Drogas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Drogas · 2026-04-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260410-0073",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260410-0084",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.22"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Wolt · 2026-04-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260410-0293",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "89.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Kaunas hotel (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Kaunas hotel (synthetic) · 2026-04-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260410-0294",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "16.60"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "LTG Link"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · LTG Link · 2026-04-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260411-0058",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260411-0062",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "46.38"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-04-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260411-0288",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-13",
+          "value_date": "2026-04-13",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-04-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260413-0059",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-14",
+          "value_date": "2026-04-14",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260414-0074",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.67"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-15",
+          "value_date": "2026-04-15",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260416-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-04-16",
+          "value_date": "2026-04-16",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260416-0066",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.88"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-17",
+          "value_date": "2026-04-17",
+          "creditor": {
+            "name": "IKI"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKI · 2026-04-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260416-0075",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.25"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-17",
+          "value_date": "2026-04-17",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260417-0076",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-20",
+          "value_date": "2026-04-20",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-17"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260418-0063",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "42.04"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-20",
+          "value_date": "2026-04-20",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-04-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260419-0060",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-20",
+          "value_date": "2026-04-20",
+          "creditor": {
+            "name": "Discord Nitro"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Discord Nitro monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260420-0077",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-21",
+          "value_date": "2026-04-21",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-20"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260421-0078",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.78"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-22",
+          "value_date": "2026-04-22",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260421-0086",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "44.62"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-22",
+          "value_date": "2026-04-22",
+          "creditor": {
+            "name": "Jurgis ir Drakonas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Jurgis ir Drakonas · 2026-04-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260422-0079",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-23",
+          "value_date": "2026-04-23",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260422-0088",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.07"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-23",
+          "value_date": "2026-04-23",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-04-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260423-0067",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.84"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-24",
+          "value_date": "2026-04-24",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-04-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260423-0321",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "85.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-24",
+          "value_date": "2026-04-24",
+          "creditor": {
+            "name": "Pigu.lt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Pigu.lt · 2026-04-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260424-0080",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-27",
+          "value_date": "2026-04-27",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260424-0085",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "26.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-27",
+          "value_date": "2026-04-27",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Wolt · 2026-04-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260425-0064",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "52.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-27",
+          "value_date": "2026-04-27",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-04-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260426-0090",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.83"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-27",
+          "value_date": "2026-04-27",
+          "creditor": {
+            "name": "Forum Cinemas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Forum Cinemas · 2026-04-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260427-0081",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-28",
+          "value_date": "2026-04-28",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-04-27"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260428-0082",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.33"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-29",
+          "value_date": "2026-04-29",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260428-0089",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "5.13"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-29",
+          "value_date": "2026-04-29",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-04-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260429-0083",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-30",
+          "value_date": "2026-04-30",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-04-29"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260430-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "200.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-04-30",
+          "value_date": "2026-04-30",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260502-0101",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-04",
+          "value_date": "2026-05-04",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260502-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-05-04",
+          "value_date": "2026-05-04",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260504-0106",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "58.38"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-05",
+          "value_date": "2026-05-05",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-05-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260505-0113",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.78"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-06",
+          "value_date": "2026-05-06",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260506-0114",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-07",
+          "value_date": "2026-05-07",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-05-06"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260507-0102",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-08",
+          "value_date": "2026-05-08",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260507-0115",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.87"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-08",
+          "value_date": "2026-05-08",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260508-0110",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.33"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-11",
+          "value_date": "2026-05-11",
+          "creditor": {
+            "name": "IKI"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKI · 2026-05-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260508-0133",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "26.22"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-11",
+          "value_date": "2026-05-11",
+          "creditor": {
+            "name": "Eurovaistinė"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Eurovaistinė · 2026-05-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260508-0296",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "64.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-11",
+          "value_date": "2026-05-11",
+          "creditor": {
+            "name": "Zalando"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Zalando · 2026-05-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260509-0129",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.06"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-11",
+          "value_date": "2026-05-11",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-05-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260510-0126",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "24.61"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-11",
+          "value_date": "2026-05-11",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-05-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260511-0103",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-12",
+          "value_date": "2026-05-12",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260511-0107",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "34.12"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-12",
+          "value_date": "2026-05-12",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-05-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260511-0116",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-12",
+          "value_date": "2026-05-12",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-05-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260512-0117",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.41"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-13",
+          "value_date": "2026-05-13",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260513-0104",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-14",
+          "value_date": "2026-05-14",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260513-0118",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-14",
+          "value_date": "2026-05-14",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-05-13"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260514-0119",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.72"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-15",
+          "value_date": "2026-05-15",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260515-0120",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-05-15"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260516-0111",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.32"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": {
+            "name": "IKI"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKI · 2026-05-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260516-0289",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-05-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260516-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-05-18",
+          "value_date": "2026-05-18",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260518-0108",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "45.60"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-19",
+          "value_date": "2026-05-19",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-05-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260518-0121",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-19",
+          "value_date": "2026-05-19",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-05-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260519-0297",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "64.90"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-05-19",
+          "value_date": "2026-05-19",
+          "creditor": null,
+          "debtor": {
+            "name": "Zalando"
+          },
+          "remittance_information": [
+            "Refund for returned jacket"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260519-0105",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-20",
+          "value_date": "2026-05-20",
+          "creditor": {
+            "name": "Discord Nitro"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Discord Nitro monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260521-0122",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.25"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-22",
+          "value_date": "2026-05-22",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260521-0128",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "43.08"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-22",
+          "value_date": "2026-05-22",
+          "creditor": {
+            "name": "Talutti"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Talutti · 2026-05-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260522-0123",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-25",
+          "value_date": "2026-05-25",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-05-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260522-0130",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.85"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-25",
+          "value_date": "2026-05-25",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-05-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260522-0298",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "78.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-25",
+          "value_date": "2026-05-25",
+          "creditor": {
+            "name": "Bicycle workshop (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bicycle workshop (synthetic) · 2026-05-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260523-0112",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.88"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-25",
+          "value_date": "2026-05-25",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-05-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260524-0127",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "20.63"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-25",
+          "value_date": "2026-05-25",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-05-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260525-0109",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "52.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-26",
+          "value_date": "2026-05-26",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-05-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260525-0124",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-26",
+          "value_date": "2026-05-26",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-05-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260526-0132",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.07"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-27",
+          "value_date": "2026-05-27",
+          "creditor": {
+            "name": "Forum Cinemas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Forum Cinemas · 2026-05-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260528-0131",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "6.48"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-29",
+          "value_date": "2026-05-29",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-05-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260528-0323",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "14.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-29",
+          "value_date": "2026-05-29",
+          "creditor": {
+            "name": "Steam"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Steam · 2026-05-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260529-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-05-29",
+          "value_date": "2026-05-29",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260529-0125",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-01",
+          "value_date": "2026-06-01",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-05-29"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260601-0154",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-02",
+          "value_date": "2026-06-02",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-01"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260602-0143",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-02",
+          "value_date": "2026-06-02",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260602-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-06-02",
+          "value_date": "2026-06-02",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260603-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "500.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-06-03",
+          "value_date": "2026-06-03",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Summer trip bookings"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260603-0155",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-04",
+          "value_date": "2026-06-04",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-06-03"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260604-0147",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "49.05"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-05",
+          "value_date": "2026-06-05",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-06-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260604-0156",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.69"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-05",
+          "value_date": "2026-06-05",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260604-0299",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "148.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-05",
+          "value_date": "2026-06-05",
+          "creditor": {
+            "name": "Ryanair"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Ryanair · 2026-06-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260605-0157",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-08",
+          "value_date": "2026-06-08",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-06-05"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260607-0144",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-08",
+          "value_date": "2026-06-08",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260608-0151",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "7.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-09",
+          "value_date": "2026-06-09",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-06-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260608-0158",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-09",
+          "value_date": "2026-06-09",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-06-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260609-0159",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.85"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-10",
+          "value_date": "2026-06-10",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260609-0174",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.09"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-10",
+          "value_date": "2026-06-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-06-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260609-0178",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "41.73"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-10",
+          "value_date": "2026-06-10",
+          "creditor": {
+            "name": "Drogas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Drogas · 2026-06-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260610-0160",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-11",
+          "value_date": "2026-06-11",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260610-0171",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.58"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-11",
+          "value_date": "2026-06-11",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-06-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260610-0300",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "420.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-11",
+          "value_date": "2026-06-11",
+          "creditor": {
+            "name": "Booking.com"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Booking.com · 2026-06-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260611-0145",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-12",
+          "value_date": "2026-06-12",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260611-0148",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "56.79"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-12",
+          "value_date": "2026-06-12",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-06-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260611-0161",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.05"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-12",
+          "value_date": "2026-06-12",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260612-0162",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-15",
+          "value_date": "2026-06-15",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-12"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260613-0146",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-15",
+          "value_date": "2026-06-15",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260615-0163",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-16",
+          "value_date": "2026-06-16",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-15"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260616-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-06-16",
+          "value_date": "2026-06-16",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260616-0152",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "14.35"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-17",
+          "value_date": "2026-06-17",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-06-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260616-0164",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.91"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-17",
+          "value_date": "2026-06-17",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260617-0165",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-18",
+          "value_date": "2026-06-18",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-17"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260618-0149",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "42.85"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-19",
+          "value_date": "2026-06-19",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-06-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260618-0166",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.55"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-19",
+          "value_date": "2026-06-19",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260619-0167",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-22",
+          "value_date": "2026-06-22",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-19"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260620-0290",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-22",
+          "value_date": "2026-06-22",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-06-20"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260621-0173",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.96"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-22",
+          "value_date": "2026-06-22",
+          "creditor": {
+            "name": "Vapiano"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Vapiano · 2026-06-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260622-0168",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-23",
+          "value_date": "2026-06-23",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-06-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260622-0175",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.78"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-23",
+          "value_date": "2026-06-23",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-06-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260623-0153",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.21"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-25",
+          "value_date": "2026-06-25",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-06-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260624-0172",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "30.83"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-25",
+          "value_date": "2026-06-25",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-06-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260625-0150",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "37.63"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-26",
+          "value_date": "2026-06-26",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-06-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260626-0169",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-29",
+          "value_date": "2026-06-29",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-06-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260626-0177",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-29",
+          "value_date": "2026-06-29",
+          "creditor": {
+            "name": "Forum Cinemas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Forum Cinemas · 2026-06-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260628-0176",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.95"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-29",
+          "value_date": "2026-06-29",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-06-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260629-0170",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-30",
+          "value_date": "2026-06-30",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-06-29"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260630-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-06-30",
+          "value_date": "2026-06-30",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260702-0188",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-02",
+          "value_date": "2026-07-02",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260702-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-02",
+          "value_date": "2026-07-02",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260703-0197",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-07",
+          "value_date": "2026-07-07",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-07-03"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260704-0192",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "40.94"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-07",
+          "value_date": "2026-07-07",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-07-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260707-0189",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "15.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-08",
+          "value_date": "2026-07-08",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260708-0195",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "7.65"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-09",
+          "value_date": "2026-07-09",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-07-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260708-0198",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-09",
+          "value_date": "2026-07-09",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-07-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260708-0212",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.44"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-09",
+          "value_date": "2026-07-09",
+          "creditor": {
+            "name": "Eurovaistinė"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Eurovaistinė · 2026-07-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260709-0209",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.29"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-10",
+          "value_date": "2026-07-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-07-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260710-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "350.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-10",
+          "value_date": "2026-07-10",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Spending money for Italy"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260710-0199",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-13",
+          "value_date": "2026-07-13",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-07-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260710-0206",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "28.31"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-13",
+          "value_date": "2026-07-13",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-07-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260711-0190",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-13",
+          "value_date": "2026-07-13",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260711-0193",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "36.83"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-13",
+          "value_date": "2026-07-13",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-07-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260713-0191",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-14",
+          "value_date": "2026-07-14",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260713-0200",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-14",
+          "value_date": "2026-07-14",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-07-13"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260715-0302",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "32.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-16",
+          "value_date": "2026-07-16",
+          "creditor": {
+            "name": "Trenitalia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Trenitalia · 2026-07-15"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260715-0303",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "18.45"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-16",
+          "value_date": "2026-07-16",
+          "creditor": {
+            "name": "Coop Italia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Coop Italia · 2026-07-15"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260716-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-16",
+          "value_date": "2026-07-16",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260716-0304",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "28.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-17",
+          "value_date": "2026-07-17",
+          "creditor": {
+            "name": "Bologna trattoria (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bologna trattoria (synthetic) · 2026-07-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260716-0305",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.60"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-17",
+          "value_date": "2026-07-17",
+          "creditor": {
+            "name": "TPER"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · TPER · 2026-07-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260717-0306",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Florence museum (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Florence museum (synthetic) · 2026-07-17"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260717-0307",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "7.40"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Italian café (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Italian café (synthetic) · 2026-07-17"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260718-0308",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "21.35"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Conad"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Conad · 2026-07-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260718-0309",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "32.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Trenitalia"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Trenitalia · 2026-07-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260719-0310",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-20",
+          "value_date": "2026-07-20",
+          "creditor": {
+            "name": "Bologna pizzeria (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bologna pizzeria (synthetic) · 2026-07-19"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260720-0311",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "6.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-21",
+          "value_date": "2026-07-21",
+          "creditor": {
+            "name": "Gelateria (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Gelateria (synthetic) · 2026-07-20"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260721-0208",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "23.67"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-22",
+          "value_date": "2026-07-22",
+          "creditor": {
+            "name": "Vapiano"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Vapiano · 2026-07-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260721-0312",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-22",
+          "value_date": "2026-07-22",
+          "creditor": {
+            "name": "Marconi Express"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Marconi Express · 2026-07-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260722-0201",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-23",
+          "value_date": "2026-07-23",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-07-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260722-0210",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "6.28"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-23",
+          "value_date": "2026-07-23",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-07-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260723-0196",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "13.58"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-24",
+          "value_date": "2026-07-24",
+          "creditor": {
+            "name": "IKI"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKI · 2026-07-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260724-0313",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "210.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-07-24",
+          "value_date": "2026-07-24",
+          "creditor": null,
+          "debtor": {
+            "name": "Travel companion (synthetic)"
+          },
+          "remittance_information": [
+            "Your half of the Bologna hotel"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260724-0202",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-27",
+          "value_date": "2026-07-27",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-07-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260724-0207",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "22.38"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-27",
+          "value_date": "2026-07-27",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Wolt · 2026-07-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260725-0194",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "42.62"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-27",
+          "value_date": "2026-07-27",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-07-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260725-0291",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-27",
+          "value_date": "2026-07-27",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-07-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260728-0203",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.18"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-29",
+          "value_date": "2026-07-29",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260728-0211",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "5.23"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-29",
+          "value_date": "2026-07-29",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-07-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260729-0204",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-30",
+          "value_date": "2026-07-30",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-07-29"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260730-0205",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.72"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-31",
+          "value_date": "2026-07-31",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260731-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "900.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-07-31",
+          "value_date": "2026-07-31",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260802-0222",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-03",
+          "value_date": "2026-08-03",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260802-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-03",
+          "value_date": "2026-08-03",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260804-0227",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "56.07"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-05",
+          "value_date": "2026-08-05",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-08-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260804-0234",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.42"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-05",
+          "value_date": "2026-08-05",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260806-0314",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "95.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-07",
+          "value_date": "2026-08-07",
+          "creditor": {
+            "name": "Dental clinic (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Dental clinic (synthetic) · 2026-08-06"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260807-0223",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "15.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-10",
+          "value_date": "2026-08-10",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260807-0235",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-10",
+          "value_date": "2026-08-10",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-07"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260808-0231",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "16.43"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-10",
+          "value_date": "2026-08-10",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-08-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260809-0247",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.94"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-10",
+          "value_date": "2026-08-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-08-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260809-0251",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "33.16"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-10",
+          "value_date": "2026-08-10",
+          "creditor": {
+            "name": "Drogas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Drogas · 2026-08-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260810-0244",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "32.68"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-11",
+          "value_date": "2026-08-11",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-08-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260811-0224",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-12",
+          "value_date": "2026-08-12",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260811-0228",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "57.64"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-12",
+          "value_date": "2026-08-12",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-08-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260812-0315",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "24.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-13",
+          "value_date": "2026-08-13",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card payment · order A"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260812-0316",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "24.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-13",
+          "value_date": "2026-08-13",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card payment · duplicate charge"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260813-0225",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-14",
+          "value_date": "2026-08-14",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260813-0236",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.79"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-14",
+          "value_date": "2026-08-14",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260814-0317",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "24.90"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-14",
+          "value_date": "2026-08-14",
+          "creditor": null,
+          "debtor": {
+            "name": "Wolt"
+          },
+          "remittance_information": [
+            "Reversal of duplicate charge"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260814-0237",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-14"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260816-0232",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.11"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-08-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260816-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-17",
+          "value_date": "2026-08-17",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260818-0229",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "52.56"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-19",
+          "value_date": "2026-08-19",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-08-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260819-0226",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-20",
+          "value_date": "2026-08-20",
+          "creditor": {
+            "name": "Discord Nitro"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Discord Nitro monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260821-0238",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.50"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-24",
+          "value_date": "2026-08-24",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260821-0246",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "46.30"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-24",
+          "value_date": "2026-08-24",
+          "creditor": {
+            "name": "Jurgis ir Drakonas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Jurgis ir Drakonas · 2026-08-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260822-0248",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.13"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-24",
+          "value_date": "2026-08-24",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-08-22"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260823-0233",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.37"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-24",
+          "value_date": "2026-08-24",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-08-23"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260824-0239",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-25",
+          "value_date": "2026-08-25",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260824-0245",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "20.55"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-25",
+          "value_date": "2026-08-25",
+          "creditor": {
+            "name": "Wolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Wolt · 2026-08-24"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260825-0230",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "36.75"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-26",
+          "value_date": "2026-08-26",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-08-25"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260825-0240",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.23"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-26",
+          "value_date": "2026-08-26",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260826-0241",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-27",
+          "value_date": "2026-08-27",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260826-0250",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.27"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-27",
+          "value_date": "2026-08-27",
+          "creditor": {
+            "name": "Forum Cinemas"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Forum Cinemas · 2026-08-26"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260827-0318",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "75.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-08-27",
+          "value_date": "2026-08-27",
+          "creditor": null,
+          "debtor": {
+            "name": "Vinted"
+          },
+          "remittance_information": [
+            "Sale of a used jacket"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260828-0242",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "4.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-08-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260828-0249",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.25"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-08-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260828-0324",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "29.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": {
+            "name": "Steam"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Steam · 2026-08-28"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260829-0292",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "25.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": {
+            "name": "Barber in Vilnius (synthetic)"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Barber in Vilnius (synthetic) · 2026-08-29"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260831-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-08-31",
+          "value_date": "2026-08-31",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Return unspent allowance to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260831-0243",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.90"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-01",
+          "value_date": "2026-09-01",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-08-31"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260901-0271",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.55"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-02",
+          "value_date": "2026-09-02",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260902-0261",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "38.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-02",
+          "value_date": "2026-09-02",
+          "creditor": {
+            "name": "JUDU"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "30-day public transport pass"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260902-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "650.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-02",
+          "value_date": "2026-09-02",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Monthly spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260902-0272",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-03",
+          "value_date": "2026-09-03",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-09-02"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260903-0273",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.44"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-04",
+          "value_date": "2026-09-04",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260904-0266",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "43.38"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-07",
+          "value_date": "2026-09-07",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-09-04"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260907-0262",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "15.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-08",
+          "value_date": "2026-09-08",
+          "creditor": {
+            "name": "Netflix"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Netflix monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260908-1-0-out",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "100.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-08",
+          "value_date": "2026-09-08",
+          "creditor": {
+            "name": "SEB · Everyday"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Move spare spending money back to SEB"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260908-0269",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.96"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-09",
+          "value_date": "2026-09-09",
+          "creditor": {
+            "name": "IKI"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · IKI · 2026-09-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260908-0274",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "11.23"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-09",
+          "value_date": "2026-09-09",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260908-0283",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "13.49"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-09",
+          "value_date": "2026-09-09",
+          "creditor": {
+            "name": "Eurovaistinė"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Eurovaistinė · 2026-09-08"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260909-0282",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.00"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-10",
+          "value_date": "2026-09-10",
+          "creditor": {
+            "name": "Bolt"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt · 2026-09-09"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260910-0275",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "12.66"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-11",
+          "value_date": "2026-09-11",
+          "creditor": {
+            "name": "Fresh Post"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260910-0280",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "23.34"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-11",
+          "value_date": "2026-09-11",
+          "creditor": {
+            "name": "Bolt Food"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Bolt Food · 2026-09-10"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260911-0263",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "Spotify Premium"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Spotify Premium monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260911-0267",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "46.21"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "Lidl"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Lidl · 2026-09-11"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260913-0264",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "2.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-14",
+          "value_date": "2026-09-14",
+          "creditor": {
+            "name": "Apple iCloud+"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "iCloud+ monthly storage"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260915-0276",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "10.35"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-16",
+          "value_date": "2026-09-16",
+          "creditor": {
+            "name": "Daily"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-transfer-20260916-0-1-in",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "300.00"
+          },
+          "credit_debit_indicator": "CRDT",
+          "status": "BOOK",
+          "booking_date": "2026-09-16",
+          "value_date": "2026-09-16",
+          "creditor": null,
+          "debtor": {
+            "name": "SEB · Everyday"
+          },
+          "remittance_information": [
+            "Second-half spending allowance"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260916-0270",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "14.08"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-17",
+          "value_date": "2026-09-17",
+          "creditor": {
+            "name": "MAXIMA"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · MAXIMA · 2026-09-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260916-0277",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.80"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-17",
+          "value_date": "2026-09-17",
+          "creditor": {
+            "name": "Caffeine"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Caffeine · 2026-09-16"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260917-0278",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "8.33"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-18",
+          "value_date": "2026-09-18",
+          "creditor": {
+            "name": "iLunch"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Lunch during the workday"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260918-0268",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "43.87"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-21",
+          "value_date": "2026-09-21",
+          "creditor": {
+            "name": "Rimi"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Rimi · 2026-09-18"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260919-0265",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "9.99"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-21",
+          "value_date": "2026-09-21",
+          "creditor": {
+            "name": "Discord Nitro"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Discord Nitro monthly membership"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260921-0279",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "3.20"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-22",
+          "value_date": "2026-09-22",
+          "creditor": {
+            "name": "Huracán Coffee"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Huracán Coffee · 2026-09-21"
+          ]
+        },
+        {
+          "entry_reference": "life26-1-20260921-0281",
+          "transaction_amount": {
+            "currency": "EUR",
+            "amount": "36.02"
+          },
+          "credit_debit_indicator": "DBIT",
+          "status": "BOOK",
+          "booking_date": "2026-09-22",
+          "value_date": "2026-09-22",
+          "creditor": {
+            "name": "Talutti"
+          },
+          "debtor": null,
+          "remittance_information": [
+            "Card purchase · Talutti · 2026-09-21"
+          ]
+        }
+      ]
+    }
+  ]
+}

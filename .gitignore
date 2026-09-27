@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+!.env.devcontainer.example
+coverage/
+playwright-report/
+test-results/
+apps/api/haven
+*.pem
+*.key
+
+
+backups/
+.secrets/

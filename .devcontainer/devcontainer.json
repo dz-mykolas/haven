@@ -1,0 +1,25 @@
+{
+  "name": "Haven",
+  "dockerComposeFile": "compose.yaml",
+  "service": "workspace",
+  "runServices": ["workspace", "db"],
+  "workspaceFolder": "/workspaces/haven",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" },
+    "ghcr.io/devcontainers/features/go:1": { "version": "1.27" }
+  },
+  "forwardPorts": [4321],
+  "portsAttributes": {
+    "4321": { "label": "Haven", "onAutoForward": "notify" },
+    "8080": { "label": "Haven API", "onAutoForward": "ignore" }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash scripts/db-ready.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "golang.go", "esbenp.prettier-vscode"]
+    }
+  }
+}

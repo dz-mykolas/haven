@@ -1,0 +1,4 @@
+apps/web/src/lib/api.generated.ts
+node_modules/
+dist/
+.astro/
