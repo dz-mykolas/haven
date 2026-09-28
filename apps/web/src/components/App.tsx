@@ -15,8 +15,10 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
+  type ReactNode,
 } from "react";
 import {
   CheckCheck,
@@ -53,6 +55,14 @@ function savedTheme(): Theme {
     if (value === "light" || value === "dark") return value;
   } catch {}
   return "system";
+}
+// Calls the latest version of a function through one stable identity.
+function useStable<A extends unknown[], R>(fn: (...args: A) => R) {
+  const latest = useRef(fn);
+  useLayoutEffect(() => {
+    latest.current = fn;
+  });
+  return useCallback((...args: A) => latest.current(...args), []);
 }
 function taskStatus(task: Task) {
   if (task.done) return "done";
@@ -198,28 +208,37 @@ function Workspace() {
       countLabel: `${dueCount} due`,
     },
   ];
-  const connecting = (
-    <div className="empty">
-      <RefreshCw className={loading ? "loading" : ""} />
-      <h2>{loading ? "Opening your space…" : "Couldn’t connect"}</h2>
-      {!loading && <p>Check that the Haven API is running, then retry.</p>}
-    </div>
+  // Module screens keep their identity across page switches, so moving between
+  // modules (with the phone pager's neighbours built) doesn't redraw them all.
+  const goTo = useStable(navigate),
+    completeTask = useStable(complete);
+  const connecting = useMemo(
+    () => (
+      <div className="empty">
+        <RefreshCw className={loading ? "loading" : ""} />
+        <h2>{loading ? "Opening your space…" : "Couldn’t connect"}</h2>
+        {!loading && <p>Check that the Haven API is running, then retry.</p>}
+      </div>
+    ),
+    [loading],
   );
-  function renderModule(module: Page) {
-    if (module === "assistant")
-      return (
-        <Assistant
-          onNavigate={navigate}
-          data={data}
-          onEdit={setEditor}
-          inbox={inbox}
-          tab={assistantTab}
-          onTab={setAssistantTab}
-          onRefresh={refresh}
-        />
-      );
-    if (module === "money")
-      return data ? (
+  const assistantView = useMemo(
+    () => (
+      <Assistant
+        onNavigate={goTo}
+        data={data}
+        onEdit={setEditor}
+        inbox={inbox}
+        tab={assistantTab}
+        onTab={setAssistantTab}
+        onRefresh={refresh}
+      />
+    ),
+    [goTo, data, inbox, assistantTab, refresh],
+  );
+  const moneyView = useMemo(
+    () =>
+      data ? (
         <Money
           data={data}
           month={month}
@@ -229,13 +248,16 @@ function Workspace() {
           reviewCount={inbox.count}
           onReview={() => {
             setAssistantTab("inbox");
-            navigate("assistant");
+            goTo("assistant");
           }}
         />
       ) : (
         connecting
-      );
-    return (
+      ),
+    [data, month, refresh, inbox.count, goTo, connecting],
+  );
+  const tasksView = useMemo(
+    () => (
       <>
         <section className="page-heading tasks-heading module-heading">
           <div className="page-title">
@@ -261,15 +283,21 @@ function Workspace() {
             tasks={data.tasks}
             busy={busy}
             onEdit={(task) => setEditor({ type: "task", record: task })}
-            onComplete={complete}
+            onComplete={completeTask}
             onAdd={(date) => setEditor(newTask(date))}
           />
         ) : (
           connecting
         )}
       </>
-    );
-  }
+    ),
+    [data, busy, completeTask, connecting],
+  );
+  const views: Record<Page, ReactNode> = {
+    assistant: assistantView,
+    money: moneyView,
+    tasks: tasksView,
+  };
   // A dragged completion waits a moment for Undo before it is sent.
   const [completing, setCompleting] = useState<Task | null>(null);
   const waiting = useRef<{
@@ -428,7 +456,7 @@ function Workspace() {
               page={page}
               items={modules}
               onChange={(next) => show(next as Page)}
-              render={(module) => renderModule(module as Page)}
+              render={(module) => views[module as Page]}
               control={pager}
             />
           </MotionView>

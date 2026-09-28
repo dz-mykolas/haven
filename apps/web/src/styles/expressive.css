@@ -3239,18 +3239,26 @@ button.vrow {
 :root[data-module][data-theme="dark"] {
   --outline: color-mix(in srgb, var(--primary) 7%, #2a2e37);
 }
+/* The light's colour, resolved on the body alone so it can blend without
+   restyling the whole page (see the phone rule under Module colour). */
+@property --page-glow {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
 :root body {
+  --page-glow: var(--page-light);
   /* The light starts just above the top-left of the centred content (960px
      beside a 240px sidebar), and at the corner once there's no margin. */
   --light-x: max(0px, calc(50vw - 360px));
   background:
     radial-gradient(
         circle max(520px, 72vmax) at var(--light-x) -12vh,
-        var(--page-light) 0%,
-        color-mix(in srgb, var(--page-light) 72%, transparent) 18%,
-        color-mix(in srgb, var(--page-light) 42%, transparent) 36%,
-        color-mix(in srgb, var(--page-light) 18%, transparent) 54%,
-        color-mix(in srgb, var(--page-light) 5%, transparent) 70%,
+        var(--page-glow) 0%,
+        color-mix(in srgb, var(--page-glow) 72%, transparent) 18%,
+        color-mix(in srgb, var(--page-glow) 42%, transparent) 36%,
+        color-mix(in srgb, var(--page-glow) 18%, transparent) 54%,
+        color-mix(in srgb, var(--page-glow) 5%, transparent) 70%,
         transparent 84%
       )
       fixed,
@@ -4656,9 +4664,22 @@ main .module-heading h1 {
       --secondary-container 520ms var(--ease-expressive),
       --on-secondary 520ms var(--ease-expressive);
   }
+  /* Phones swipe content that already carries its colours, so only the
+     background light blends; blending the shared accents would restyle every
+     element on every frame. */
+  @media (max-width: 767px) {
+    :root,
+    :root[data-module] .module-content {
+      transition: none;
+    }
+    :root body {
+      transition: --page-glow 520ms var(--ease-expressive);
+    }
+  }
   /* The theme switch cross-fades the whole page instead. */
   :root[data-transition="theme"],
-  :root[data-transition="theme"] .module-content {
+  :root[data-transition="theme"] .module-content,
+  :root[data-transition="theme"] body {
     transition: none;
   }
 }
@@ -4718,11 +4739,18 @@ main .module-heading h1 {
 .module-pager {
   position: relative;
 }
-/* The neighbour lies beside the page, level with the top of the screen. */
+/* Neighbours wait beside the screen, one screen tall so they never lengthen
+   the page, and skip rendering until a swipe brings one in. */
 .module-slide[data-neighbour] {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: fixed;
+  height: 100dvh;
+  overflow: clip;
+}
+.module-slide[data-neighbour]:not([data-awake]) {
+  content-visibility: hidden;
+}
+.module-pager[data-moving] > .module-slide {
+  will-change: transform, opacity;
 }
 .module-bar {
   display: none;

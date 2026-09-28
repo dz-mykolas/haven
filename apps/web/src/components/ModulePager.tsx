@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useImperativeHandle,
   useLayoutEffect,
   useRef,
@@ -48,19 +49,19 @@ export default function ModulePager({
   );
   const at = (offset: number) =>
     items[(((index + offset) % items.length) + items.length) % items.length];
-  // Which neighbour is mounted beside the page: 1 is to the right.
-  const [side, setSide] = useState<-1 | 0 | 1>(0);
-  const neighbour = side ? at(side).id : null;
+  const offsetOf = (id: string) =>
+    id === page ? 0 : id === at(1).id ? 1 : id === at(-1).id ? -1 : null;
+  // Neighbours are built once the phone is idle, so a swipe only moves them.
+  const [preloaded, setPreloaded] = useState(false);
   const pager = useRef<HTMLDivElement>(null),
     bar = useRef<HTMLElement>(null);
   const slides = useRef(new Map<string, HTMLDivElement>());
   // -1…1; positive moves towards the right neighbour.
   const progress = useRef(0);
-  const current = useRef({ page, side });
-  current.current = { page, side };
+  const layout = useRef({ page, offsetOf });
+  layout.current = { page, offsetOf };
   const settling = useRef<number | null>(null),
-    queued = useRef<-1 | 1 | null>(null),
-    top = useRef(0);
+    queued = useRef<-1 | 1 | null>(null);
   const gesture = useRef<{
     id: number;
     x: number;
@@ -70,15 +71,50 @@ export default function ModulePager({
   } | null>(null);
   const suppressClick = useRef(false);
 
+  useEffect(() => {
+    if (!phone) return setPreloaded(false);
+    if (preloaded) return;
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(() => setPreloaded(true), { timeout: 1500 })
+      : window.setTimeout(() => setPreloaded(true), 400);
+    return () =>
+      window.cancelIdleCallback
+        ? window.cancelIdleCallback(idle)
+        : clearTimeout(idle);
+  }, [phone, preloaded]);
+
   const distance = () => (pager.current?.offsetWidth ?? innerWidth) + 24;
+  // Neighbours lie level with where the page's top sits once it is scrolled up.
+  function place() {
+    const box = pager.current?.getBoundingClientRect();
+    if (!box) return;
+    for (const [id, slide] of slides.current)
+      Object.assign(
+        slide.style,
+        id === layout.current.page
+          ? { top: "", left: "", width: "" }
+          : {
+              top: `${box.top + window.scrollY}px`,
+              left: `${box.left}px`,
+              width: `${box.width}px`,
+            },
+      );
+  }
+  function wake(moving: boolean) {
+    if (moving) pager.current?.setAttribute("data-moving", "");
+    else pager.current?.removeAttribute("data-moving");
+    for (const slide of slides.current.values())
+      if (!moving) delete slide.dataset.awake;
+  }
   function apply(p: number) {
     progress.current = p;
-    const { page, side } = current.current;
     const width = distance();
     for (const [id, slide] of slides.current) {
-      const offset = id === page ? 0 : side;
+      const offset = layout.current.offsetOf(id) ?? 2;
       const d = offset - p;
       const still = p === 0 && offset === 0;
+      // Only the neighbour coming in renders; the other stays asleep.
+      if (offset !== 0 && Math.sign(p) === offset) slide.dataset.awake = "";
       slide.style.transform = still ? "" : `translateX(${d * width}px)`;
       slide.style.opacity = still
         ? ""
@@ -91,10 +127,10 @@ export default function ModulePager({
           near = Math.min(1, Math.abs(d));
         slot.style.transform = `translateX(${d * spacing}px) scale(${1 - 0.14 * near})`;
         slot.style.setProperty("--near", String(1 - near));
+        // Items beyond the neighbours fade out quickly, so the looping
+        // copy leaving one end and arriving at the other never shows twice.
         slot.style.setProperty(
           "--shown",
-          // Items beyond the neighbours fade out quickly, so the looping
-          // copy leaving one end and arriving at the other never shows twice.
           String(Math.max(0, Math.min(1, (1.6 - Math.abs(d)) / 0.6))),
         );
       });
@@ -103,6 +139,7 @@ export default function ModulePager({
     const from = progress.current,
       start = performance.now();
     const duration = reduced ? 0 : Math.max(180, 420 * Math.abs(target - from));
+    wake(true);
     const frame = (now: number) => {
       const t = duration ? Math.min(1, (now - start) / duration) : 1;
       apply(from + (target - from) * (1 - (1 - t) ** 3));
@@ -111,25 +148,24 @@ export default function ModulePager({
         return;
       }
       settling.current = null;
-      setSide(0);
       if (target) onChange(at(target).id);
+      else wake(false);
     };
     settling.current = requestAnimationFrame(frame);
   }
-  function open(next: -1 | 1) {
-    top.current = window.scrollY;
-    setSide(next);
-  }
   function go(offset: -1 | 1) {
     if (settling.current !== null || gesture.current?.active) return;
-    if (current.current.side === offset) return settle(offset);
+    if (preloaded) {
+      place();
+      return settle(offset);
+    }
     queued.current = offset;
-    open(offset);
+    setPreloaded(true);
   }
   useImperativeHandle(control, () => ({
     go(id) {
       if (!phone || id === page) return false;
-      const offset = at(1).id === id ? 1 : at(-1).id === id ? -1 : 0;
+      const offset = offsetOf(id);
       if (!offset) return false;
       go(offset);
       return true;
@@ -138,17 +174,22 @@ export default function ModulePager({
   // The neighbour became the page: it is already in place, at the top.
   useLayoutEffect(() => {
     progress.current = 0;
+    wake(false);
     if (phone) window.scrollTo(0, 0);
   }, [page]);
   // Newly rendered slides and bar items start where the motion already is.
-  useLayoutEffect(() => apply(progress.current));
-  // A tap starts moving once its neighbour is in place.
   useLayoutEffect(() => {
-    if (side && queued.current === side) {
+    place();
+    apply(progress.current);
+  });
+  // A tap before the neighbours were built starts moving once they are.
+  useLayoutEffect(() => {
+    if (preloaded && queued.current) {
+      const offset = queued.current;
       queued.current = null;
-      settle(side);
+      settle(offset);
     }
-  }, [side]);
+  }, [preloaded]);
   useLayoutEffect(
     () => () => {
       if (settling.current !== null) cancelAnimationFrame(settling.current);
@@ -195,22 +236,15 @@ export default function ModulePager({
       state.active = true;
       state.x = event.clientX;
       pager.current!.setPointerCapture(event.pointerId);
-      top.current = window.scrollY;
+      if (!preloaded) setPreloaded(true);
+      place();
+      wake(true);
     }
     state.samples = [
       ...state.samples.filter((sample) => event.timeStamp - sample.t < 90),
       { x: event.clientX, t: event.timeStamp },
     ];
-    const p = Math.max(
-      -1,
-      Math.min(1, -(event.clientX - state.x) / distance()),
-    );
-    const want = p > 0 ? 1 : p < 0 ? -1 : current.current.side;
-    if (want !== current.current.side) {
-      current.current.side = want;
-      setSide(want);
-    }
-    apply(p);
+    apply(Math.max(-1, Math.min(1, -(event.clientX - state.x) / distance())));
   }
   function pointerEnd(event: PointerEvent<HTMLDivElement>) {
     const state = gesture.current;
@@ -227,16 +261,17 @@ export default function ModulePager({
         ? -(last.x - first.x) / (last.t - first.t) / distance()
         : 0;
     const p = progress.current,
-      side = current.current.side;
+      side = Math.sign(p) as -1 | 0 | 1;
     const flung = Math.abs(speed) > 0.0009 && Math.sign(speed) === side;
     const commit =
       event.type === "pointerup" && side !== 0 && (Math.abs(p) > 0.3 || flung);
     settle(commit ? side : 0);
   }
 
-  const shown = neighbour
-    ? items.filter((item) => item.id === page || item.id === neighbour)
-    : items.filter((item) => item.id === page);
+  const shown = items.filter(
+    (item) =>
+      item.id === page || (phone && preloaded && offsetOf(item.id) !== null),
+  );
   return (
     <>
       <div
@@ -263,7 +298,6 @@ export default function ModulePager({
             className="module-slide module-scope"
             data-module={phone ? id : undefined}
             data-neighbour={id === page ? undefined : ""}
-            style={id === page ? undefined : { top: top.current }}
             inert={id !== page}
             aria-hidden={id === page ? undefined : true}
           >

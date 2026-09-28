@@ -60,7 +60,10 @@ export function useInbox() {
       ),
     refetchInterval: 6000,
   });
-  const followUps = followUpQuery.data?.items ?? [];
+  const followUps = useMemo(
+    () => followUpQuery.data?.items ?? [],
+    [followUpQuery.data],
+  );
   const data = useMemo(() => {
     if (!query.data) return null;
     const unique = new Map<string, Item>();
@@ -77,23 +80,43 @@ export function useInbox() {
     () => query.fetchNextPage({ cancelRefetch: false }),
     [query.fetchNextPage],
   );
-  return {
-    data,
-    followUps,
-    // Everything waiting for the user: transaction reviews and task notices.
-    count:
-      (data?.review_count ?? 0) +
-      followUps.filter((e) => e.status === "new" || e.status === "pending")
-        .length,
-    error: query.error?.message ?? "",
-    view,
-    setView,
-    refresh,
-    loadMore,
-    hasNextPage: query.hasNextPage,
-    fetching: query.isFetching,
-    nextError: query.isFetchNextPageError ? query.error?.message : undefined,
-  };
+  // Kept stable between renders so screens holding it only update when it changes.
+  const count =
+    (data?.review_count ?? 0) +
+    followUps.filter((e) => e.status === "new" || e.status === "pending")
+      .length;
+  const error = query.error?.message ?? "";
+  const nextError = query.isFetchNextPageError
+    ? query.error?.message
+    : undefined;
+  return useMemo(
+    () => ({
+      data,
+      followUps,
+      // Everything waiting for the user: transaction reviews and task notices.
+      count,
+      error,
+      view,
+      setView,
+      refresh,
+      loadMore,
+      hasNextPage: query.hasNextPage,
+      fetching: query.isFetching,
+      nextError,
+    }),
+    [
+      data,
+      followUps,
+      count,
+      error,
+      view,
+      refresh,
+      loadMore,
+      query.hasNextPage,
+      query.isFetching,
+      nextError,
+    ],
+  );
 }
 export type InboxController = ReturnType<typeof useInbox>;
 const historyLabels: Record<string, string> = {
