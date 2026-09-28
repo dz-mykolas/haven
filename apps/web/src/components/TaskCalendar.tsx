@@ -894,7 +894,11 @@ export default function TaskCalendar({
               />
             </label>
             {month !== now.slice(0, 7) && (
-              <button className="tc-today" onClick={() => select(now)}>
+              <button
+                className="tc-today"
+                aria-label="Go to today"
+                onClick={() => select(now)}
+              >
                 Today
               </button>
             )}

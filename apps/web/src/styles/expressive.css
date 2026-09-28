@@ -191,7 +191,8 @@ button.text-button {
   background: var(--surface-container);
   border-radius: 18px;
 }
-.segments > button {
+.segments > button,
+.segments > .tl-day-tab > button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +206,8 @@ button.text-button {
   padding: 9px 15px;
   min-height: 38px;
 }
-.segments > button[aria-pressed="true"] {
+.segments > button[aria-pressed="true"],
+.segments > .tl-day-tab > button[aria-pressed="true"] {
   background: var(--surface);
   color: var(--text);
   box-shadow: 0 1px 4px #00000009;
@@ -3817,15 +3819,21 @@ button.vrow {
 /* ── Tasks screen ─────────────────────────────────────────────────────────
    Days are grouped cards like Money's activity; the calendar is numbers first
    with one quiet dot for days that have something planned. */
+/* Whether search shares the tabs' line depends on the list's width, never on
+   which tabs are showing, so a picked day never pushes the list down. */
+.tasks-agenda {
+  container-type: inline-size;
+}
 .tl-tools {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   margin-bottom: 4px;
 }
+
 .tl-tabs {
   flex: none;
+  align-items: center;
 }
 .tl-tabs button {
   display: inline-flex;
@@ -3841,6 +3849,7 @@ button.vrow {
 /* A day picked in the calendar joins the tabs, sliding in beside them. */
 .tl-day-tab {
   display: inline-flex;
+  align-self: center;
   align-items: stretch;
   animation: tl-tab-in 320ms var(--ease-expressive);
 }
@@ -3885,8 +3894,7 @@ button.vrow {
 .tl-search {
   margin-left: auto;
   flex: 0 1 220px;
-  /* Too little room beside the tabs: it moves to its own line instead. */
-  min-width: 200px;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -4507,5 +4515,17 @@ button.tl-lead:hover .tl-tick {
     transform: none !important;
     opacity: 0;
     transition: opacity 180ms;
+  }
+}
+
+/* Narrow lists put search on its own line, decided by the list's width so a
+   picked day never changes it. (After the search rules so it wins.) */
+@container (max-width: 520px) {
+  .tl-tools {
+    flex-wrap: wrap;
+  }
+  .tl-search {
+    flex: 1 1 100%;
+    margin-left: 0;
   }
 }
