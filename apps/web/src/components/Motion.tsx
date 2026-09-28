@@ -10,17 +10,24 @@ import {
 
 export const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-export function useReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () => matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+function useMedia(query: string) {
+  const [matches, setMatches] = useState(() => matchMedia(query).matches);
   useEffect(() => {
-    const media = matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
+    const media = matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
-  }, []);
-  return reduced;
+  }, [query]);
+  return matches;
+}
+export function useReducedMotion() {
+  return useMedia("(prefers-reduced-motion: reduce)");
+}
+// Phones swipe between modules instead, so page-change motion is desktop only.
+export const phoneQuery = "(max-width: 767px)";
+export function usePhone() {
+  return useMedia(phoneQuery);
 }
 
 // When a page opens, each part marked with data-enter="left|right|top|bottom"
@@ -36,9 +43,10 @@ export function useEntrance(
   root: RefObject<HTMLElement | null>,
   key: string | null,
 ) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion(),
+    phone = usePhone();
   useLayoutEffect(() => {
-    if (reduced || key === null || !root.current) return;
+    if (reduced || phone || key === null || !root.current) return;
     const animations = [
       ...root.current.querySelectorAll<HTMLElement>("[data-enter]"),
     ].map((element) =>
@@ -59,7 +67,7 @@ export function useEntrance(
       ),
     );
     return () => animations.forEach((animation) => animation?.cancel());
-  }, [key, reduced]);
+  }, [key, reduced, phone]);
 }
 
 // Move only the selection surface; labels and keyboard focus stay on their buttons.
@@ -178,11 +186,12 @@ export function MotionView({
 }) {
   const root = useRef<HTMLDivElement>(null),
     previous = useRef(order);
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion(),
+    phone = usePhone();
   useLayoutEffect(() => {
     const direction = order < previous.current ? -1 : 1;
     previous.current = order;
-    if (reduced) return;
+    if (reduced || (phone && !compact)) return;
     const surfaces = compact
       ? [root.current!]
       : [...root.current!.querySelectorAll<HTMLElement>("[data-motion-block]")];
@@ -206,7 +215,7 @@ export function MotionView({
       ),
     );
     return () => animations.forEach((animation) => animation?.cancel());
-  }, [value, order, compact, reduced]);
+  }, [value, order, compact, reduced, phone]);
   return (
     <div ref={root} className={compact ? "motion-list" : "motion-view"}>
       {children}
@@ -228,8 +237,13 @@ export function AnimatedTaskList({
   const previous = useRef(new Map<string, { top: number; left: number }>());
   const previousView = useRef(value);
   const animations = useRef<Animation[]>([]);
-  const reduced = useReducedMotion();
+  const mounted = useRef(false);
+  const reduced = useReducedMotion(),
+    phone = usePhone();
   useLayoutEffect(() => {
+    // On phones the whole module slides in, so its days don't also.
+    const quiet = reduced || (phone && !mounted.current);
+    mounted.current = true;
     animations.current = animations.current.filter((animation) => {
       if (reduced || animation.playState !== "running") {
         animation.cancel();
@@ -252,7 +266,7 @@ export function AnimatedTaskList({
         };
         next.set(key, position);
         const old = sameView ? previous.current.get(key) : undefined;
-        if (reduced) return;
+        if (quiet) return;
         const parent = row.parentElement?.closest("[data-motion-key]");
         if (!old && parent && entering.has(parent)) return;
         if (!old) {

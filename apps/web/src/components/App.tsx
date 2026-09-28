@@ -8,6 +8,7 @@ import Navigation, { useNavigation } from "./Navigation";
 import { flushSync } from "react-dom";
 import { MotionView, useEntrance } from "./Motion";
 import PageTitle from "./PageTitle";
+import ModulePager, { type ModuleItem, type PagerControl } from "./ModulePager";
 import Scrollbars from "./Scrollbars";
 import { useAutoRefresh } from "./useAutoRefresh";
 import {
@@ -20,6 +21,8 @@ import {
 import {
   CheckCheck,
   Plus,
+  Sparkles,
+  Wallet,
   Menu,
   RefreshCw,
   Check,
@@ -38,6 +41,7 @@ import {
 import Editor, { newTask, type EditorState } from "./Editor";
 
 type Page = "assistant" | "money" | "tasks";
+const pages: Page[] = ["assistant", "money", "tasks"];
 type Theme = "system" | "light" | "dark";
 function pageFromHash(): Page {
   const hash = location.hash.slice(1);
@@ -157,13 +161,146 @@ function Workspace() {
     } catch {}
     return () => media.removeEventListener("change", update);
   }, [theme]);
-  function navigate(next: Page) {
+  const dueCount =
+    data?.tasks.filter(
+      (t) =>
+        !t.done &&
+        !!t.date &&
+        (t.plan?.kind === "scheduled" ||
+          t.plan?.reminder_completed_on !== t.date) &&
+        (!t.plan || t.plan.kind === "scheduled" || t.plan.remind) &&
+        ["today", "overdue"].includes(taskStatus(t)),
+    ).length ?? 0;
+  function show(next: Page) {
     location.hash = next;
     setPage(next);
     setNotice("");
   }
-  // Resolves whether it worked, so the list can bring a row back on failure.
-  async function complete(task: Task): Promise<boolean> {
+  // On phones the pager slides to the module; elsewhere it just opens.
+  function navigate(next: Page) {
+    if (!pager.current?.go(next)) show(next);
+  }
+  const pager = useRef<PagerControl>(null);
+  const modules: ModuleItem[] = [
+    {
+      id: "assistant",
+      label: "Assistant",
+      icon: <Sparkles size={22} />,
+      count: inbox.count,
+      countLabel: `${inbox.count} suggestions to review`,
+    },
+    { id: "money", label: "Money", icon: <Wallet size={22} /> },
+    {
+      id: "tasks",
+      label: "Tasks",
+      icon: <CheckCheck size={22} />,
+      count: dueCount,
+      countLabel: `${dueCount} due`,
+    },
+  ];
+  const connecting = (
+    <div className="empty">
+      <RefreshCw className={loading ? "loading" : ""} />
+      <h2>{loading ? "Opening your space…" : "Couldn’t connect"}</h2>
+      {!loading && <p>Check that the Haven API is running, then retry.</p>}
+    </div>
+  );
+  function renderModule(module: Page) {
+    if (module === "assistant")
+      return (
+        <Assistant
+          onNavigate={navigate}
+          data={data}
+          onEdit={setEditor}
+          inbox={inbox}
+          tab={assistantTab}
+          onTab={setAssistantTab}
+          onRefresh={refresh}
+        />
+      );
+    if (module === "money")
+      return data ? (
+        <Money
+          data={data}
+          month={month}
+          onMonth={setMonth}
+          onEdit={setEditor}
+          onRefresh={refresh}
+          reviewCount={inbox.count}
+          onReview={() => {
+            setAssistantTab("inbox");
+            navigate("assistant");
+          }}
+        />
+      ) : (
+        connecting
+      );
+    return (
+      <>
+        <section className="page-heading tasks-heading module-heading">
+          <div className="page-title">
+            <PageTitle
+              icon={<CheckCheck size={22} />}
+              title="Tasks"
+              order={2}
+            />
+          </div>
+          <button
+            className="primary add-button"
+            data-enter="right"
+            aria-label="New task"
+            disabled={!data}
+            onClick={() => setEditor(newTask())}
+          >
+            <Plus />
+            <span>New task</span>
+          </button>
+        </section>
+        {data ? (
+          <TaskCalendar
+            tasks={data.tasks}
+            busy={busy}
+            onEdit={(task) => setEditor({ type: "task", record: task })}
+            onComplete={complete}
+            onAdd={(date) => setEditor(newTask(date))}
+          />
+        ) : (
+          connecting
+        )}
+      </>
+    );
+  }
+  // A dragged completion waits a moment for Undo before it is sent.
+  const [completing, setCompleting] = useState<Task | null>(null);
+  const waiting = useRef<{
+    timer: ReturnType<typeof setTimeout>;
+    resolve: (confirmed: boolean) => void;
+  } | null>(null);
+  function settleCompletion(confirmed: boolean) {
+    if (!waiting.current) return;
+    clearTimeout(waiting.current.timer);
+    waiting.current.resolve(confirmed);
+    waiting.current = null;
+    setCompleting(null);
+  }
+  // Resolves whether it worked, so the list can bring a row back on failure or undo.
+  async function complete(
+    task: Task,
+    options?: { undoable?: boolean },
+  ): Promise<boolean> {
+    if (options?.undoable) {
+      settleCompletion(true);
+      setUndo(null);
+      setNotice("");
+      setCompleting(task);
+      const confirmed = await new Promise<boolean>((resolve) => {
+        waiting.current = {
+          resolve,
+          timer: setTimeout(() => settleCompletion(true), 3000),
+        };
+      });
+      if (!confirmed) return false;
+    }
     setBusy(task.id);
     setNotice("");
     const key = `${task.id}:${task.version}`;
@@ -227,16 +364,6 @@ function Workspace() {
       setBusy("");
     }
   }
-  const dueCount =
-    data?.tasks.filter(
-      (t) =>
-        !t.done &&
-        !!t.date &&
-        (t.plan?.kind === "scheduled" ||
-          t.plan?.reminder_completed_on !== t.date) &&
-        (!t.plan || t.plan.kind === "scheduled" || t.plan.remind) &&
-        ["today", "overdue"].includes(taskStatus(t)),
-    ).length ?? 0;
   // Switching theme cross-fades the page.
   const cycleTheme = () => {
     const next =
@@ -287,29 +414,6 @@ function Workspace() {
           </div>
         )}
         <div className="module-content" ref={moduleContent}>
-          {page === "tasks" && (
-            <section className="page-heading tasks-heading module-heading">
-              <div className="page-title">
-                <PageTitle
-                  icon={<CheckCheck size={22} />}
-                  title="Tasks"
-                  order={2}
-                />
-              </div>
-              {page === "tasks" && (
-                <button
-                  className="primary add-button"
-                  data-enter="right"
-                  aria-label="New task"
-                  disabled={!data}
-                  onClick={() => setEditor(newTask())}
-                >
-                  <Plus />
-                  <span>New task</span>
-                </button>
-              )}
-            </section>
-          )}
           {(error || refreshError) && (
             <div className="error-banner" role="alert">
               <CircleAlert />
@@ -319,74 +423,52 @@ function Workspace() {
               </button>
             </div>
           )}
-          {!data && page !== "assistant" && (
-            <div className="empty">
-              <RefreshCw className={loading ? "loading" : ""} />
-              <h2>{loading ? "Opening your space…" : "Couldn’t connect"}</h2>
-              {!loading && (
-                <p>Check that the Haven API is running, then retry.</p>
-              )}
-            </div>
-          )}
-          <MotionView
-            value={page}
-            order={["assistant", "money", "tasks"].indexOf(page)}
-          >
-            {page === "assistant" && (
-              <Assistant
-                onNavigate={navigate}
-                data={data}
-                onEdit={setEditor}
-                inbox={inbox}
-                tab={assistantTab}
-                onTab={setAssistantTab}
-                onRefresh={refresh}
-              />
-            )}
-            {data && page === "money" && (
-              <Money
-                data={data}
-                month={month}
-                onMonth={setMonth}
-                onEdit={setEditor}
-                onRefresh={refresh}
-                reviewCount={inbox.count}
-                onReview={() => {
-                  setAssistantTab("inbox");
-                  navigate("assistant");
-                }}
-              />
-            )}
-            {data && page === "tasks" && (
-              <TaskCalendar
-                tasks={data.tasks}
-                busy={busy}
-                onEdit={(task) => setEditor({ type: "task", record: task })}
-                onComplete={complete}
-                onAdd={(date) => setEditor(newTask(date))}
-              />
-            )}
+          <MotionView value={page} order={pages.indexOf(page)}>
+            <ModulePager
+              page={page}
+              items={modules}
+              onChange={(next) => show(next as Page)}
+              render={(module) => renderModule(module as Page)}
+              control={pager}
+            />
           </MotionView>
-          {(notice || undo) && (
+          {completing ? (
             <div className="snackbar" role="status">
               <Check size={18} />
-              <span>{undo ? "Removed" : notice}</span>
-              {undo && (
-                <button disabled={!!busy} onClick={() => void restore()}>
-                  <Undo2 size={18} />
-                  Undo
-                </button>
-              )}
+              <span>Completed</span>
+              <button onClick={() => settleCompletion(false)}>
+                <Undo2 size={18} />
+                Undo
+              </button>
               <button
                 aria-label="Dismiss notification"
-                onClick={() => {
-                  setUndo(null);
-                  setNotice("");
-                }}
+                onClick={() => settleCompletion(true)}
               >
                 <X size={18} />
               </button>
             </div>
+          ) : (
+            (notice || undo) && (
+              <div className="snackbar" role="status">
+                <Check size={18} />
+                <span>{undo ? "Removed" : notice}</span>
+                {undo && (
+                  <button disabled={!!busy} onClick={() => void restore()}>
+                    <Undo2 size={18} />
+                    Undo
+                  </button>
+                )}
+                <button
+                  aria-label="Dismiss notification"
+                  onClick={() => {
+                    setUndo(null);
+                    setNotice("");
+                  }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            )
           )}
           {editor && (
             <Editor

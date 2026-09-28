@@ -290,7 +290,12 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
     ),
   ).toBe(true);
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(page.getByRole("navigation")).toHaveCount(0);
+  // Phones move between modules with the bottom bar; the menu keeps the rest.
+  const modules = page.getByRole("navigation", { name: "Modules" });
+  await expect(modules).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation" }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "Open menu" }).click();
   const drawer = page.getByRole("dialog", { name: "Navigation menu" });
   await expect(drawer).toBeVisible();
@@ -317,8 +322,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   // Stay inside the viewport content; its right edge is the stable scrollbar gutter.
   await page.mouse.click(350, 400);
   await expect(drawer).toHaveCount(0);
-  await page.getByRole("button", { name: "Open menu" }).click();
-  await page.getByRole("button", { name: "Tasks", exact: true }).click();
+  await modules.getByRole("button", { name: /^Tasks/ }).click();
   await expect(
     page.getByRole("heading", { name: "Tasks", exact: true }),
   ).toBeVisible();
@@ -332,8 +336,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
     path: "test-results/tasks-mobile-dark.png",
     fullPage: true,
   });
-  await page.getByRole("button", { name: "Open menu" }).click();
-  await page.getByRole("button", { name: /Assistant/ }).click();
+  await modules.getByRole("button", { name: /^Assistant/ }).click();
   await expect(
     page.getByRole("button", { name: "Assistant preferences", exact: true }),
   ).toBeVisible();

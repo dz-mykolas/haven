@@ -211,7 +211,7 @@ function TaskRow({
   item: Occurrence;
   filter: Filter;
   onEdit: (task: Task) => void;
-  onComplete: (task: Task, row: HTMLElement) => void;
+  onComplete: (task: Task, row: HTMLElement, dragged?: boolean) => void;
 }) {
   const task = item.task;
   const row = useRef<HTMLElement>(null);
@@ -267,11 +267,12 @@ function TaskRow({
       dy = event.clientY - state.y;
     if (!state.active) {
       // Vertical movement is scrolling; only a sideways drag takes the row.
-      if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) {
+      // So is a leftward swipe: on phones it changes module.
+      if ((Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) || dx <= -8) {
         drag.current = null;
         return;
       }
-      if (Math.abs(dx) < 8) return;
+      if (dx < 8) return;
       state.active = true;
       inner.current.setPointerCapture(event.pointerId);
       row.current.dataset.dragging = "";
@@ -293,7 +294,7 @@ function TaskRow({
     setTimeout(() => (suppressClick.current = false), 0);
     delete row.current.dataset.dragging;
     if (state.dx > row.current.offsetWidth * 0.35) {
-      onComplete(task, row.current);
+      onComplete(task, row.current, true);
     } else {
       row.current.dataset.returning = "";
       inner.current.style.transform = "";
@@ -496,7 +497,11 @@ export default function TaskCalendar({
   tasks: Task[];
   busy?: string;
   onEdit: (task: Task) => void;
-  onComplete: (task: Task) => Promise<boolean>;
+  // A dragged completion can still be undone for a moment.
+  onComplete: (
+    task: Task,
+    options?: { undoable?: boolean },
+  ) => Promise<boolean>;
   onAdd: (date: string) => void;
 }) {
   const [selected, setSelected] = useState(today);
@@ -651,11 +656,11 @@ export default function TaskCalendar({
     event.preventDefault();
     select(next, true);
   }
-  function complete(task: Task, row: HTMLElement) {
+  function complete(task: Task, row: HTMLElement, dragged = false) {
     const key = `${task.id}:${task.version}`;
     slideAway(row, () => {
       setGone((set) => new Set(set).add(key));
-      void onComplete(task).then((ok) => {
+      void onComplete(task, { undoable: dragged }).then((ok) => {
         if (!ok)
           setGone((set) => {
             const next = new Set(set);

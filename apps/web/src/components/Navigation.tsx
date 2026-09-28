@@ -130,64 +130,67 @@ function SidebarContent({
           </button>
         )}
       </div>
-      <SelectionGroup
-        as="nav"
-        label="Main navigation"
-        value={page}
-        className="sidebar-nav"
-      >
-        <button
-          className={`nav-item assistant-nav ${page === "assistant" ? "selected" : ""}`}
-          data-module="assistant"
-          aria-label="Assistant"
-          title={collapsed ? "Assistant" : undefined}
-          aria-current={page === "assistant" ? "page" : undefined}
-          onClick={() => go("assistant")}
+      {/* On phones the bottom bar moves between modules; the menu keeps the rest. */}
+      {!drawer && (
+        <SelectionGroup
+          as="nav"
+          label="Main navigation"
+          value={page}
+          className="sidebar-nav"
         >
-          <Sparkles size={21} />
-          <span className="sidebar-label">Assistant</span>
-          {reviewCount > 0 && (
-            <span
-              className="count"
-              aria-label={`${reviewCount} suggestions to review`}
-            >
-              {reviewCount}
-            </span>
-          )}
-        </button>
-        <span className="nav-divider" aria-hidden="true" />
-        <button
-          className={`nav-item ${page === "money" ? "selected" : ""}`}
-          data-module="money"
-          aria-label="Money"
-          title={collapsed ? "Money" : undefined}
-          aria-current={page === "money" ? "page" : undefined}
-          onClick={() => go("money")}
-        >
-          <Wallet size={21} />
-          <span className="sidebar-label">Money</span>
-        </button>
-        <button
-          className={`nav-item ${page === "tasks" ? "selected" : ""}`}
-          data-module="tasks"
-          aria-label="Tasks"
-          title={
-            collapsed
-              ? `Tasks${dueCount ? ` · ${dueCount} due` : ""}`
-              : undefined
-          }
-          aria-current={page === "tasks" ? "page" : undefined}
-          onClick={() => go("tasks")}
-        >
-          <CheckCheck size={21} />
-          <span className="sidebar-label">Tasks</span>
-          {dueCount > 0 && (
-            <span className="count" aria-label={`${dueCount} due`}>
-              {dueCount}
-            </span>
-          )}
-        </button>
-      </SelectionGroup>
+          <button
+            className={`nav-item assistant-nav ${page === "assistant" ? "selected" : ""}`}
+            data-module="assistant"
+            aria-label="Assistant"
+            title={collapsed ? "Assistant" : undefined}
+            aria-current={page === "assistant" ? "page" : undefined}
+            onClick={() => go("assistant")}
+          >
+            <Sparkles size={21} />
+            <span className="sidebar-label">Assistant</span>
+            {reviewCount > 0 && (
+              <span
+                className="count"
+                aria-label={`${reviewCount} suggestions to review`}
+              >
+                {reviewCount}
+              </span>
+            )}
+          </button>
+          <span className="nav-divider" aria-hidden="true" />
+          <button
+            className={`nav-item ${page === "money" ? "selected" : ""}`}
+            data-module="money"
+            aria-label="Money"
+            title={collapsed ? "Money" : undefined}
+            aria-current={page === "money" ? "page" : undefined}
+            onClick={() => go("money")}
+          >
+            <Wallet size={21} />
+            <span className="sidebar-label">Money</span>
+          </button>
+          <button
+            className={`nav-item ${page === "tasks" ? "selected" : ""}`}
+            data-module="tasks"
+            aria-label="Tasks"
+            title={
+              collapsed
+                ? `Tasks${dueCount ? ` · ${dueCount} due` : ""}`
+                : undefined
+            }
+            aria-current={page === "tasks" ? "page" : undefined}
+            onClick={() => go("tasks")}
+          >
+            <CheckCheck size={21} />
+            <span className="sidebar-label">Tasks</span>
+            {dueCount > 0 && (
+              <span className="count" aria-label={`${dueCount} due`}>
+                {dueCount}
+              </span>
+            )}
+          </button>
+        </SelectionGroup>
+      )}
       <div className="sidebar-bottom">
         <div className="utility-actions">
           <button

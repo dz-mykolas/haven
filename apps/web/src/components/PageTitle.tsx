@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ease, useReducedMotion } from "./Motion";
+import { ease, usePhone, useReducedMotion } from "./Motion";
 
 // The title every module shows in the same place. Switching modules changes it
 // in place: the icon swaps inside its circle and the word rolls like an
@@ -31,8 +31,10 @@ export default function PageTitle({
     oldGlyph = useRef<HTMLSpanElement>(null),
     word = useRef<HTMLSpanElement>(null),
     oldWord = useRef<HTMLSpanElement>(null);
-  const reduced = useReducedMotion();
-  const rolling = !!from && !reduced && !settled;
+  const reduced = useReducedMotion(),
+    phone = usePhone();
+  // On phones the title travels with its module instead.
+  const rolling = !!from && !reduced && !phone && !settled;
   useEffect(() => {
     shown = { title, icon, order };
   });

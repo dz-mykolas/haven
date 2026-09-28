@@ -4662,3 +4662,159 @@ main .module-heading h1 {
     transition: none;
   }
 }
+
+/* ── Phone module pager ─────────────────────────── */
+/* A module's content and its bar item carry their own accent, so a neighbour
+   dragged in already has its colours while the page behind blends. */
+.module-scope[data-module] {
+  --on-primary: #ffffff;
+  --surface-container: color-mix(in srgb, var(--surface) 94%, var(--primary));
+  --surface-high: color-mix(in srgb, var(--surface) 88%, var(--primary));
+  --outline: color-mix(in srgb, var(--primary) 12%, #dce0e8);
+  --card-shadow: 0 1px 0 var(--outline), 0 10px 26px -18px #3a3a3060;
+  --primary-foreground: var(--on-primary);
+  --secondary: var(--surface-container);
+  --accent: var(--surface-container);
+  --border: var(--outline);
+  --input: var(--outline);
+  --ring: var(--primary);
+}
+:root[data-theme="dark"] .module-scope[data-module] {
+  --outline: color-mix(in srgb, var(--primary) 7%, #2a2e37);
+}
+.module-scope[data-module="assistant"] {
+  --primary: #6252a0;
+  --primary-container: #ece6ff;
+  --on-container: #534189;
+}
+.module-scope[data-module="money"] {
+  --primary: #346c56;
+  --primary-container: #e0efe6;
+  --on-container: #275740;
+}
+.module-scope[data-module="tasks"] {
+  --primary: #405e99;
+  --primary-container: #e5ecfb;
+  --on-container: #35517d;
+}
+:root[data-theme="dark"] .module-scope[data-module="assistant"] {
+  --primary: #c9b8ff;
+  --on-primary: #302449;
+  --primary-container: #36304c;
+  --on-container: #ded3ff;
+}
+:root[data-theme="dark"] .module-scope[data-module="money"] {
+  --primary: #a7d9bd;
+  --on-primary: #163727;
+  --primary-container: #243b31;
+  --on-container: #c2e6d1;
+}
+:root[data-theme="dark"] .module-scope[data-module="tasks"] {
+  --primary: #b4cbff;
+  --on-primary: #223452;
+  --primary-container: #293750;
+  --on-container: #d4e1ff;
+}
+.module-pager {
+  position: relative;
+}
+/* The neighbour lies beside the page, level with the top of the screen. */
+.module-slide[data-neighbour] {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.module-bar {
+  display: none;
+}
+@media (max-width: 767px) {
+  .module-pager {
+    touch-action: pan-y pinch-zoom;
+  }
+  main {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+  .snackbar {
+    bottom: calc(86px + env(safe-area-inset-bottom));
+  }
+  /* The current module sits in the middle; its neighbours wait smaller and
+     faded at the sides, and everything rolls with the swipe. */
+  .module-bar {
+    display: block;
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 4;
+    height: calc(70px + env(safe-area-inset-bottom));
+    overflow: hidden;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(18px) saturate(1.5);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    box-shadow: 0 -1px 0 var(--outline);
+  }
+  .module-bar-item {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 84px;
+    height: 54px;
+    min-height: 0;
+    margin-left: -42px;
+    padding: 0;
+    border: 0;
+    border-radius: 18px;
+    background: none;
+    color: var(--primary);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .module-bar-item:hover {
+    background: none;
+  }
+  .module-bar-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 32px;
+    border-radius: 16px;
+  }
+  .module-bar-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--primary-container);
+    opacity: clamp(0, calc(var(--near, 0) * 1.6 - 0.6), 1);
+  }
+  .module-bar-icon > svg {
+    position: relative;
+    opacity: calc(var(--shown, 1) * (0.5 + 0.5 * var(--near, 0)));
+  }
+  .module-bar-label {
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 16px;
+    color: var(--on-container);
+    opacity: clamp(0, calc(var(--near, 0) * 2 - 1), 1);
+  }
+  /* Counts stay readable on the faded neighbours. */
+  .module-bar-count {
+    position: absolute;
+    top: -3px;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: var(--primary);
+    color: var(--on-primary);
+    font-size: 10px;
+    font-weight: 700;
+    opacity: var(--shown, 1);
+  }
+}
