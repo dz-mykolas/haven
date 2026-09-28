@@ -805,6 +805,7 @@ export default function TaskCalendar({
               return (
                 <section
                   className="tl-day"
+                  data-motion-key={`day:${key}`}
                   data-overdue={key === "overdue" ? "" : undefined}
                   key={key}
                   aria-label={key === "overdue" ? "Overdue" : fullDate(key)}

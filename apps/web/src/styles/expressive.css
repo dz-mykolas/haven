@@ -4509,3 +4509,9 @@ button.tl-lead:hover .tl-tick {
     transition: opacity 180ms;
   }
 }
+/* Rows and days sliding in or out never widen the page; the margin keeps
+   the cards' shadows. */
+.animated-task-list {
+  overflow-x: clip;
+  overflow-clip-margin: 16px;
+}

@@ -172,6 +172,7 @@ export function MotionView({
 
 // Animate the task surfaces, keeping text and controls together. Stable keys let
 // remaining rows settle into place after a completion or a changed due date.
+// Entering days (or single new rows) slide in from the left.
 export function AnimatedTaskList({
   value,
   children,
@@ -195,10 +196,12 @@ export function AnimatedTaskList({
     const container = root.current!;
     const next = new Map<string, { top: number; left: number }>();
     const sameView = previousView.current === value;
+    // A whole day that appears slides in as one piece; its rows ride along.
+    const entering = new Set<Element>();
     container
-      .querySelectorAll<HTMLElement>("[data-task-key]")
-      .forEach((row, index) => {
-        const key = row.dataset.taskKey!;
+      .querySelectorAll<HTMLElement>("[data-task-key], [data-motion-key]")
+      .forEach((row) => {
+        const key = row.dataset.taskKey ?? row.dataset.motionKey!;
         const position = {
           top: row.offsetTop,
           left: row.offsetLeft,
@@ -206,17 +209,21 @@ export function AnimatedTaskList({
         next.set(key, position);
         const old = sameView ? previous.current.get(key) : undefined;
         if (reduced) return;
+        const parent = row.parentElement?.closest("[data-motion-key]");
+        if (!old && parent && entering.has(parent)) return;
         if (!old) {
+          entering.add(row);
           row.getAnimations().forEach((animation) => animation.cancel());
           animations.current.push(
             row.animate(
               [
-                { opacity: 0, transform: "translateY(10px) scale(0.99)" },
+                { opacity: 0, transform: "translateX(-64px)" },
                 { opacity: 1, transform: "none" },
               ],
               {
-                duration: 300,
-                delay: Math.min(index, 5) * 24,
+                duration: 560,
+                // Stagger what actually slides in: days, or single new rows.
+                delay: Math.min(entering.size - 1, 8) * 55,
                 easing: ease,
                 fill: "backwards",
               },

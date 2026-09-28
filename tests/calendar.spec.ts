@@ -229,8 +229,15 @@ test("unified task workspace, populated layouts, motion preferences and calendar
     const animate = Element.prototype.animate;
     (window as any).taskMotions = [];
     Element.prototype.animate = function (...args) {
-      if (this.hasAttribute("data-task-key"))
-        (window as any).taskMotions.push(this.getAttribute("data-task-key"));
+      // Rows, or whole days that slide in with their rows.
+      if (
+        this.hasAttribute("data-task-key") ||
+        this.hasAttribute("data-motion-key")
+      )
+        (window as any).taskMotions.push(
+          this.getAttribute("data-task-key") ??
+            this.getAttribute("data-motion-key"),
+        );
       return animate.apply(this, args);
     };
   });
