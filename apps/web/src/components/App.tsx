@@ -6,7 +6,7 @@ import TaskCalendar from "./TaskCalendar";
 import Money from "./Money";
 import Navigation, { useNavigation } from "./Navigation";
 import { flushSync } from "react-dom";
-import { MotionView } from "./Motion";
+import { MotionView, useEntrance } from "./Motion";
 import Scrollbars from "./Scrollbars";
 import { useAutoRefresh } from "./useAutoRefresh";
 import {
@@ -83,6 +83,9 @@ function Workspace() {
   const generation = useRef(0),
     completionIDs = useRef(new Map<string, string>());
   const loaded = useRef(false);
+  const moduleContent = useRef<HTMLDivElement>(null);
+  // Page parts marked data-enter slide in once the page has its data.
+  useEntrance(moduleContent, data ? page : null);
   const refresh = useCallback(
     async (options?: { background?: boolean; signal?: AbortSignal }) => {
       const current = ++generation.current;
@@ -288,7 +291,7 @@ function Workspace() {
             </button>
           </div>
         )}
-        <div className="module-content">
+        <div className="module-content" ref={moduleContent}>
           {page === "tasks" && (
             <section
               className={`page-heading ${page === "tasks" ? "tasks-heading" : ""}`}
@@ -302,6 +305,7 @@ function Workspace() {
               {page === "tasks" && (
                 <button
                   className="primary add-button"
+                  data-enter="right"
                   aria-label="New task"
                   disabled={!data}
                   onClick={() => setEditor(newTask())}

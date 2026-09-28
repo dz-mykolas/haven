@@ -4536,3 +4536,9 @@ button.tl-lead:hover .tl-tick {
 .tl-day {
   position: relative;
 }
+
+/* Parts that slide in from a side enter from beyond the screen edge without
+   widening the page; columns themselves never clip them. */
+main {
+  overflow-x: clip;
+}

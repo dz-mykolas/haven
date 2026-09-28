@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type RefObject,
 } from "react";
 
 const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -22,18 +23,60 @@ function useReducedMotion() {
   return reduced;
 }
 
+// When a page opens, each part marked with data-enter="left|right|top|bottom"
+// slides in from that side (data-enter-delay staggers it). Runs when `key`
+// changes, never on data refreshes.
+const entranceFrom: Record<string, string> = {
+  left: "translateX(-48px)",
+  right: "translateX(48px)",
+  top: "translateY(-24px)",
+  bottom: "translateY(40px)",
+};
+export function useEntrance(
+  root: RefObject<HTMLElement | null>,
+  key: string | null,
+) {
+  const reduced = useReducedMotion();
+  useLayoutEffect(() => {
+    if (reduced || key === null || !root.current) return;
+    const animations = [
+      ...root.current.querySelectorAll<HTMLElement>("[data-enter]"),
+    ].map((element) =>
+      element.animate?.(
+        [
+          {
+            opacity: 0,
+            transform: entranceFrom[element.dataset.enter!] ?? "none",
+          },
+          { opacity: 1, transform: "none" },
+        ],
+        {
+          duration: 560,
+          delay: Number(element.dataset.enterDelay ?? 0),
+          easing: ease,
+          fill: "backwards",
+        },
+      ),
+    );
+    return () => animations.forEach((animation) => animation?.cancel());
+  }, [key, reduced]);
+}
+
 // Move only the selection surface; labels and keyboard focus stay on their buttons.
 export function SelectionGroup({
   as = "div",
   label,
   value,
   className = "",
+  enter,
   children,
 }: {
   as?: "div" | "nav";
   label: string;
   value: string;
   className?: string;
+  // Side it slides in from when its page opens (see useEntrance).
+  enter?: string;
   children: ReactNode;
 }) {
   const root = useRef<HTMLElement>(null),
@@ -114,6 +157,7 @@ export function SelectionGroup({
       "aria-label": label,
       role: as === "div" ? "group" : undefined,
       "data-selection": value,
+      "data-enter": enter,
     },
     <span ref={indicator} className="selection-indicator" aria-hidden="true" />,
     children,

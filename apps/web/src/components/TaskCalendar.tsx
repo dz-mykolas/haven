@@ -676,10 +676,10 @@ export default function TaskCalendar({
       <section
         className="tasks-agenda"
         aria-label={filter === "day" ? "Selected day" : "Task list"}
-        data-motion-block
       >
         <div className="tl-tools">
           <SelectionGroup
+            enter="left"
             className="segments tl-tabs"
             label="Task view"
             value={filter === "day" ? `day-${selected}` : filter}
@@ -723,7 +723,12 @@ export default function TaskCalendar({
               </span>
             )}
           </SelectionGroup>
-          <label className="tl-search" data-active={search ? "" : undefined}>
+          <label
+            className="tl-search"
+            data-enter="top"
+            data-enter-delay="60"
+            data-active={search ? "" : undefined}
+          >
             <Search size={17} />
             <input
               className="plain-input"
@@ -861,8 +866,9 @@ export default function TaskCalendar({
       </section>
       <section
         className={`task-calendar ${mobileExpanded ? "is-expanded" : ""}`}
+        data-enter="bottom"
+        data-enter-delay="100"
         aria-label="Task calendar"
-        data-motion-block
       >
         <div className="calendar-surface tc-surface">
           <div className="tc-head">
