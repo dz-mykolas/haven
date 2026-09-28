@@ -477,7 +477,11 @@ export default function AssistantInbox({
     rows.push({ key: item.entry_id, estimate: 124, content: renderItem(item) });
   }
   return (
-    <section className="assistant-inbox" aria-label="Transaction inbox">
+    <section
+      className="assistant-inbox"
+      aria-label="Transaction inbox"
+      data-motion-block
+    >
       <div className="inbox-heading">
         <div className="segments" aria-label="Inbox view">
           <button

@@ -133,13 +133,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
     </>
   );
 }
-function Segments({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) {
+function Segments({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="te-seg" role="group" aria-label={label}>
       {children}
@@ -271,7 +265,11 @@ export default function TaskEditor({
     setBusy(true);
     setError("");
     try {
-      await request(`/tasks/followups/${proposal.event_id}/${action}`, {}, "POST");
+      await request(
+        `/tasks/followups/${proposal.event_id}/${action}`,
+        {},
+        "POST",
+      );
       if (action === "accept") onSaved();
       else setFollowUp({ ...followUp, proposal: undefined });
     } catch (e) {
@@ -320,7 +318,10 @@ export default function TaskEditor({
     if (builtIn) {
       if (!builtInTags[builtIn].kinds.includes(kind)) return;
       tag = builtIn;
-    } else tag = [...usage.keys()].find((t) => t.toLowerCase() === tag.toLowerCase()) ?? tag;
+    } else
+      tag =
+        [...usage.keys()].find((t) => t.toLowerCase() === tag.toLowerCase()) ??
+        tag;
     if (!has(tag)) setTags([...tags, tag]);
     setTagQuery("");
     setTagActive(-1);
@@ -345,7 +346,8 @@ export default function TaskEditor({
     </button>
   );
   const missing: [Section, string, typeof Repeat2][] = [];
-  if (scheduled && repeat === "none") missing.push(["repeat", "Repeat", Repeat2]);
+  if (scheduled && repeat === "none")
+    missing.push(["repeat", "Repeat", Repeat2]);
   if (!money) missing.push(["money", "Money", Coins]);
 
   const editors: Record<Exclude<Section, "">, ReactNode> = {
@@ -372,7 +374,11 @@ export default function TaskEditor({
       <div className="te-grid">
         <Row label="Date">
           <Segments label="Date">
-            <button type="button" aria-pressed={date === now} onClick={() => setDate(now)}>
+            <button
+              type="button"
+              aria-pressed={date === now}
+              onClick={() => setDate(now)}
+            >
               Today
             </button>
             <button
@@ -398,7 +404,11 @@ export default function TaskEditor({
         </Row>
         <Row label="Time">
           <Segments label="Time">
-            <button type="button" aria-pressed={!time} onClick={() => setTime("")}>
+            <button
+              type="button"
+              aria-pressed={!time}
+              onClick={() => setTime("")}
+            >
               Any time
             </button>
             <PickSegment
@@ -444,7 +454,9 @@ export default function TaskEditor({
                   aria-label="Repeat every"
                   value={every}
                   onChange={(e) =>
-                    setEvery(Math.max(1, Math.min(365, Number(e.target.value) || 1)))
+                    setEvery(
+                      Math.max(1, Math.min(365, Number(e.target.value) || 1)),
+                    )
                   }
                 />
                 {unitLabel(repeat, every)}
@@ -452,7 +464,11 @@ export default function TaskEditor({
             </Row>
             {repeat === "weekly" && (
               <Row label="On">
-                <div className="te-days" role="group" aria-label="Days of the week">
+                <div
+                  className="te-days"
+                  role="group"
+                  aria-label="Days of the week"
+                >
                   {weekdayNames.map((name, i) => (
                     <button
                       type="button"
@@ -475,7 +491,11 @@ export default function TaskEditor({
             )}
             <Row label="Ends">
               <Segments label="Ends">
-                <button type="button" aria-pressed={!until} onClick={() => setUntil("")}>
+                <button
+                  type="button"
+                  aria-pressed={!until}
+                  onClick={() => setUntil("")}
+                >
                   Never
                 </button>
                 <PickSegment
@@ -508,10 +528,18 @@ export default function TaskEditor({
         <Row label="Money">
           <span className="te-money">
             <Segments label="Direction">
-              <button type="button" aria-pressed={!income} onClick={() => setIncome(false)}>
+              <button
+                type="button"
+                aria-pressed={!income}
+                onClick={() => setIncome(false)}
+              >
                 − Cost
               </button>
-              <button type="button" aria-pressed={income} onClick={() => setIncome(true)}>
+              <button
+                type="button"
+                aria-pressed={income}
+                onClick={() => setIncome(true)}
+              >
                 + Income
               </button>
             </Segments>
@@ -571,14 +599,23 @@ export default function TaskEditor({
               } else if (e.key === "Enter") {
                 e.preventDefault();
                 addTag(tagActive >= 0 ? tagName(options[tagActive]) : tagQuery);
-              } else if (e.key === "Backspace" && !tagQuery && shown.own.length) {
+              } else if (
+                e.key === "Backspace" &&
+                !tagQuery &&
+                shown.own.length
+              ) {
                 const last = shown.own[shown.own.length - 1];
                 setTags(tags.filter((t) => t !== last));
               }
             }}
           />
         </div>
-        <div className="te-tag-list" id="te-tag-list" role="listbox" aria-label="Tag suggestions">
+        <div
+          className="te-tag-list"
+          id="te-tag-list"
+          role="listbox"
+          aria-label="Tag suggestions"
+        >
           {addOption && (
             <button
               type="button"
@@ -593,7 +630,9 @@ export default function TaskEditor({
               <kbd>↵ Enter</kbd>
             </button>
           )}
-          {specialOptions.length > 0 && <div className="te-tag-section">Built in</div>}
+          {specialOptions.length > 0 && (
+            <div className="te-tag-section">Built in</div>
+          )}
           {specialOptions.map((t, i) => (
             <button
               type="button"
@@ -607,7 +646,9 @@ export default function TaskEditor({
               <span className="te-tag-note">{builtInTags[t].description}</span>
             </button>
           ))}
-          {ownOptions.length > 0 && <div className="te-tag-section">Your tags</div>}
+          {ownOptions.length > 0 && (
+            <div className="te-tag-section">Your tags</div>
+          )}
           {ownOptions.map((t, i) => (
             <button
               type="button"
@@ -695,13 +736,21 @@ export default function TaskEditor({
           <ScrollArea
             className="editor-scroll-area"
             type="auto"
-            viewportProps={{ role: "region", "aria-label": "Task details", tabIndex: -1 }}
+            viewportProps={{
+              role: "region",
+              "aria-label": "Task details",
+              tabIndex: -1,
+            }}
           >
             <fieldset className="te-body" disabled={busy}>
               <label className="te-notes">
                 <span className="te-notes-k">
                   Notes
-                  <PencilLine size={14} className="te-edit" aria-hidden="true" />
+                  <PencilLine
+                    size={14}
+                    className="te-edit"
+                    aria-hidden="true"
+                  />
                 </span>
                 <textarea
                   className="plain-input"
@@ -723,17 +772,30 @@ export default function TaskEditor({
                 <div className="te-suggestion" role="status">
                   <Sparkles size={15} />
                   <span>{followUp.proposal.message}</span>
-                  <Button type="button" className="text-button" onClick={() => void decide("dismiss")}>
+                  <Button
+                    type="button"
+                    className="text-button"
+                    onClick={() => void decide("dismiss")}
+                  >
                     Dismiss
                   </Button>
-                  <Button type="button" className="tonal" onClick={() => void decide("accept")}>
+                  <Button
+                    type="button"
+                    className="tonal"
+                    onClick={() => void decide("accept")}
+                  >
                     <Check size={15} />
                     Accept
                   </Button>
                 </div>
               )}
               <div className="te-line">
-                {item("kind", `Type: ${kinds.find(([k]) => k === kind)![1]}`, <KindIcon size={15} />, kinds.find(([k]) => k === kind)![1])}
+                {item(
+                  "kind",
+                  `Type: ${kinds.find(([k]) => k === kind)![1]}`,
+                  <KindIcon size={15} />,
+                  kinds.find(([k]) => k === kind)![1],
+                )}
                 {scheduled || date
                   ? item(
                       "date",

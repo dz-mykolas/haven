@@ -58,7 +58,10 @@ function short(points: Point[]) {
   };
   const costs = points.filter((p) => !p.item.task.income),
     income = points.filter((p) => p.item.task.income);
-  return [costs.length ? sum(costs) : "", income.length ? `+${sum(income)}` : ""]
+  return [
+    costs.length ? sum(costs) : "",
+    income.length ? `+${sum(income)}` : "",
+  ]
     .filter(Boolean)
     .join(" · ");
 }

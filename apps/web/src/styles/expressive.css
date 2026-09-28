@@ -4542,3 +4542,69 @@ button.tl-lead:hover .tl-tick {
 main {
   overflow-x: clip;
 }
+
+/* ── Module title ───────────────────────────────── */
+/* Every module's title sits in the same place at the same size, so switching
+   modules only changes it in place (see PageTitle). */
+main .module-heading {
+  margin: 0;
+  padding: 28px 0 24px;
+  min-height: 100px;
+  align-items: center;
+}
+main .assistant-home,
+main .assistant-home.has-chat {
+  padding-top: 0;
+}
+/* Its column gap already spaces the tabs below the title. */
+main .assistant-workspace-heading.module-heading {
+  padding-bottom: 8px;
+  min-height: 84px;
+}
+main .module-heading h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+.page-title-word {
+  position: relative;
+  white-space: nowrap;
+  /* The old word rolls out of the title's own line. */
+  overflow-x: visible;
+  overflow-y: clip;
+}
+.page-title-word > span {
+  display: inline-block;
+}
+.page-title-word > .title-old {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.title-mark {
+  position: relative;
+}
+.title-glyph {
+  display: grid;
+  place-items: center;
+}
+.title-glyph + .title-glyph {
+  position: absolute;
+  inset: 0;
+}
+@media (max-width: 650px) {
+  main .module-heading {
+    padding: 20px 0 16px;
+    min-height: 84px;
+  }
+  main .assistant-workspace-heading.module-heading {
+    padding-bottom: 0;
+    min-height: 68px;
+  }
+  main .money-heading.module-heading {
+    grid-template-rows: minmax(48px, auto);
+    align-items: center;
+  }
+}

@@ -10,6 +10,8 @@ import AssistantInbox, { type InboxController } from "./AssistantInbox";
 import AssistantDraftCard from "./AssistantDraftCard";
 import ModelConnection from "./ModelConnection";
 import AssistantChat from "./AssistantChat";
+import PageTitle from "./PageTitle";
+import { useEntrance } from "./Motion";
 import type { EditorState } from "./Editor";
 import type { Snapshot } from "../lib/api";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -50,13 +52,15 @@ const modes: {
   {
     id: "on_request",
     title: "When I ask",
-    description: "Help in chat when you ask. Changes from task notes wait for your approval.",
+    description:
+      "Help in chat when you ask. Changes from task notes wait for your approval.",
     icon: MessageCircle,
   },
   {
     id: "proactive",
     title: "Suggest too",
-    description: "Also categorize transactions, suggest schedules and apply changes from task notes, with undo.",
+    description:
+      "Also categorize transactions, suggest schedules and apply changes from task notes, with undo.",
     icon: Sparkles,
   },
 ];
@@ -433,18 +437,17 @@ export default function Assistant({
     }
   }
   const mode = modes.find((mode) => mode.id === status?.settings.mode);
+  // The controls arrive with the settings, after the page has opened.
+  const heading = useRef<HTMLDivElement>(null);
+  useEntrance(heading, status ? "ready" : null);
   return (
     <section
       className={`assistant-home ${status?.provider.base_url && status.settings.mode !== "manual" ? "has-chat" : ""}`}
-      data-motion-block
     >
-      <div className="assistant-workspace-heading">
-        <span className="title-mark" aria-hidden="true">
-          <Sparkles size={22} />
-        </span>
-        <h1>Assistant</h1>
+      <div className="assistant-workspace-heading module-heading" ref={heading}>
+        <PageTitle icon={<Sparkles size={22} />} title="Assistant" order={0} />
         {status && (
-          <div className="assistant-controls">
+          <div className="assistant-controls" data-enter="right">
             <span className="assistant-mode-badge">
               <span className="status-dot" />
               {mode?.title}
@@ -490,7 +493,11 @@ export default function Assistant({
           {notice}
         </p>
       )}
-      <div className="segments assistant-tabs" aria-label="Assistant view">
+      <div
+        className="segments assistant-tabs"
+        aria-label="Assistant view"
+        data-enter="left"
+      >
         <button aria-pressed={tab === "chat"} onClick={() => onTab("chat")}>
           <MessageCircle size={16} />
           Chat
@@ -503,7 +510,7 @@ export default function Assistant({
           ) : null}
         </button>
       </div>
-      <div className="assistant-pane" hidden={tab !== "chat"}>
+      <div className="assistant-pane" hidden={tab !== "chat"} data-motion-block>
         {status &&
           status.settings.mode !== "manual" &&
           status.provider.base_url && (
@@ -519,7 +526,7 @@ export default function Assistant({
         />
       )}
       {status?.settings.mode === "manual" && (
-        <div className="assistant-links">
+        <div className="assistant-links" data-motion-block>
           <button className="tonal" onClick={() => onNavigate("money")}>
             <Wallet />
             Open Money

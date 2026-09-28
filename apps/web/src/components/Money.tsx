@@ -4,6 +4,7 @@ import FormSelect from "./FormSelect";
 import MoneyOverview from "./MoneyOverview";
 import BrandIcon from "./BrandIcon";
 import MoneyText from "./MoneyText";
+import PageTitle from "./PageTitle";
 import RemoveAccount from "./RemoveAccount";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
@@ -190,13 +191,10 @@ export default function Money({
   }
   return (
     <div className="money-home">
-      <header className="money-heading">
+      <header className="money-heading module-heading">
         <div className="money-title">
-          <span className="title-mark" aria-hidden="true">
-            <Wallet size={22} />
-          </span>
-          <h1>Money</h1>
-          <label className="money-month">
+          <PageTitle icon={<Wallet size={22} />} title="Money" order={1} />
+          <label className="money-month" data-enter="top">
             <span className="sr-only">Reporting month</span>
             <input
               type="month"
@@ -209,7 +207,7 @@ export default function Money({
             />
           </label>
         </div>
-        <div className="money-heading-actions">
+        <div className="money-heading-actions" data-enter="right">
           {reviewCount > 0 && (
             <TooltipProvider delayDuration={250}>
               <Tooltip>

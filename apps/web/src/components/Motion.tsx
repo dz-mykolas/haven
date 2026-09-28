@@ -8,9 +8,9 @@ import {
   type RefObject,
 } from "react";
 
-const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
+export const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-function useReducedMotion() {
+export function useReducedMotion() {
   const [reduced, setReduced] = useState(
     () => matchMedia("(prefers-reduced-motion: reduce)").matches,
   );

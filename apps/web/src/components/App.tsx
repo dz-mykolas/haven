@@ -7,6 +7,7 @@ import Money from "./Money";
 import Navigation, { useNavigation } from "./Navigation";
 import { flushSync } from "react-dom";
 import { MotionView, useEntrance } from "./Motion";
+import PageTitle from "./PageTitle";
 import Scrollbars from "./Scrollbars";
 import { useAutoRefresh } from "./useAutoRefresh";
 import {
@@ -236,12 +237,6 @@ function Workspace() {
         (!t.plan || t.plan.kind === "scheduled" || t.plan.remind) &&
         ["today", "overdue"].includes(taskStatus(t)),
     ).length ?? 0;
-  const title =
-    page === "money"
-      ? "A little more clarity."
-      : page === "tasks"
-        ? "Tasks"
-        : "Your Haven, together.";
   // Switching theme cross-fades the page.
   const cycleTheme = () => {
     const next =
@@ -293,14 +288,13 @@ function Workspace() {
         )}
         <div className="module-content" ref={moduleContent}>
           {page === "tasks" && (
-            <section
-              className={`page-heading ${page === "tasks" ? "tasks-heading" : ""}`}
-            >
+            <section className="page-heading tasks-heading module-heading">
               <div className="page-title">
-                <span className="title-mark" aria-hidden="true">
-                  <CheckCheck size={22} />
-                </span>
-                <h1>{title}</h1>
+                <PageTitle
+                  icon={<CheckCheck size={22} />}
+                  title="Tasks"
+                  order={2}
+                />
               </div>
               {page === "tasks" && (
                 <button
