@@ -4529,3 +4529,10 @@ button.tl-lead:hover .tl-tick {
     margin-left: 0;
   }
 }
+/* The list animation compares positions between renders: rows against their
+   day, days against the list. Positioning both keeps those references fixed,
+   including while a day is sliding in. */
+.animated-task-list,
+.tl-day {
+  position: relative;
+}
