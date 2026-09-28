@@ -10,13 +10,7 @@ import { ease, useReducedMotion } from "./Motion";
 // The title every module shows in the same place. Switching modules changes it
 // in place: the icon swaps inside its circle and the word rolls like an
 // odometer, up when moving down the sidebar and down when moving back up.
-type Shown = {
-  title: string;
-  icon: ReactNode;
-  order: number;
-  background: string;
-  color: string;
-};
+type Shown = { title: string; icon: ReactNode; order: number };
 let shown: Shown | null = null;
 
 export default function PageTitle({
@@ -33,23 +27,14 @@ export default function PageTitle({
     shown && shown.title !== title ? shown : null,
   );
   const [settled, setSettled] = useState(false);
-  const mark = useRef<HTMLSpanElement>(null),
-    glyph = useRef<HTMLSpanElement>(null),
+  const glyph = useRef<HTMLSpanElement>(null),
     oldGlyph = useRef<HTMLSpanElement>(null),
     word = useRef<HTMLSpanElement>(null),
     oldWord = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
   const rolling = !!from && !reduced && !settled;
-  // Remembered after layout effects, once the page's own tint is applied.
   useEffect(() => {
-    const style = getComputedStyle(mark.current!);
-    shown = {
-      title,
-      icon,
-      order,
-      background: style.backgroundColor,
-      color: style.color,
-    };
+    shown = { title, icon, order };
   });
   useLayoutEffect(() => {
     if (!rolling || !from) return;
@@ -84,11 +69,6 @@ export default function PageTitle({
         ],
         { ...timing, duration: 240 },
       ),
-      // Ends on whatever tint the new module sets.
-      mark.current!.animate(
-        [{ backgroundColor: from.background, color: from.color }, {}],
-        { duration: 460, easing: ease },
-      ),
     ];
     Promise.all(animations.map((animation) => animation.finished)).then(
       () => setSettled(true),
@@ -98,7 +78,7 @@ export default function PageTitle({
   }, [rolling]);
   return (
     <>
-      <span className="title-mark" ref={mark} aria-hidden="true">
+      <span className="title-mark" aria-hidden="true">
         <span className="title-glyph" ref={glyph}>
           {icon}
         </span>

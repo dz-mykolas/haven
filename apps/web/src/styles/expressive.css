@@ -4608,3 +4608,57 @@ main .module-heading h1 {
     align-items: center;
   }
 }
+
+/* ── Module colour ──────────────────────────────── */
+/* Typed so switching modules blends the accent instead of flipping it; the
+   background light, outlines and tinted surfaces all derive from these. */
+@property --primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6252a0;
+}
+@property --on-primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff;
+}
+@property --primary-container {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ece6ff;
+}
+@property --on-container {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #534189;
+}
+@property --secondary-container {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+@property --on-secondary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: currentcolor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    transition:
+      --primary 520ms var(--ease-expressive),
+      --on-primary 520ms var(--ease-expressive),
+      --primary-container 520ms var(--ease-expressive),
+      --on-container 520ms var(--ease-expressive);
+  }
+  /* Set only on the content, so they blend there. */
+  :root[data-module] .module-content {
+    transition:
+      --secondary-container 520ms var(--ease-expressive),
+      --on-secondary 520ms var(--ease-expressive);
+  }
+  /* The theme switch cross-fades the whole page instead. */
+  :root[data-transition="theme"],
+  :root[data-transition="theme"] .module-content {
+    transition: none;
+  }
+}
