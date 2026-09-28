@@ -251,7 +251,7 @@ test("unified task workspace, populated layouts, motion preferences and calendar
   await page.getByLabel("Calendar month", { exact: true }).fill("2028-03");
   await page.getByRole("button", { name: "Upcoming", exact: true }).click();
   const list = page.getByRole("region", { name: "Task list", exact: true });
-  await expect(list.locator(".agenda-task")).toHaveCount(5);
+  await expect(list.locator(".tl-row")).toHaveCount(5);
   for (const [width, height, theme] of [
     [1440, 1000, "light"],
     [1440, 1000, "dark"],
@@ -302,8 +302,10 @@ test("unified task workspace, populated layouts, motion preferences and calendar
     .getByRole("button", { name: "Complete Morning vitamins", exact: true })
     .click();
   await expect(
-    page.getByRole("button", { name: "Edit Morning vitamins", exact: true }),
-  ).toContainText("2 Mar 2028");
+    page
+      .getByRole("region", { name: /2 March 2028/ })
+      .getByRole("button", { name: "Edit Morning vitamins", exact: true }),
+  ).toBeVisible({ timeout: 10000 });
   await expect
     .poll(() => page.evaluate(() => (window as any).taskMotions.length))
     .toBeGreaterThan(0);

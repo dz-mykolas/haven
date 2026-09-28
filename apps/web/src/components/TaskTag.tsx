@@ -1,4 +1,4 @@
-import { Lock, Repeat2, X } from "lucide-react";
+import { Lock, SkipForward, X } from "lucide-react";
 import { builtInTags, lockedWhy, tagName } from "../lib/tasks";
 
 // One chip for every place a task tag appears: your tags are neutral, built-in
@@ -27,7 +27,7 @@ export default function TaskTag({
       {locked ? (
         <Lock size={13} aria-hidden="true" />
       ) : special ? (
-        <Repeat2 size={13} aria-hidden="true" />
+        <SkipForward size={12} aria-hidden="true" />
       ) : (
         <span className="task-tag-hash" aria-hidden="true">
           #

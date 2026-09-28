@@ -189,18 +189,20 @@ test("Tasks use device timezone and preserve monthly anchors without changing Mo
   // The device timezone is saved without a field; another one would be noted.
   await expect(page.getByText(/^Times use/)).toHaveCount(0);
   await page.getByRole("button", { name: "Save", exact: true }).click();
+  // Ticking waits three seconds (the circle is Undo meanwhile), then the
+  // repeating task moves to its next date, shown by the day it sits under.
+  const rentOn = (date: RegExp) =>
+    page
+      .getByRole("region", { name: date })
+      .getByRole("button", { name: "Edit Rent", exact: true });
   await page
     .getByRole("button", { name: "Complete Rent", exact: true })
     .click();
-  await expect(
-    page.getByRole("button", { name: "Edit Rent", exact: true }),
-  ).toContainText("28 Feb 2027");
+  await expect(rentOn(/28 February 2027/)).toBeVisible({ timeout: 10000 });
   await page
     .getByRole("button", { name: "Complete Rent", exact: true })
     .click();
-  await expect(
-    page.getByRole("button", { name: "Edit Rent", exact: true }),
-  ).toContainText("31 Mar 2027");
+  await expect(rentOn(/31 March 2027/)).toBeVisible({ timeout: 10000 });
   await page.getByRole("button", { name: "New task", exact: true }).click();
   await page.getByLabel("Task name").fill("Barber");
   await setType(page, "Appointment");
@@ -208,6 +210,9 @@ test("Tasks use device timezone and preserve monthly anchors without changing Mo
   await page
     .getByRole("button", { name: "Complete Barber", exact: true })
     .click();
+  await expect(
+    page.getByRole("button", { name: "Edit Barber", exact: true }),
+  ).toHaveCount(0, { timeout: 10000 });
   await page.getByRole("button", { name: "Done", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "Edit Barber", exact: true }),

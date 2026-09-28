@@ -158,7 +158,8 @@ function Workspace() {
     setPage(next);
     setNotice("");
   }
-  async function complete(task: Task) {
+  // Resolves whether it worked, so the list can bring a row back on failure.
+  async function complete(task: Task): Promise<boolean> {
     setBusy(task.id);
     setNotice("");
     const key = `${task.id}:${task.version}`;
@@ -177,8 +178,10 @@ function Workspace() {
         saved.done ? "Completed" : `Completed · next ${dateLabel(saved.date)}`,
       );
       await refresh();
+      return true;
     } catch (e) {
       setError((e as Error).message);
+      return false;
     } finally {
       setBusy("");
     }
@@ -361,7 +364,7 @@ function Workspace() {
                 tasks={data.tasks}
                 busy={busy}
                 onEdit={(task) => setEditor({ type: "task", record: task })}
-                onComplete={(task) => void complete(task)}
+                onComplete={complete}
                 onAdd={(date) => setEditor(newTask(date))}
               />
             )}

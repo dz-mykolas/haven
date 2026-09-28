@@ -164,6 +164,10 @@ test("notes drive assistant suggestions that wait for approval in When I ask mod
     await page
       .getByRole("button", { name: "Complete Renew passport", exact: true })
       .click();
+    // Completing goes through after the three-second countdown.
+    await expect(
+      page.getByRole("button", { name: "Edit Renew passport", exact: true }),
+    ).toHaveCount(0, { timeout: 10000 });
     await page.goto("/#assistant");
     await page.getByRole("button", { name: /^Inbox/ }).click();
     // The Inbox refreshes every few seconds after the check runs.

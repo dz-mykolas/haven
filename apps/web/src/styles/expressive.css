@@ -249,7 +249,9 @@ button.text-button {
 }
 /* Quiet filled fields with a visible, consistent focus treatment. */
 /* .plain-input opts out: those inputs are styled by their component. */
-input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.plain-input),
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(
+    .plain-input
+  ),
 textarea:not(.plain-input),
 button.form-select {
   width: 100%;
@@ -3258,62 +3260,17 @@ button.vrow {
 :root :is(.money-overview, .calendar-surface) {
   box-shadow: var(--card-shadow);
 }
-:root
-  :is(
-    .money-activity .transaction-row[data-group-end],
-    .tasks-date-group > .agenda-task:last-child
-  ) {
+:root .money-activity .transaction-row[data-group-end],
+:root .tl-group {
   box-shadow: var(--card-shadow);
 }
 :root .money-overview[data-open="true"] {
   box-shadow: var(--card-shadow);
 }
-:root[data-theme="dark"]
-  :is(
-    .money-activity .transaction-row[data-group-end],
-    .tasks-date-group > .agenda-task:last-child
-  ) {
+:root[data-theme="dark"] .money-activity .transaction-row[data-group-end] {
   box-shadow:
     0 1px 0 color-mix(in srgb, #fff 13%, transparent),
     0 12px 30px -20px #0009;
-}
-
-/* Tasks: each day's tasks form one rounded group with hairline separators,
-   like the activity list, under the same small date heading with the day's
-   count at its end. */
-.tasks-date-group > .agenda-task {
-  min-height: 70px;
-  margin: 0;
-  padding: 13px 17px 13px 12px;
-  border-radius: 0;
-  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--outline) 60%, transparent);
-}
-.tasks-date-group > .agenda-task:first-of-type {
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-}
-.tasks-date-group > .agenda-task:last-child {
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-}
-.tasks-date-label {
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 14px 12px 8px;
-  font-size: 11px;
-  font-weight: 500;
-}
-.tasks-date-label span {
-  font: 650 12.5px/1 var(--font-heading);
-  font-variant-numeric: tabular-nums;
-}
-.tasks-date-group + .tasks-date-group {
-  margin-top: 0;
-}
-@media (max-width: 760px) {
-  .tasks-date-group > .agenda-task {
-    padding: 10px 12px 10px 6px;
-  }
 }
 
 .task-meta .task-follow-up {
@@ -3398,7 +3355,8 @@ button.vrow {
 }
 .te-title input:focus,
 .te-notes:focus-within {
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 55%, transparent);
+  box-shadow: inset 0 0 0 2px
+    color-mix(in srgb, var(--primary) 55%, transparent);
 }
 .te-edit {
   color: var(--muted);
@@ -3541,7 +3499,9 @@ button.vrow {
   padding: 6px;
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: 0 0 0 1px var(--outline), 0 16px 30px -12px #0006;
+  box-shadow:
+    0 0 0 1px var(--outline),
+    0 16px 30px -12px #0006;
 }
 .te-add-menu button {
   display: flex;
@@ -3799,7 +3759,8 @@ button.vrow {
 }
 .task-tag[data-special] {
   color: var(--primary);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 38%, transparent);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--primary) 38%, transparent);
 }
 .task-tag[data-locked] svg {
   opacity: 0.8;
@@ -3828,37 +3789,6 @@ button.vrow {
   gap: 6px;
 }
 
-/* Tags on task rows: compact until the row is hovered or focused. */
-.row-tags {
-  display: inline-flex;
-  align-items: center;
-}
-.row-tags-compact {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.row-tag-icon {
-  color: var(--primary);
-}
-.row-tags-full {
-  display: none;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-@media (hover: hover) {
-  .agenda-task:is(:hover, :focus-within) .row-tags-compact {
-    display: none;
-  }
-  .agenda-task:is(:hover, :focus-within) .row-tags-full {
-    display: inline-flex;
-  }
-}
-.row-tags-full .task-tag {
-  height: 20px;
-  padding: 0 6px;
-  font-size: 11px;
-}
 .overview-income {
   margin-left: 8px;
   font-variant-numeric: tabular-nums;
@@ -3881,5 +3811,701 @@ button.vrow {
   }
   .task-editor .te-body {
     padding: 6px 12px 16px;
+  }
+}
+
+/* ── Tasks screen ─────────────────────────────────────────────────────────
+   Days are grouped cards like Money's activity; the calendar is numbers first
+   with one quiet dot for days that have something planned. */
+.tl-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.tl-tabs {
+  flex: none;
+}
+.tl-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.tl-count {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+/* A day picked in the calendar joins the tabs, sliding in beside them. */
+.tl-day-tab {
+  display: inline-flex;
+  align-items: stretch;
+  animation: tl-tab-in 320ms var(--ease-expressive);
+}
+/* The day tab's buttons sit above the sliding selection surface, like the
+   other tabs; the wrapper stays unpositioned so the surface measures them
+   against the group. */
+.tl-day-tab > button {
+  position: relative;
+  z-index: 1;
+}
+/* The date button reserves room at its end and the close button overlaps
+   it, so the selection surface covers both. */
+.tl-day-tab > button:first-child {
+  padding-right: 34px;
+}
+.tl-day-tab .tl-day-close {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  min-width: 28px;
+  margin-left: -32px;
+  padding: 0;
+  border-radius: 8px;
+  color: var(--muted);
+}
+.tl-day-tab .tl-day-close:hover {
+  color: var(--text);
+}
+@keyframes tl-tab-in {
+  from {
+    opacity: 0;
+    max-width: 0;
+  }
+  to {
+    opacity: 1;
+    max-width: 240px;
+  }
+}
+/* Search sits compact on the right and grows into the free space while it
+   is in use. */
+.tl-search {
+  margin-left: auto;
+  flex: 0 1 220px;
+  /* Too little room beside the tabs: it moves to its own line instead. */
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 6px 0 12px;
+  border-radius: 14px;
+  background: var(--surface-container);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--outline) 70%, transparent);
+  color: var(--muted);
+  transition:
+    flex-grow 360ms var(--ease-expressive),
+    box-shadow 160ms;
+}
+.tl-search:focus-within,
+.tl-search[data-active] {
+  flex-grow: 1;
+}
+.tl-search:focus-within {
+  box-shadow: inset 0 0 0 1.5px
+    color-mix(in srgb, var(--primary) 55%, transparent);
+}
+.tl-search input {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
+.tl-clear {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  display: none;
+}
+.tl-search[data-active] .tl-clear {
+  display: grid;
+}
+.tl-clear:hover {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  color: var(--text);
+}
+
+/* Day groups and their headings, as in Money's activity. */
+.tl-day {
+  margin-top: 14px;
+}
+.tl-day-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 12px 8px;
+  font: 500 11px var(--font-sans);
+  color: var(--muted);
+}
+.tl-day[data-overdue] .tl-day-label {
+  color: var(--spending-text);
+}
+.tl-day-total {
+  font: 600 12px/1 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+}
+.tl-day-total [data-tone="cost"] {
+  color: color-mix(in srgb, var(--estimate-text) 55%, var(--muted));
+}
+.tl-day-total [data-tone="income"] {
+  color: color-mix(in srgb, var(--income-text) 55%, var(--muted));
+}
+.tl-group {
+  border-radius: 18px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.tl-add-day {
+  margin: 10px 4px 0;
+}
+
+/* A row slides over a "Done" layer, so it can be dragged away. */
+.tl-row {
+  position: relative;
+  overflow: hidden;
+}
+.tl-row + .tl-row {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--outline) 60%, transparent);
+}
+.tl-row-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 62px;
+  padding-right: 17px;
+  background: var(--surface);
+  touch-action: pan-y;
+  transition: background 160ms;
+}
+.tl-row + .tl-row > .tl-row-inner {
+  margin-top: 1px;
+}
+.tl-row-inner:hover {
+  background: color-mix(in srgb, var(--surface-container) 35%, var(--surface));
+}
+.tl-row[data-dragging] .tl-row-inner {
+  cursor: grabbing;
+  user-select: none;
+}
+.tl-row[data-returning] .tl-row-inner {
+  transition: transform 320ms var(--ease-expressive);
+}
+.tl-row[data-leaving] .tl-row-inner {
+  transition: transform 300ms cubic-bezier(0.4, 0, 1, 1);
+  transform: translateX(105%) !important;
+}
+.tl-swipe {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 24px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font: 600 13px var(--font-sans);
+  opacity: var(--reveal, 0);
+}
+.tl-row[data-leaving] .tl-swipe {
+  opacity: 1;
+}
+.tl-swipe svg {
+  transition: transform 200ms var(--ease-expressive);
+}
+.tl-row[data-armed] .tl-swipe svg {
+  transform: scale(1.25);
+}
+
+/* The whole left strip is the complete button; the ring is its picture.
+   It ends where the title starts, as in Money's rows. */
+.tl-lead {
+  width: 68px;
+  flex: none;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding: 0 0 0 4px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+span.tl-lead {
+  cursor: default;
+}
+.tl-ring {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--muted) 60%, transparent);
+  color: var(--primary);
+  transition:
+    border-color 160ms,
+    background 160ms,
+    transform 220ms var(--ease-expressive);
+}
+.tl-ring > svg:not(.tl-timer) {
+  position: absolute;
+  transition:
+    opacity 180ms ease,
+    transform 260ms var(--ease-expressive);
+}
+.tl-tick {
+  opacity: 0;
+}
+.tl-undo {
+  opacity: 0;
+  transform: rotate(60deg) scale(0.6);
+}
+.tl-row[data-overdue] .tl-ring {
+  border-color: color-mix(in srgb, var(--spending-text) 75%, transparent);
+}
+button.tl-lead:hover .tl-ring {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+button.tl-lead:hover .tl-tick {
+  opacity: 0.7;
+}
+.tl-row[data-done] .tl-ring,
+.tl-ring[data-filled] {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.tl-row[data-done] .tl-tick,
+.tl-ring[data-filled] .tl-tick {
+  opacity: 1;
+}
+.tl-ring[data-future] {
+  border-style: dashed;
+  color: var(--muted);
+}
+.tl-row[data-pending] .tl-ring {
+  animation: tl-pop 320ms var(--ease-expressive);
+}
+@keyframes tl-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: none;
+  }
+}
+/* During the countdown the circle is the undo button: on hover (or always
+   on touch screens) the check turns into an undo arrow. */
+.tl-row[data-pending] button.tl-lead:hover .tl-tick {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.tl-row[data-pending] button.tl-lead:hover .tl-undo {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .tl-row[data-pending] .tl-tick {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .tl-row[data-pending] .tl-undo {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* A thin ring just outside the check drains over three seconds. */
+.tl-timer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.85);
+  transition:
+    opacity 180ms ease,
+    transform 280ms var(--ease-expressive);
+}
+.tl-timer circle {
+  fill: none;
+  stroke-width: 2;
+}
+.tl-track {
+  stroke: color-mix(in srgb, var(--primary) 18%, transparent);
+}
+.tl-arc {
+  stroke: var(--primary);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+.tl-row[data-pending] .tl-timer {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1);
+}
+.tl-row[data-pending] .tl-arc {
+  animation: tl-drain 3s cubic-bezier(0.25, 0.4, 0.45, 1) forwards;
+}
+@keyframes tl-drain {
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+.tl-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+  padding: 10px 13px 10px 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.tl-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 600 14px var(--font-sans);
+  transition: color 200ms;
+}
+.tl-row[data-done] .tl-title {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+/* The details line never wraps, so hovering can't change a row's height. */
+.tl-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  height: 20px;
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--muted);
+}
+.tl-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  white-space: nowrap;
+}
+.tl-meta:empty {
+  display: none;
+}
+.tl-due {
+  color: var(--spending-text);
+  font-weight: 600;
+}
+.tl-note {
+  color: var(--primary);
+}
+.tl-note[data-failed] {
+  color: var(--error, #c0392b);
+}
+.tl-amount {
+  flex: none;
+  font: 650 15px/1 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: var(--amount-color);
+}
+
+/* Tags on their own line: solid soft pills like Money's category chips. */
+.tl-tagline {
+  display: flex;
+  min-width: 0;
+  height: 19px;
+  margin-top: 3px;
+}
+.tl-tags {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  padding-right: 14px;
+  mask-image: linear-gradient(to right, #000 calc(100% - 14px), transparent);
+}
+.tl-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 19px;
+  max-width: 160px;
+  margin-left: 4px;
+  padding: 0 8px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--surface-container);
+  color: var(--muted);
+  font: 500 10.5px var(--font-sans);
+  white-space: nowrap;
+  transition:
+    max-width 280ms var(--ease-expressive),
+    padding 280ms var(--ease-expressive),
+    margin 280ms var(--ease-expressive),
+    opacity 200ms ease;
+}
+.tl-chip:first-child {
+  margin-left: 0;
+}
+.tl-hash {
+  opacity: 0.6;
+  margin-right: 1px;
+}
+.tl-chip[data-special] {
+  padding: 0 5px;
+  background: color-mix(in srgb, var(--primary) 13%, var(--surface));
+  color: var(--primary);
+}
+/* Set by the task's type (repeating appointments): neutral, with a lock. */
+.tl-chip[data-locked] {
+  background: var(--surface-container);
+  color: var(--muted);
+}
+.tl-chip-label {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  vertical-align: top;
+  transition:
+    max-width 280ms var(--ease-expressive),
+    opacity 200ms ease,
+    padding 280ms var(--ease-expressive);
+}
+.tl-chip[data-extra] {
+  max-width: 0;
+  margin-left: 0;
+  padding: 0;
+  opacity: 0;
+}
+/* Expand on hover or keyboard focus, not after a mouse click. */
+.tl-row:is(:hover, :has(:focus-visible)) .tl-chip[data-special] {
+  padding: 0 8px 0 6px;
+}
+.tl-row:is(:hover, :has(:focus-visible)) .tl-chip-label {
+  max-width: 120px;
+  opacity: 1;
+  padding-left: 3px;
+}
+.tl-row:is(:hover, :has(:focus-visible)) .tl-chip[data-extra] {
+  max-width: 160px;
+  margin-left: 4px;
+  padding: 0 8px;
+  opacity: 1;
+}
+.tl-row:is(:hover, :has(:focus-visible)) .tl-chip[data-more] {
+  max-width: 0;
+  margin-left: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+/* Calendar */
+.tc-surface {
+  padding: 16px 14px 14px;
+  border-radius: 22px;
+  background: var(--surface);
+}
+.tc-head {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0 2px 10px 4px;
+}
+.tc-month {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.tc-month-name {
+  display: block;
+  padding: 4px 6px;
+  font: 650 15px var(--font-heading);
+  color: var(--text);
+}
+.tc-month input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.tc-month:hover {
+  background: var(--surface-container);
+}
+.tc-month:focus-within {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.tc-today {
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font: 600 12.5px var(--font-sans);
+  padding: 6px 8px;
+  border-radius: 9px;
+}
+.tc-today:hover {
+  background: var(--surface-container);
+}
+.tc-nav {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 10px;
+  color: var(--muted);
+}
+.tc-weekdays span {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.tc-grid {
+  gap: 2px;
+}
+.tc-day {
+  position: relative;
+  height: 38px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  font: 500 13px var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+.tc-day:hover {
+  background: var(--surface-container);
+}
+.tc-day[data-past] {
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
+}
+/* The neighbouring months' days: there, but very faint. */
+.tc-day[data-outside] {
+  color: var(--muted);
+  font-weight: 400;
+  opacity: 0.32;
+  transition: opacity 160ms;
+}
+.tc-day[data-outside]:hover {
+  opacity: 0.7;
+}
+.tc-day[data-outside] .calendar-date::before {
+  content: attr(data-n);
+}
+.tc-day[aria-current="date"] {
+  color: var(--primary);
+  font-weight: 700;
+}
+.tc-day[aria-pressed="true"] {
+  background: var(--primary-container);
+  color: var(--on-container);
+}
+.tc-dot {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+.tc-day[aria-pressed="true"] .tc-dot {
+  background: currentColor;
+}
+.tc-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 12px 6px 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.tc-foot strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.tc-foot [data-amount-tone] {
+  color: var(--amount-color);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  /* Narrow: tabs span the width, sharing it evenly; a picked day keeps the
+     room it needs; search goes full width below. */
+  .tl-tools {
+    flex-wrap: wrap;
+  }
+  .tl-tabs {
+    flex: 1 1 100%;
+    display: flex;
+  }
+  .tl-tabs > button {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+  .tl-day-tab {
+    flex: none;
+  }
+  .tl-weekday {
+    display: none;
+  }
+  .tl-search {
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
+  .tl-row-inner {
+    padding-right: 12px;
+  }
+  .tl-lead {
+    width: 54px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-search,
+  .tl-chip,
+  .tl-chip-label,
+  .tl-ring,
+  .tl-timer {
+    transition: none;
+  }
+  .tl-day-tab,
+  .tl-row[data-pending] .tl-ring {
+    animation: none;
+  }
+  .tl-row[data-leaving] .tl-row-inner {
+    transform: none !important;
+    opacity: 0;
+    transition: opacity 180ms;
   }
 }
