@@ -4,7 +4,6 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  type PointerEvent,
   type ReactNode,
   type Ref,
 } from "react";
@@ -175,7 +174,7 @@ export default function ModulePager({
   useLayoutEffect(() => {
     progress.current = 0;
     wake(false);
-    if (phone) window.scrollTo(0, 0);
+    if (phone && window.scrollY) window.scrollTo(0, 0);
   }, [page]);
   // Newly rendered slides and bar items start where the motion already is.
   useLayoutEffect(() => {
@@ -197,17 +196,25 @@ export default function ModulePager({
     [],
   );
 
-  function pointerDown(event: PointerEvent<HTMLDivElement>) {
+  // Swipes work anywhere on the screen's content, including the empty space
+  // below a short module, but not in menus, dialogs or popovers laid over it.
+  function pointerDown(event: PointerEvent) {
+    const target = event.target as Element;
+    const area = pager.current?.closest("main");
     if (
       !phone ||
+      !area?.contains(target) ||
       event.pointerType === "mouse" ||
       !event.isPrimary ||
       settling.current !== null ||
       event.clientX < edge ||
       event.clientX > innerWidth - edge ||
-      (event.target as Element).closest(
-        "input, textarea, select, [contenteditable], [data-no-swipe]",
-      )
+      target.closest(
+        '[role="dialog"], [role="listbox"], [role="menu"], [data-no-swipe], input[type="range"]',
+      ) ||
+      // A field being typed in keeps its own gestures.
+      (target === document.activeElement &&
+        target.matches("input, textarea, select, [contenteditable]"))
     )
       return;
     gesture.current = {
@@ -218,7 +225,7 @@ export default function ModulePager({
       samples: [],
     };
   }
-  function pointerMove(event: PointerEvent<HTMLDivElement>) {
+  function pointerMove(event: PointerEvent) {
     const state = gesture.current;
     if (!state || state.id !== event.pointerId) return;
     const dx = event.clientX - state.x,
@@ -235,7 +242,7 @@ export default function ModulePager({
       if (Math.abs(dx) < 14 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
       state.active = true;
       state.x = event.clientX;
-      pager.current!.setPointerCapture(event.pointerId);
+      pager.current?.closest("main")?.setPointerCapture(event.pointerId);
       if (!preloaded) setPreloaded(true);
       place();
       wake(true);
@@ -246,7 +253,7 @@ export default function ModulePager({
     ];
     apply(Math.max(-1, Math.min(1, -(event.clientX - state.x) / distance())));
   }
-  function pointerEnd(event: PointerEvent<HTMLDivElement>) {
+  function pointerEnd(event: PointerEvent) {
     const state = gesture.current;
     if (!state || state.id !== event.pointerId) return;
     gesture.current = null;
@@ -268,26 +275,41 @@ export default function ModulePager({
     settle(commit ? side : 0);
   }
 
+  // Listened for on the document so a task row's own drag handlers have
+  // already seen each event and can claim it first.
+  const handlers = useRef({ pointerDown, pointerMove, pointerEnd });
+  handlers.current = { pointerDown, pointerMove, pointerEnd };
+  useEffect(() => {
+    if (!phone) return;
+    const down = (event: PointerEvent) => handlers.current.pointerDown(event),
+      move = (event: PointerEvent) => handlers.current.pointerMove(event),
+      end = (event: PointerEvent) => handlers.current.pointerEnd(event);
+    const click = (event: MouseEvent) => {
+      if (!suppressClick.current) return;
+      event.stopPropagation();
+      event.preventDefault();
+    };
+    document.addEventListener("pointerdown", down);
+    document.addEventListener("pointermove", move);
+    document.addEventListener("pointerup", end);
+    document.addEventListener("pointercancel", end);
+    document.addEventListener("click", click, true);
+    return () => {
+      document.removeEventListener("pointerdown", down);
+      document.removeEventListener("pointermove", move);
+      document.removeEventListener("pointerup", end);
+      document.removeEventListener("pointercancel", end);
+      document.removeEventListener("click", click, true);
+    };
+  }, [phone]);
+
   const shown = items.filter(
     (item) =>
       item.id === page || (phone && preloaded && offsetOf(item.id) !== null),
   );
   return (
     <>
-      <div
-        ref={pager}
-        className="module-pager"
-        onPointerDown={pointerDown}
-        onPointerMove={pointerMove}
-        onPointerUp={pointerEnd}
-        onPointerCancel={pointerEnd}
-        onClickCapture={(event) => {
-          if (suppressClick.current) {
-            event.stopPropagation();
-            event.preventDefault();
-          }
-        }}
-      >
+      <div ref={pager} className="module-pager">
         {shown.map(({ id }) => (
           <div
             key={id}

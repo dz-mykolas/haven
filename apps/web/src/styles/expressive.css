@@ -4749,6 +4749,12 @@ main .module-heading h1 {
 .module-slide[data-neighbour]:not([data-awake]) {
   content-visibility: hidden;
 }
+/* Nothing there is drawn, so its transitions and animations would never be
+   updated or finish; they start once a swipe brings the module in. */
+.module-slide[data-neighbour]:not([data-awake]) * {
+  transition: none !important;
+  animation: none !important;
+}
 .module-pager[data-moving] > .module-slide {
   will-change: transform, opacity;
 }
@@ -4756,7 +4762,10 @@ main .module-heading h1 {
   display: none;
 }
 @media (max-width: 767px) {
-  .module-pager {
+  /* Sideways drags anywhere on the content belong to the module swipe; text
+     fields and scrolling areas would otherwise claim them for themselves. */
+  main,
+  main :where(*:not(input[type="range"])) {
     touch-action: pan-y pinch-zoom;
   }
   main {
@@ -4797,6 +4806,9 @@ main .module-heading h1 {
     background: none;
     color: var(--primary);
     -webkit-tap-highlight-color: transparent;
+    /* Placed every frame by the pager; easing them would make them trail
+       the finger and slide when a switch lands. */
+    transition: none;
   }
   .module-bar-item:hover {
     background: none;
