@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-if [[ ! -e .env.devcontainer ]]; then
+if [[ ! -e .devcontainer/.env && -f .env.devcontainer ]]; then
+  mv .env.devcontainer .devcontainer/.env
+fi
+if [[ ! -e .devcontainer/.env ]]; then
   umask 077
-  cp .env.devcontainer.example .env.devcontainer
+  cp .devcontainer/.env.example .devcontainer/.env
   # Preserve the optional existing sandbox configuration without printing secrets
   # or carrying the old localhost database URL into the new environment.
   if [[ -f .env ]]; then
@@ -12,7 +15,7 @@ if [[ ! -e .env.devcontainer ]]; then
       for name in EB_APPLICATION_ID EB_PRIVATE_KEY_PATH EB_REDIRECT_URL; do
         if [[ -n "${!name:-}" ]]; then printf '%s=%q\n' "$name" "${!name}"; fi
       done
-    ) >> .env.devcontainer
+    ) >> .devcontainer/.env
   fi
 fi
-chmod 600 .env.devcontainer
+chmod 600 .devcontainer/.env

@@ -120,7 +120,7 @@ test("calendar navigation, recurring previews, completion history and selected-d
       expect(Math.abs(calendar!.y - list!.y)).toBeLessThan(2);
     }
     await page.screenshot({
-      path: `test-results/calendar-${width}.png`,
+      path: `.local/test-results/calendar-${width}.png`,
       fullPage: true,
     });
   }
@@ -289,7 +289,7 @@ test("unified task workspace, populated layouts, motion preferences and calendar
       ),
     ).toBe(true);
     await page.screenshot({
-      path: `test-results/task-workspace-${width}-${theme}.png`,
+      path: `.local/test-results/task-workspace-${width}-${theme}.png`,
       fullPage: true,
     });
   }

@@ -402,14 +402,16 @@ test("bank sync in Money, refresh failure and disconnect (simulated API)", async
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    await page.screenshot({ path: `test-results/bank-sandbox-${theme}.png` });
+    await page.screenshot({
+      path: `.local/test-results/bank-sandbox-${theme}.png`,
+    });
     await page.getByRole("button", { name: "Close accounts" }).click();
     await expect(
       page.getByRole("dialog", { name: "Accounts & banks" }),
     ).toHaveCount(0);
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.screenshot({
-      path: `test-results/money-bank-${theme}.png`,
+      path: `.local/test-results/money-bank-${theme}.png`,
       fullPage: true,
     });
     await page.getByRole("button", { name: "Manage accounts" }).click();

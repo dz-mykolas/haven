@@ -107,7 +107,7 @@ test("assistant modes, skill toggles, clickable draft previews and persistence",
       await preferences.evaluate((el) => el.scrollWidth <= el.clientWidth),
     ).toBe(true);
     await page.screenshot({
-      path: `test-results/assistant-preferences-${width}.png`,
+      path: `.local/test-results/assistant-preferences-${width}.png`,
       fullPage: true,
     });
   }

@@ -9,8 +9,8 @@
     "dev": "npm run dev --workspace apps/web",
     "build": "npm run build --workspace apps/web",
     "check": "npm run check --workspace apps/web",
-    "api:generate": "openapi-typescript api/openapi.json -o apps/web/src/lib/api.generated.ts",
-    "test:e2e": "playwright test"
+    "api:generate": "openapi-typescript apps/api/openapi.json -o apps/web/src/lib/api.generated.ts",
+    "test:e2e": "playwright test --config tests/playwright.config.ts"
   },
   "engines": {
     "node": ">=22.12.0"

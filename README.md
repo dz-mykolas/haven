@@ -30,7 +30,7 @@ If Astro detects an AI coding agent, it can start a background server. The combi
 - `make test-e2e`: real browser → Go → PostgreSQL workflows, plus automated accessibility checks. Run `npx playwright install --with-deps chromium` once. Set HAVEN_E2E_DATABASE_URL to a **disposable database ending in \_e2e**; the script recreates its public schema. Tests use ports 4322/8181.
 - `make build`: static frontend in apps/web/dist and API executable apps/api/haven.
 - `make fixtures`: regenerate the [six-month, two-account mock history](docs/mock-data.md); this writes files only.
-- `make generate`: regenerate TypeScript types from api/openapi.json.
+- `make generate`: regenerate TypeScript types from apps/api/openapi.json.
 - `make format`: Go and frontend formatting.
 
 Tests cover exact cents, transfer treatment, edit/delete/undo, database reopening, stale versions, create/completion retries, monthly anchors, device timezone defaults, light/dark/mobile layouts, and core browser workflows. Automated accessibility checks do not replace user testing.
@@ -39,13 +39,13 @@ Tests cover exact cents, transfer treatment, edit/delete/undo, database reopenin
 
 The download icon exports all accounts, transactions (including deleted records), tasks, and completion history as versioned JSON. JSON import is not implemented yet.
 
-For a restorable database backup, install the PostgreSQL client tools and run `make backup`. This writes a private custom-format dump under ignored backups/. Keep another copy outside this machine.
+For a restorable database backup, install the PostgreSQL client tools and run `make backup`. This writes a private custom-format dump under ignored .local/backups/. Keep another copy outside this machine.
 
 Restore into a **new, empty** database (not your current workspace):
 
 ```sh
 createdb haven_restored
-pg_restore --no-owner --no-privileges --dbname=postgres:///haven_restored backups/haven-TIMESTAMP.dump
+pg_restore --no-owner --no-privileges --dbname=postgres:///haven_restored .local/backups/haven-TIMESTAMP.dump
 ```
 
 Use connection/role options matching your PostgreSQL installation. Point DATABASE_URL at the restored database, restart the API, and verify balances/tasks before using it. The application never runs an automatic destructive restore.
@@ -56,7 +56,7 @@ Use connection/role options matching your PostgreSQL installation. Point DATABAS
 - apps/api/internal/domain — money/date validation, exact summaries, recurrence.
 - apps/api/internal/store — transactional operations, PostgreSQL schema, consistent exports.
 - apps/api/internal/httpapi — HTTP boundary and browser-origin checks.
-- api/openapi.json — reviewable HTTP contract.
+- apps/api/openapi.json — reviewable HTTP contract.
 - docs/decisions.md — scope, design/architecture research, and remaining work.
 
 Origin checks are not authentication. The API deliberately binds only to loopback. This slice is one personal workspace; hosting and multiple users require real access control first. Financial data stays in PostgreSQL; localStorage holds only theme and sidebar preferences.

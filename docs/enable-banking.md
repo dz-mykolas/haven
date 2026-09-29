@@ -20,7 +20,7 @@ This slice connects Haven to **Enable Banking's actual sandbox API**. It uses th
    http://127.0.0.1:4321/api/banking/callback
    ```
 
-4. In **Mock ASPSPs**, configure a Lithuanian mock bank for personal accounts. Use **Upload accounts data** to upload [seb.json](../fixtures/enable-banking/seb.json), then [revolut.json](../fixtures/enable-banking/revolut.json). Each file contains one account, its balance, and its transaction history. See [mock data](mock-data.md) for details.
+4. In **Mock ASPSPs**, configure a Lithuanian mock bank for personal accounts. Use **Upload accounts data** to upload [seb.json](../tests/fixtures/enable-banking/seb.json), then [revolut.json](../tests/fixtures/enable-banking/revolut.json). Each file contains one account, its balance, and its transaction history. See [mock data](mock-data.md) for details.
 5. Add the following to your ignored `.env`, replacing the ID and absolute key path:
 
    ```sh

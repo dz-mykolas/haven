@@ -30,7 +30,7 @@ build:
 	cd apps/api && go build -o haven ./cmd/server
 format:
 	cd apps/api && gofmt -w cmd internal
-	npx prettier --write "apps/web/src/**/*.{tsx,ts,css}" apps/web/astro.config.mjs playwright.config.ts tests/*.ts
+	npx prettier --write "apps/web/src/**/*.{tsx,ts,css}" apps/web/astro.config.mjs tests/*.ts
 backup:
 	@bash scripts/backup.sh
 

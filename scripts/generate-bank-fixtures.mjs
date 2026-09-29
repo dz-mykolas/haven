@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 // Fixed calendar and seeded choices make fixtures and references reproducible.
 const start = "2026-03-01",
   end = "2026-09-22";
-const out = path.resolve("fixtures/enable-banking");
+const out = path.resolve("tests/fixtures/enable-banking");
 let seed = 20260301;
 const random = () => {
   seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
@@ -604,12 +604,7 @@ accounts.forEach((a, i) =>
   write(a.key + ".json", { accounts: [documents[i]] }),
 );
 // Reconciliation expectations and label suggestions are internal test data.
-const testData = path.resolve("tests/fixtures/enable-banking");
-fs.mkdirSync(testData, { recursive: true });
-fs.writeFileSync(
-  path.join(testData, "scenario.json"),
-  JSON.stringify({ ...manifest, annotations }, null, 2) + "\n",
-);
+write("scenario.json", { ...manifest, annotations });
 console.log(
   `${manifest.total_booked_records} booked bank records, ${transfers.length} paired transfers, ${manifest.money_transactions} Money transactions.`,
 );

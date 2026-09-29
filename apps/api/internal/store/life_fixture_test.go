@@ -41,10 +41,10 @@ func TestSixMonthFixtureReconciles(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	read("fixtures/enable-banking/seb.json", &fixture)
+	read("tests/fixtures/enable-banking/seb.json", &fixture)
 	seb := fixture.Accounts
 	fixture.Accounts = nil
-	read("fixtures/enable-banking/revolut.json", &fixture)
+	read("tests/fixtures/enable-banking/revolut.json", &fixture)
 	if len(seb) != 1 || len(fixture.Accounts) != 1 {
 		t.Fatal("each upload file must contain exactly one account")
 	}

@@ -114,7 +114,7 @@ test("model setup, real compatible HTTP request, draft review and manual control
     await page.waitForTimeout(400);
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.screenshot({
-      path: "test-results/model-setup-mobile.png",
+      path: ".local/test-results/model-setup-mobile.png",
       fullPage: true,
     });
     await editor
@@ -174,7 +174,7 @@ test("model setup, real compatible HTTP request, draft review and manual control
         ),
       ).toBe(true);
       await page.screenshot({
-        path: `test-results/assistant-chat-${width}.png`,
+        path: `.local/test-results/assistant-chat-${width}.png`,
         fullPage: true,
       });
     }
@@ -260,7 +260,7 @@ test("model setup, real compatible HTTP request, draft review and manual control
         ),
       ).toBe(true);
       await page.screenshot({
-        path: `test-results/upcoming-${width}.png`,
+        path: `.local/test-results/upcoming-${width}.png`,
         fullPage: true,
       });
     }

@@ -232,7 +232,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/money-light.png",
+    path: ".local/test-results/money-light.png",
     fullPage: true,
   });
   await page
@@ -243,7 +243,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   await expect(page.getByTestId("total-balance")).toBeVisible();
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/money-dark.png",
+    path: ".local/test-results/money-dark.png",
     fullPage: true,
   });
   await page
@@ -264,7 +264,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   await expect(page.getByTestId("total-balance")).toBeVisible();
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/desktop-collapsed.png",
+    path: ".local/test-results/desktop-collapsed.png",
     fullPage: true,
   });
   // A fresh preference uses a rail on tablets, while still allowing expansion.
@@ -277,7 +277,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   await expect(page.getByTestId("total-balance")).toBeVisible();
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/tablet-rail.png",
+    path: ".local/test-results/tablet-rail.png",
     fullPage: true,
   });
   await page.getByRole("button", { name: "Expand sidebar" }).click();
@@ -311,7 +311,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   );
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/mobile-drawer-dark.png",
+    path: ".local/test-results/mobile-drawer-dark.png",
     fullPage: true,
   });
   await page.keyboard.press("Escape");
@@ -333,7 +333,7 @@ test("Light/dark themes, accessible controls, mobile layout and assistant naviga
   ).toBe(true);
   expect((await accessibility(page)).violations).toEqual([]);
   await page.screenshot({
-    path: "test-results/tasks-mobile-dark.png",
+    path: ".local/test-results/tasks-mobile-dark.png",
     fullPage: true,
   });
   await modules.getByRole("button", { name: /^Assistant/ }).click();

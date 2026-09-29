@@ -8,7 +8,7 @@ services:
     init: true
     environment:
       HAVEN_DEVCONTAINER: "1"
-      HAVEN_ENV_FILE: .env.devcontainer
+      HAVEN_ENV_FILE: .devcontainer/.env
     depends_on:
       db:
         condition: service_healthy

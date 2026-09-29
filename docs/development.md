@@ -16,22 +16,22 @@ Run `make check`, `make test`, `make test-integration` or `make test-e2e` inside
 ## Environment files
 
 - `.env`: existing host/native PostgreSQL setup; unchanged by devcontainer setup.
-- `.env.devcontainer`: ignored local settings for the new container environment, created from `.env.devcontainer.example` on first setup.
+- `.devcontainer/.env`: ignored local settings for the container environment, created from `.devcontainer/.env.example` on first setup.
 
-The container sets `HAVEN_ENV_FILE=.env.devcontainer`. Haven's Make commands load that file. Existing sandbox application ID, key path and redirect settings are copied from `.env` when the new file is first created; they are never printed. Keep the private key under the ignored `.secrets/` directory so the workspace mount preserves it across rebuilds. Existing `.env.devcontainer` edits are preserved.
+The container sets `HAVEN_ENV_FILE=.devcontainer/.env`. Haven's Make commands load that file. Existing sandbox application ID, key path and redirect settings are copied from `.env` when the new file is first created; they are never printed. Keep the private key under the ignored `.secrets/` directory so the workspace mount preserves it across rebuilds. Existing `.devcontainer/.env` edits are preserved. Setup migrates the former root `.env.devcontainer` if the new file does not exist; the loader also accepts the old container environment setting until rebuild.
 
 The Compose database uses a fixed local development password on its private network. These files are development configuration, not a production deployment. The separate root `compose.yaml` remains available for running only PostgreSQL alongside a host installation.
 
 ## Existing data and a fresh environment
 
-The devcontainer uses a **new database volume**. It does not automatically migrate the PostgreSQL installation inside the previous development container. Before rebuilding that old container, run `make backup`; keep the resulting dump in the repository's ignored `backups/` folder. Rebuilding can discard the old container's filesystem, including its native PostgreSQL data directory.
+The devcontainer uses a **new database volume**. It does not automatically migrate the PostgreSQL installation inside the previous development container. Before rebuilding that old container, run `make backup`; keep the resulting dump in the repository's ignored `.local/backups/` folder. Rebuilding can discard the old container's filesystem, including its native PostgreSQL data directory.
 
 A fresh environment starts empty. To keep previous accounts, transactions and tasks, restore a backup **before the first `make dev`** in the new container:
 
 ```bash
 source scripts/load-env.sh
 pg_restore --exit-on-error --single-transaction --no-owner --no-privileges \
-  --dbname="$DATABASE_URL" backups/your-backup.dump
+  --dbname="$DATABASE_URL" .local/backups/your-backup.dump
 make dev
 ```
 

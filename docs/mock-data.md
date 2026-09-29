@@ -2,8 +2,8 @@
 
 Upload these two files once each using **Upload accounts data** in Enable Banking’s mock control panel:
 
-- [SEB](../fixtures/enable-banking/seb.json): salary, rent, utilities and transfers; 91 transactions.
-- [Revolut](../fixtures/enable-banking/revolut.json): daily spending, subscriptions and travel; 279 transactions.
+- [SEB](../tests/fixtures/enable-banking/seb.json): salary, rent, utilities and transfers; 91 transactions.
+- [Revolut](../tests/fixtures/enable-banking/revolut.json): daily spending, subscriptions and travel; 279 transactions.
 
 Each file contains **one account, its balance, and its full history**. Both belong to one fictional person in Vilnius, covering **1 March–22 September 2026**.
 
