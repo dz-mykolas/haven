@@ -82,6 +82,18 @@ export default function ModulePager({
         : clearTimeout(idle);
   }, [phone, preloaded]);
 
+  // Each module's background light, read once per motion from its slide.
+  const lights = useRef(new Map<string, string>());
+  function light(id: string) {
+    const slide = slides.current.get(id);
+    if (!slide) return "";
+    if (!lights.current.has(id))
+      lights.current.set(
+        id,
+        getComputedStyle(slide).getPropertyValue("--slide-light").trim(),
+      );
+    return lights.current.get(id)!;
+  }
   const distance = () => (pager.current?.offsetWidth ?? innerWidth) + 24;
   // Neighbours lie level with where the page's top sits once it is scrolled up.
   function place() {
@@ -102,6 +114,9 @@ export default function ModulePager({
   function wake(moving: boolean) {
     if (moving) pager.current?.setAttribute("data-moving", "");
     else pager.current?.removeAttribute("data-moving");
+    // While moving, the background follows the motion instead of easing.
+    document.body.style.transition = moving ? "none" : "";
+    lights.current.clear();
     for (const slide of slides.current.values())
       if (!moving) delete slide.dataset.awake;
   }
@@ -119,6 +134,18 @@ export default function ModulePager({
         ? ""
         : String(1 - Math.min(1, Math.abs(d)) * 0.35);
     }
+    // The background light blends towards the incoming module as it comes in.
+    const incoming = [...slides.current.keys()].find(
+      (id) => layout.current.offsetOf(id) === Math.sign(p),
+    );
+    const from = light(layout.current.page),
+      to = incoming && light(incoming);
+    if (p && from && to)
+      document.body.style.setProperty(
+        "--page-glow",
+        `color-mix(in srgb, ${from}, ${to} ${(Math.abs(p) * 100).toFixed(1)}%)`,
+      );
+    else document.body.style.removeProperty("--page-glow");
     bar.current
       ?.querySelectorAll<HTMLElement>("[data-slot]")
       .forEach((slot) => {

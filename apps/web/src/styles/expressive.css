@@ -4693,6 +4693,8 @@ main .module-heading h1 {
   --surface-high: color-mix(in srgb, var(--surface) 88%, var(--primary));
   --outline: color-mix(in srgb, var(--primary) 12%, #dce0e8);
   --card-shadow: 0 1px 0 var(--outline), 0 10px 26px -18px #3a3a3060;
+  /* The page's background light in this module's colour (as --page-light). */
+  --slide-light: color-mix(in srgb, var(--primary-container) 70%, #f6f7f9);
   --primary-foreground: var(--on-primary);
   --secondary: var(--surface-container);
   --accent: var(--surface-container);
@@ -4702,6 +4704,7 @@ main .module-heading h1 {
 }
 :root[data-theme="dark"] .module-scope[data-module] {
   --outline: color-mix(in srgb, var(--primary) 7%, #2a2e37);
+  --slide-light: color-mix(in srgb, var(--primary-container) 60%, #111319);
 }
 .module-scope[data-module="assistant"] {
   --primary: #6252a0;
